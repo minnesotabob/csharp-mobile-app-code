@@ -1,8 +1,9 @@
 # Chapter 18 — run the public fixture API
 
-This is a local teaching backend for public demo catalog data. It has no customer
-write routes, authentication, database, live media proxy, payment or deployment. The later Chapter 29 route serves one original
-public timing WAV; it is not a customer file service.
+This local teaching backend serves public demo catalog data and an original public
+WAV. Chapters 23–26 also add an independently authorized request-preview route;
+that preview is not a private media-delivery service. There are no customer write
+routes, production database, live media proxy, payments or deployment in this lab.
 Do not use real customer stories or contact data. The app's main catalog and its
 Chapter 17 native lab remain bundled/in-process; they are not silently reconfigured.
 
