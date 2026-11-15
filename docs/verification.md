@@ -1,3 +1,37 @@
+# Chapter 16 verification — November 15, 2026 (Central)
+
+Verified portable source revision: 2d15aa9452ef2f70b66176c99aebb3acf8027362.
+
+- Windows Release portable compilation: zero warnings and zero errors.
+- Executable xUnit suite: 198 tests; zero errors, failures, skipped or not run.
+- Portable evidence: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43704723565
+- Includes 27 recovered Chapter 14 cases, 29 Chapter 15 cases and 30 Chapter 16 cases
+  in addition to the historical 112-case baseline.
+- Android Debug compilation on Windows: SUCCESS, final compilation zero warnings/errors.
+- Android evidence: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43704723559
+- Android dependency setup retains the historical unresolved cmdline-tools;21.0 warning;
+  it did not prevent the final successful compilation.
+- Actual Android/iOS device execution and iOS compilation: not performed.
+
+The initial native compilation exposed unsupported SetBinding named-argument
+overloads in the restored form page. Calls now construct explicit Binding objects.
+The earlier portable run passed but reported xUnit1051/xUnit2031 warnings; tests
+now pass cancellation tokens and use the filtering Assert.Single overload.
+The final portable compilation is clean.
+
+Chapter 16 covers archived pricing for one to three songs, canonical quote
+snapshots, exact expiry boundaries, changed-request rejection, key conflicts,
+quote single use, atomic in-process acceptance, client overlap protection and
+same-operation retry when a response is lost after acceptance. No live orders,
+email, payment or customer transmission are implemented. All quote/idempotency
+state is process-local and disappears on restart. Account-scoped durable recovery,
+HTTP/service authorization, form localization and focus refinement remain pending.
+
+Changes are available on work/chapter16-pricing and draft PR #1. Default-branch
+publication was not retried. No chapter milestone tag or native runtime claim.
+
+## Historical draft records (superseded by the evidence above)
+
 # Chapter 15 draft verification — November 15, 2026 (Central)
 
 Adds SongRequest rules, a three-step form, conditional vocal notes, explicit local
