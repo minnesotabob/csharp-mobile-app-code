@@ -3,5 +3,8 @@
     <TargetFramework>net11.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
-  <ItemGroup><EmbeddedResource Include="Data/*.json" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data/*.json" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="11.0.0" />
+  </ItemGroup>
 </Project>
