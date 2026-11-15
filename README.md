@@ -50,4 +50,4 @@ The existing browser continues to use the same five records and three content ki
 Metadata labels and artist detail pages are not wired into the native UI yet.
 
 See `CatalogMetadataTests.cs` for import-boundary regression cases. The 61-test result
-above records the earlier Part II milestone; Chapter 12 validation will be recorded separately.
+above records the earlier Part II milestone; Chapter 12 adds 22 cases: all 83 tests pass with a clean portable Release build. See the verification record for exact source revisions and the Android build.

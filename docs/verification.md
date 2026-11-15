@@ -1,3 +1,23 @@
+# Chapter 12 verification — November 14, 2026 (Central)
+
+Portable source revision: cda4092131cfbf9793587fc36a2c5bba67bfd52d.
+
+- Windows Release build: 0 warnings/errors.
+- Executable xUnit suite: 83 tests, 0 errors/failures/skipped/not run.
+- Evidence: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43676066332
+- Android Debug build passed at d496a51b86d1bb9b123745eecf58379695e62bbc:
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43675861183
+- The later revision changes only a test assertion to remove xUnit2031; app/core source is identical.
+- Device execution and iOS compilation remain unverified.
+
+The 22 added cases exercise optional metadata, invalid values, creator relationships,
+stream ownership and bundled snapshot consistency. The five existing items retain stable IDs.
+New metadata is not wired into native UI labels yet. Unknown release dates/advisories remain
+unknown. Creator display strings remain compatibility fields and must be refreshed explicitly
+after a creator rename. This is a bundled import contract, not a live provider integration.
+
+## Earlier Part II verification record
+
 # Parts I and II verification — November 14, 2026 (Central)
 
 Verified implementation: 9497b0d7e8acb74c07c50be8cb56f26453664fbb.
