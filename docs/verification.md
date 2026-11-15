@@ -1,3 +1,33 @@
+# Chapter 20 verification — November 15, 2026 (Central)
+
+Portable verification revision: `6553709cd7b2c770cfc6da8a8fcb2abcfa98ef7a`.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Portable Release build | 0 warnings, 0 errors | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43731444673 |
+| Portable executable xUnit suite | **266 passed**, 0 errors/failures/skips/not run | Same run |
+| Android Debug compilation | **Passed**, runtime/core source at `74d2df5ade5b1d69b306bdb1a406722d08057ed1`; later changes only test cancellation and lab documentation | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43731012298 |
+| Native offline UI / OS job registration / iOS | **Not performed** | Pending adapters and devices |
+
+Thirteen additional executed cases cover first-run fallback without GET, freshness
+boundary and clock correction, unknown retrieval time, durable refresh intent after
+reopening, classified network failure, cancellation, a newer ticket during fetch,
+transaction rollback between snapshot save and acknowledgment, version-2 migration
+retaining favorites/progress, and one-coordinator exclusion. The existing Chapter 19
+suite continues testing actual SQLite files, including v1 migration and rejected writes.
+
+One coordinator must own the store. No cross-process/multiworker lease, automatic
+retry cooldown, native browser integration, OS scheduler or customer-order outbox is
+implemented. A pending public GET is repeatable; it is not a payment or server receipt.
+No physical power-loss, native SQLite loading, UI responsiveness, TLS/device or iOS
+claim follows from runner tests. See `docs/labs/ch20-offline.md` for the runnable lab.
+
+Initial Chapter 20 CI passed but reported xUnit cancellation analyzer warnings in
+both SQLite test files. Test-run tokens were propagated; the recorded final portable
+build is clean. Runner action Node deprecation notices remain separate from C# warnings.
+
+## Earlier verification record
+
 # Chapter 19 verification — November 15, 2026 (Central)
 
 **Verified source revision:** `3f7b162dc2f9c7553b3e170ef7b44dcc59c9f26b` (review branch).

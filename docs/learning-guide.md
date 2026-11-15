@@ -104,3 +104,11 @@ This is **not** a claim that all chapters have completed a technical source audi
 The 8 × 10 PDF proof predates the newest text edits, and native Android/iOS behavior
 still needs recorded device evidence. Treat the archived CI counts as revision-specific
 results, not new verification of every revised manuscript instruction.
+
+## Chapter 20 offline lab
+
+See `docs/labs/ch20-offline.md`: public catalog freshness, a schema-3 upgrade, and
+a durable singleton refresh intent. Source `6553709cd7b2c770cfc6da8a8fcb2abcfa98ef7a`
+passed 266 portable tests with a clean Release build. The runtime/core source also
+passed Android compilation at `74d2df5ade5b1d69b306bdb1a406722d08057ed1`.
+Native browser wiring, scheduler registration and device verification remain pending.
