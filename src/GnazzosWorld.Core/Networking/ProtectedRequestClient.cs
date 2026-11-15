@@ -16,7 +16,7 @@ public sealed class ProtectedRequestClient(HttpClient http, ApiSession session)
 {
     public async Task<RequestPreview> GetAsync(string id, CancellationToken ct = default)
     {
-        if (string.IsNullOrWhiteSpace(id) || id.Length > 64 || id.Any(c => !char.IsAsciiLetterOrDigit(c) && c is not '-' and not '_'))
+        if (!RequestIdPolicy.IsValid(id))
             throw new ArgumentException("Use one bounded request ID.", nameof(id));
         var uri = new Uri(session.Settings.ApiOrigin, "api/v1/requests/" + id);
         var lease = await session.AcquireAsync(ct);

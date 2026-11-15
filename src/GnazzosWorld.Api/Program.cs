@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using GnazzosWorld.Api;
 using GnazzosWorld.Core.Catalog;
 using GnazzosWorld.Core.Contracts;
+using GnazzosWorld.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureHttpJsonOptions(options =>
@@ -12,6 +13,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
 ApiIdentity.AddIdentity(builder.Services, builder.Configuration);
+builder.Services.AddProtectedReadSecurity();
 builder.Services.AddSingleton(new OwnedRequestStore());
 builder.Services.AddSingleton<IPublicCatalog>(_ => new PublicCatalog(CatalogSnapshot.LoadBundled(),
     builder.Configuration["Catalog:Revision"] ?? "fixture-2026-11-15-v1"));
@@ -23,13 +25,27 @@ app.UseStatusCodePages(context => Results.Problem(statusCode: context.HttpContex
     title: "The request could not be completed.").ExecuteAsync(context.HttpContext));
 if (!app.Environment.IsDevelopment()) app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment()) app.MapOpenApi();
+app.UseRouting();
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/api/v1/requests"))
+        context.Response.Headers.CacheControl = "no-store";
+    await next(context);
+});
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests) =>
+app.UseRateLimiter();
+app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests, ReadSecurityAudit audit) =>
 {
+    if (!RequestIdPolicy.IsValid(id))
+    {
+        audit.Record(ReadDecision.InvalidIdentifier);
+        return Results.Problem(statusCode: 400, title: "Use one bounded request identifier.");
+    }
     var row = requests.ForOwner(id, context.User);
+    audit.Record(row is null ? ReadDecision.Unavailable : ReadDecision.Granted);
     return row is null ? Results.NotFound() : Results.Ok(new RequestPreview(row.Id, row.Summary));
-}).RequireAuthorization(ApiIdentity.ReadPolicy);
+}).RequireAuthorization(ApiIdentity.ReadPolicy).RequireRateLimiting(ProtectedReadSecurity.Policy);
 app.MapGet("/health", () => TypedResults.Ok(new { status = "ok" })).WithName("Health");
 app.MapGet("/api/v1/catalog", (IPublicCatalog catalog) => TypedResults.Ok(catalog.Document))
     .WithName("GetCatalog").ProducesProblem(500);

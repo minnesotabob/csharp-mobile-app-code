@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Xunit;
+using Microsoft.Extensions.Logging;
 
 namespace GnazzosWorld.Api.Tests;
 
@@ -22,13 +23,14 @@ public sealed class RequestAuthorizationTests
     private const string Issuer = "https://fixture.auth0.com/";
     private const string Audience = "https://gnazzosworld.example/api";
     private static CancellationToken Ct => TestContext.Current.CancellationToken;
-    private sealed class Factory : WebApplicationFactory<Program>
+    internal sealed class Factory(ILoggerProvider? capture = null) : WebApplicationFactory<Program>
     {
         internal readonly RSA Rsa = RSA.Create(2048);
         internal RsaSecurityKey Key => new(Rsa) { KeyId = "ephemeral-test-key" };
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Development");
+            if (capture is not null) builder.ConfigureLogging(logging => logging.AddProvider(capture));
             builder.UseContentRoot(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../src/GnazzosWorld.Api")));
             builder.ConfigureServices(services =>
             {
