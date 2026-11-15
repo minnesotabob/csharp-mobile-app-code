@@ -1,0 +1,24 @@
+name: Portable CSharp checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.100'
+      - name: Record environment
+        run: dotnet --info
+      - name: Restore tests and portable core
+        run: dotnet restore tests/GnazzosWorld.Core.Tests/GnazzosWorld.Core.Tests.csproj
+      - name: Build portable core and tests
+        run: dotnet build tests/GnazzosWorld.Core.Tests/GnazzosWorld.Core.Tests.csproj -c Release --no-restore
+      - name: Run xUnit executable tests
+        run: dotnet run --project tests/GnazzosWorld.Core.Tests/GnazzosWorld.Core.Tests.csproj -c Release --no-build

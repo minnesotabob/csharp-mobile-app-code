@@ -1,0 +1,41 @@
+[
+  {
+    "id": "song-minnesota-bob-northern-lights",
+    "title": "Northern Lights",
+    "creator": "Minnesota Bob",
+    "kind": "Song",
+    "description": "A featured song from the source website.",
+    "externalUrl": "https://johngnazzo.com/minnesota-bob.html"
+  },
+  {
+    "id": "song-minnesota-bob-beret-violet",
+    "title": "Béret violet",
+    "creator": "Minnesota Bob",
+    "kind": "Song",
+    "description": "A catalog entry used to demonstrate accented-title searches.",
+    "externalUrl": "https://johngnazzo.com/minnesota-bob.html"
+  },
+  {
+    "id": "book-kai-01",
+    "title": "Kai the Ninja",
+    "creator": "John F. Gnazzo",
+    "kind": "Book",
+    "description": "Book One: The Fall of the Sun King.",
+    "externalUrl": "https://johngnazzo.com/books.html"
+  },
+  {
+    "id": "book-csharp",
+    "title": "Mastering Modern C#",
+    "creator": "John F. Gnazzo",
+    "kind": "Book",
+    "description": "An independent programming book by the author.",
+    "externalUrl": "https://johngnazzo.com/books.html"
+  },
+  {
+    "id": "podcast-demo-01",
+    "title": "Inside the Studio — Demo Episode",
+    "creator": "Demonstration fixture",
+    "kind": "Podcast",
+    "description": "Fictitious episode metadata for development. No audio is included."
+  }
+]
