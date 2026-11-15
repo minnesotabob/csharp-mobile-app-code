@@ -1,4 +1,5 @@
 <Project>
+  <!-- Shared compiler settings; the manuscript audit rechecks these across portable, API, and Android builds. -->
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
