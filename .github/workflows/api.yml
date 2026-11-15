@@ -1,0 +1,31 @@
+name: Companion API checks
+on:
+  push:
+    paths:
+      - 'src/GnazzosWorld.Api/**'
+      - 'src/GnazzosWorld.Core/**'
+      - 'tests/GnazzosWorld.Api.Tests/**'
+      - 'eng/Smoke-Api.ps1'
+      - 'Directory.Build.props'
+      - 'global.json'
+      - 'GnazzosWorld.sln'
+      - '.github/workflows/api.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  api:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.100'
+      - name: Build API and integration tests
+        run: dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release
+      - name: Run executable integration tests
+        run: dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
+      - name: Start real loopback HTTP listener and check contract
+        shell: pwsh
+        run: ./eng/Smoke-Api.ps1

@@ -29,6 +29,13 @@ public sealed record CatalogSnapshot(
         var items = CatalogLoader.Load(itemsJson);
         var creators = JsonSerializer.Deserialize<List<CatalogCreator>>(creatorsJson, Options)
             ?? throw new InvalidDataException("Creators must be an array.");
+        return Create(items, creators);
+    }
+
+    public static CatalogSnapshot Create(IEnumerable<CatalogItem> itemSource, IEnumerable<CatalogCreator> creatorSource)
+    {
+        var items = CatalogLoader.Validate(itemSource);
+        var creators = creatorSource.ToList();
         var ids = new HashSet<string>(StringComparer.Ordinal);
         foreach (var creator in creators)
         {

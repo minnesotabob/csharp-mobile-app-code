@@ -21,6 +21,12 @@ public static class CatalogLoader
         ArgumentNullException.ThrowIfNull(json);
         var items = JsonSerializer.Deserialize<List<CatalogItem>>(json, Options)
             ?? throw new InvalidDataException("The catalog must be an array.");
+        return Validate(items);
+    }
+
+    public static IReadOnlyList<CatalogItem> Validate(IEnumerable<CatalogItem> source)
+    {
+        var items = source.ToList();
         var ids = new HashSet<string>(StringComparer.Ordinal);
         foreach (var item in items)
         {
