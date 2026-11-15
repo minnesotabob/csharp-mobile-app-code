@@ -49,4 +49,5 @@ public partial class HomePage : ContentPage
             await DisplayAlertAsync(UiText.Error, UiText.NavigationError, UiText.Ok);
         }
     }
+    private async void OnDownloadClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("download-lab");
 }

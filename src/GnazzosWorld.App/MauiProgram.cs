@@ -26,6 +26,9 @@ public static class MauiProgram
             Path.Combine(FileSystem.Current.AppDataDirectory, "anonymous-audio-progress.sqlite3")));
         builder.Services.AddTransient<AudioLabPage>();
         builder.Services.AddTransient<BackgroundAudioLabPage>();
+        builder.Services.AddSingleton(_ => new GnazzosWorld.Core.Downloads.PublicMediaDownloader(
+            Path.Combine(FileSystem.Current.CacheDirectory, "public-media-v1")));
+        builder.Services.AddTransient<DownloadLabPage>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());
         builder.Services.AddSingleton<IFavoriteStore, PreferencesFavoriteStore>();

@@ -46,6 +46,14 @@ app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedReques
     audit.Record(row is null ? ReadDecision.Unavailable : ReadDecision.Granted);
     return row is null ? Results.NotFound() : Results.Ok(new RequestPreview(row.Id, row.Summary));
 }).RequireAuthorization(ApiIdentity.ReadPolicy).RequireRateLimiting(ProtectedReadSecurity.Policy);
+// One original public fixture; no filesystem path or private delivery identifier is accepted.
+app.MapMethods("/api/v1/media/timing", ["GET", "HEAD"], () =>
+{
+    var stream = typeof(Program).Assembly.GetManifestResourceStream("PublicTiming.wav")
+        ?? throw new InvalidOperationException("Public fixture is missing.");
+    return Results.File(stream, "audio/wav", enableRangeProcessing: true,
+        entityTag: new Microsoft.Net.Http.Headers.EntityTagHeaderValue("\"" + GnazzosWorld.Core.Downloads.PublicDownloadFixture.Hash + "\""));
+});
 app.MapGet("/health", () => TypedResults.Ok(new { status = "ok" })).WithName("Health");
 app.MapGet("/api/v1/catalog", (IPublicCatalog catalog) => TypedResults.Ok(catalog.Document))
     .WithName("GetCatalog").ProducesProblem(500);
