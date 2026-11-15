@@ -11,9 +11,9 @@ namespace GnazzosWorld.Core.Storage;
 /// No private customer details, credentials, payments, or account authentication.
 /// A single instance serializes access to its own database file.
 /// </summary>
-public sealed class LocalCatalogDatabase(string databasePath) : IDisposable
+public sealed partial class LocalCatalogDatabase(string databasePath) : IDisposable
 {
-    public const int SchemaVersion = 2;
+    public const int SchemaVersion = 3;
     private readonly SemaphoreSlim gate = new(1, 1);
     private readonly string path = Path.GetFullPath(databasePath);
     private bool ready;
@@ -49,7 +49,8 @@ public sealed class LocalCatalogDatabase(string databasePath) : IDisposable
                 VALUES (1, $revision, $payload)
                 ON CONFLICT(singleton) DO UPDATE SET
                     revision = excluded.revision,
-                    payload = excluded.payload;
+                    payload = excluded.payload,
+                    fetched_utc = NULL;
                 """, tx);
             cmd.Parameters.AddWithValue("$revision", document.Revision);
             cmd.Parameters.AddWithValue("$payload", json);
@@ -190,7 +191,7 @@ public sealed class LocalCatalogDatabase(string databasePath) : IDisposable
             throw new InvalidDataException($"Unsupported future database schema {version}.");
         if (version == SchemaVersion) return;
 
-        // Versions 0 -> 1 -> 2 migrate as one SQLite transaction.
+        // Versions 0 -> 1 -> 2 -> 3 migrate as one SQLite transaction.
         using var tx = db.BeginTransaction();
         if (version == 0)
         {
@@ -224,6 +225,20 @@ public sealed class LocalCatalogDatabase(string databasePath) : IDisposable
                 """, tx);
             ct.ThrowIfCancellationRequested();
             upgrade.ExecuteNonQuery();
+            version = 2;
+        }
+        if (version == 2)
+        {
+            using var offline = Command(db, """
+                ALTER TABLE public_catalog ADD COLUMN fetched_utc TEXT NULL;
+                CREATE TABLE pending_refresh (
+                    singleton INTEGER PRIMARY KEY CHECK(singleton=1),
+                    ticket TEXT NOT NULL
+                );
+                PRAGMA user_version=3;
+                """, tx);
+            ct.ThrowIfCancellationRequested();
+            offline.ExecuteNonQuery();
         }
         ct.ThrowIfCancellationRequested();
         tx.Commit();

@@ -27,19 +27,19 @@ public sealed class LocalCatalogDatabaseTests
     }
 
     [Fact]
-    public async Task A_new_file_migrates_to_schema_two_and_survives_reopen()
+    public async Task A_new_file_migrates_to_schema_three_and_survives_reopen()
     {
         using var folder = new TemporaryDatabase();
         using (var store = new LocalCatalogDatabase(folder.PathName))
         {
-            Assert.Equal(2, await store.GetSchemaVersionAsync());
+            Assert.Equal(3, await store.GetSchemaVersionAsync());
             Assert.Null(await store.ReadCatalogAsync());
             await store.ReplaceCatalogAsync(Document());
             await store.SetFavoriteAsync("guest", "book-kai-01", true);
             await store.SetProgressAsync("guest", "book-kai-01", 35);
         }
         using var reopened = new LocalCatalogDatabase(folder.PathName);
-        Assert.Equal(2, await reopened.GetSchemaVersionAsync());
+        Assert.Equal(3, await reopened.GetSchemaVersionAsync());
         Assert.Equal("sample-1", (await reopened.ReadCatalogAsync())!.Revision);
         Assert.Equal(new[] { "book-kai-01" }, await reopened.ReadFavoritesAsync("guest"));
         Assert.Equal(35, await reopened.ReadProgressAsync("guest", "book-kai-01"));
@@ -98,7 +98,7 @@ public sealed class LocalCatalogDatabaseTests
             cmd.ExecuteNonQuery();
         }
         using var store = new LocalCatalogDatabase(folder.PathName);
-        Assert.Equal(2, await store.GetSchemaVersionAsync());
+        Assert.Equal(3, await store.GetSchemaVersionAsync());
         Assert.Equal(new[] { "book-kai-01" }, await store.ReadFavoritesAsync("guest"));
         await store.SetProgressAsync("guest", "book-kai-01", 60);
         Assert.Equal(60, await store.ReadProgressAsync("guest", "book-kai-01"));
