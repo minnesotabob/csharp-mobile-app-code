@@ -3,7 +3,7 @@ using Android.Content.PM;
 
 namespace GnazzosWorld.App;
 
-[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true,
+[Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ResizeableActivity = true, LaunchMode = LaunchMode.SingleTask,
     ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation |
         ConfigChanges.UiMode | ConfigChanges.ScreenLayout |
         ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]

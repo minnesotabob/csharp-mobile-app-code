@@ -10,14 +10,16 @@
     <ApplicationId>com.johngnazzo.gnazzosworld</ApplicationId>
     <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Auth0.OidcClient.MAUI" Version="1.4.0" />
+    <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="12.0.0" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="11.0.10" />
     <ProjectReference Include="../GnazzosWorld.Core/GnazzosWorld.Core.csproj" />
     <MauiImage Include="Resources/Images/*" />
+    <MauiAsset Include="Resources/Raw/*" LogicalName="%(Filename)%(Extension)" />
     <MauiIcon Include="Resources/AppIcon/appicon.svg" Color="#192D3A" />
     <MauiSplashScreen Include="Resources/Splash/splash.svg" Color="#192D3A" BaseSize="128,128" />
   </ItemGroup>

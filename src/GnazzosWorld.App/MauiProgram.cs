@@ -8,6 +8,8 @@ using GnazzosWorld.Core.Catalog;
 using GnazzosWorld.Core.Presentation;
 using GnazzosWorld.Core.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using CommunityToolkit.Maui.MediaElement;
+using GnazzosWorld.Core.Media;
 
 namespace GnazzosWorld.App;
 
@@ -15,7 +17,11 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
-        var builder = MauiApp.CreateBuilder().UseMauiApp<App>();
+        var builder = MauiApp.CreateBuilder().UseMauiApp<App>()
+            .UseMauiCommunityToolkitMediaElement(enableForegroundService: false);
+        builder.Services.AddSingleton(_ => new AudioProgressDatabase(
+            Path.Combine(FileSystem.Current.AppDataDirectory, "anonymous-audio-progress.sqlite3")));
+        builder.Services.AddTransient<AudioLabPage>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());
         builder.Services.AddSingleton<IFavoriteStore, PreferencesFavoriteStore>();

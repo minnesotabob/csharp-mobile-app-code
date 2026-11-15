@@ -5,6 +5,12 @@ namespace GnazzosWorld.App.Pages;
 public partial class HomePage : ContentPage
 {
     public HomePage() => InitializeComponent();
+    private async void OnAudioLab(object? sender, EventArgs e)
+    {
+        try { await Shell.Current.GoToAsync("audio-lab"); }
+        catch (Exception)
+        { await DisplayAlertAsync(UiText.Error, UiText.NavigationError, UiText.Ok); }
+    }
     private async void OnSessionLab(object? sender, EventArgs e)
     {
         try { await Shell.Current.GoToAsync("session-lab"); }
