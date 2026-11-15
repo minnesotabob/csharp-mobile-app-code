@@ -10,6 +10,7 @@ public sealed class AppShell : Shell
         FlyoutBehavior = FlyoutBehavior.Disabled;
         Routing.RegisterRoute("details", typeof(DetailsPage));
         Routing.RegisterRoute("song-request", typeof(SongRequestPage));
+        Routing.RegisterRoute("networking-lab", typeof(NetworkingLabPage));
         var tabs = new TabBar { Route = "main" };
         var homeTab = new Tab { Route = "home", Title = UiText.Home };
         homeTab.Items.Add(new ShellContent

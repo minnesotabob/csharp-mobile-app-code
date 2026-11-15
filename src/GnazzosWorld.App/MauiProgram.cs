@@ -27,6 +27,8 @@ public static class MauiProgram
             GnazzosWorld.Core.Orders.DemoSongSubmissionService>();
         builder.Services.AddSingleton<SongSubmissionViewModel>();
         builder.Services.AddTransient<SongRequestPage>();
+        builder.Services.AddSingleton<GnazzosWorld.Core.Networking.DemoCatalogSource>();
+        builder.Services.AddTransient<NetworkingLabPage>();
         builder.Services.AddTransient<HomePage>();
         builder.Services.AddTransient<CatalogPage>();
         builder.Services.AddTransient<DetailsPage>();

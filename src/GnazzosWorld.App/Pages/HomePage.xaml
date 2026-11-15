@@ -12,6 +12,7 @@
       <Label Text="{x:Static text:UiText.Intro}" />
       <Button Text="{x:Static text:UiText.Browse}" Clicked="OnBrowse" />
       <Button Text="Build a custom-song request" Clicked="OnRequest" />
+      <Button Text="Open networking lab" Clicked="OnNetworkingLab" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>
