@@ -70,4 +70,40 @@ public sealed class CatalogTests
         using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
         Assert.Throws<InvalidDataException>(() => CatalogLoader.Load(stream));
     }
+
+    [Fact]
+    public void Missing_content_kind_is_rejected_instead_of_defaulting_to_book()
+    {
+        const string json = """
+            [{"id":"x","title":"Title","creator":"Creator","description":"D"}]
+            """;
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(json));
+        Assert.Throws<System.Text.Json.JsonException>(() => CatalogLoader.Load(stream));
+    }
+
+    [Fact]
+    public void Malformed_json_is_not_treated_as_an_empty_catalog()
+    {
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes("[{"));
+        Assert.Throws<System.Text.Json.JsonException>(() => CatalogLoader.Load(stream));
+    }
+
+    [Fact]
+    public void Valid_empty_catalog_is_allowed()
+    {
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes("[]"));
+        Assert.Empty(CatalogLoader.Load(stream));
+    }
+
+    [Fact]
+    public void Loader_does_not_take_ownership_of_the_callers_stream()
+    {
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes("[]"));
+        CatalogLoader.Load(stream);
+        Assert.True(stream.CanRead);
+    }
+
+    [Fact]
+    public void Null_input_stream_is_rejected()
+        => Assert.Throws<ArgumentNullException>(() => CatalogLoader.Load(null!));
 }

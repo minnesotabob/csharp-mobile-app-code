@@ -14,11 +14,12 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 30
     env:
-      DOTNET_INSTALL_DIR: ${{ runner.temp }}/gnazzo-dotnet
       DOTNET_MULTILEVEL_LOOKUP: '0'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
+        env:
+          DOTNET_INSTALL_DIR: ${{ runner.temp }}/gnazzo-dotnet
         with:
           dotnet-version: '11.0.100'
       - uses: actions/setup-java@v4
