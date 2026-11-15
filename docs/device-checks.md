@@ -27,3 +27,29 @@ Multiwindow, RTL, fold hinge geometry, remote image pipelines and persisted stat
 14. In a controlled development fixture, make stored favorites unreadable. Confirm ordinary
     browsing works, the error is visible, edits are disabled and Reload favorites can recover
     after the fixture is repaired. Do not overwrite real preferences merely to run this check.
+
+## Chapter 14 additions — pending
+
+- Open book details and the teaching sample; check paragraph breaks, credit and scrolling.
+- Verify metadata/sample/action focus order with large text and Spanish.
+- Open the listed website and return; preserve detail context on phone and wide layout.
+- Verify unavailable and missing records show no stale sample or website action.
+- Exercise a failed native opening if possible; check the message is discoverable.
+- Do not infer external-browser close/cancel from the Boolean launch result.
+
+## Chapter 15 additions — all pending execution
+
+- Home: open custom-song form, complete three steps, and inspect every review field.
+- Turn vocals off/on and preserve draft notes; instrumental review omits vocal notes.
+- Leave/return before saving; preserve open edits and step within the same process.
+- Save, edit without saving, navigate away/back, then terminate/relaunch. Distinguish
+  in-process edits from the last explicitly saved draft after a restart.
+- Fail save/delete through an injected store; preserve open values and report retry.
+- Empty each required field; invalid Next stays on the same step without data loss.
+- Review then change a field; hide the old review until validation succeeds again.
+- Exercise discard confirmation and Keep; verify saved/open values on both paths.
+- Check keyboard-open story/contact inputs, narrow landscape and large text.
+- With TalkBack/VoiceOver, verify hints, step heading, error announcements and review
+  reading order. Field-specific focus routing is not implemented in this milestone.
+- Use synthetic personal data. Check actual local-file restore/corruption behavior
+  separately from portable store-double tests. New form strings are English only.

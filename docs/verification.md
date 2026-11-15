@@ -1,3 +1,45 @@
+# Chapter 15 draft verification — November 15, 2026 (Central)
+
+Adds SongRequest rules, a three-step form, conditional vocal notes, explicit local
+save/discard, a process-shared editing model and review invalidation. The anonymous
+local JSON adapter is not account-scoped or app-encrypted. Form localization,
+field-level accessibility focus and recovery export remain follow-up work.
+
+29 new portable cases are authored in SongRequestTests.cs, not executed. There is
+no dotnet executable in this continuation environment. Portable build/test, Android
+build and all device/iOS checks remain PENDING for both recovered Chapter 14 source
+and Chapter 15 additions. XML/resource/JSON syntax and diff whitespace pass. The
+previous default-branch push rejection was not retried. No CI/publication claim.
+
+Run from the repository root with the pinned supported Windows toolchain:
+
+```powershell
+$tests = "tests/GnazzosWorld.Core.Tests/GnazzosWorld.Core.Tests.csproj"
+dotnet build $tests -c Release
+dotnet run --project $tests -c Release --no-build
+```
+
+Then build the Android target with the configured workload, and complete the
+Chapter 15 scenarios in device-checks.md. Do not infer native execution from tests.
+
+## Earlier milestone record
+
+# Chapter 14 draft verification — November 15, 2026 (Central)
+
+Chapter 14 source adds detail metadata, an explicitly labeled original reading fixture,
+reviewed HTTPS destinations, a native external-browser adapter and controlled completion state.
+27 new portable cases are written in DetailJourneyTests.cs. XML, unique resource keys,
+JSON syntax and git diff whitespace checks pass. Compilation and all new test execution
+are PENDING. Automatic review blocked the default-branch push; no Chapter 14 CI run exists.
+Do not use the older CI results below as proof of the new source.
+
+Device checks: website handoff/return on phone and inline tablet details, unavailable/missing
+records, long sample text at large text sizes, Spanish, focus/announcement and interruptions.
+The native browser API cannot report all user cancel/close behavior. Local canceled-adapter
+cases verify only the portable contract. iOS and actual Android launch remain unverified.
+
+## Historical verification
+
 # Chapter 13 verification — November 14, 2026 (Central)
 
 Verified application and test source: 51870ac298eff6198e098a063bdc391fecc665f8.

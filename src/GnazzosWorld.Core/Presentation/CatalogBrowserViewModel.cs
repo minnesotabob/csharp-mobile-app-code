@@ -22,7 +22,7 @@ public sealed class CatalogBrowserViewModel : ObservableObject
 
     public CatalogBrowserViewModel(
         IReadOnlyList<CatalogItem> catalog, ICatalogNavigation navigation,
-        FavoriteCatalog? favorites = null)
+        FavoriteCatalog? favorites = null, IExternalBrowser? browser = null)
     {
         this.catalog = catalog;
         this.favorites = favorites ?? new FavoriteCatalog(new MemoryFavoriteStore());
@@ -33,7 +33,7 @@ public sealed class CatalogBrowserViewModel : ObservableObject
             .ThenBy(x => x.Id, StringComparer.Ordinal).ToArray();
         creatorIds = new string?[] { null }.Concat(creators.Select(x => (string?)x.Id)).ToArray();
         CreatorLabels = new[] { UiText.AllCreators }.Concat(creators.Select(x => x.Name)).ToArray();
-        Detail = new DetailViewModel(catalog);
+        Detail = new DetailViewModel(catalog, browser);
         Items = CatalogSearch.Find(catalog, null);
         OpenDetails = new AsyncCommand(
             async () =>

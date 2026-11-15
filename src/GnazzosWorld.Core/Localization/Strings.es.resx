@@ -35,4 +35,17 @@
 <data name="Sort" xml:space="preserve"><value>Ordenar por</value></data>
 <data name="FavoritesOnly" xml:space="preserve"><value>Solo favoritos</value></data>
 <data name="RetryFavorites" xml:space="preserve"><value>Recargar favoritos</value></data>
+  <data name="Book" xml:space="preserve"><value>Libro</value></data>
+  <data name="Song" xml:space="preserve"><value>Canción</value></data>
+  <data name="Podcast" xml:space="preserve"><value>Pódcast</value></data>
+  <data name="AdvisoryUnknown" xml:space="preserve"><value>Clasificación de contenido no disponible</value></data>
+  <data name="AdvisoryClean" xml:space="preserve"><value>Sin contenido explícito</value></data>
+  <data name="AdvisoryExplicit" xml:space="preserve"><value>Contenido explícito</value></data>
+  <data name="AvailabilityUnknown" xml:space="preserve"><value>Disponibilidad sin confirmar</value></data>
+  <data name="AvailabilityListed" xml:space="preserve"><value>Incluido en el catálogo</value></data>
+  <data name="AvailabilityUnavailable" xml:space="preserve"><value>No disponible actualmente</value></data>
+  <data name="OpenWebsite" xml:space="preserve"><value>Abrir sitio web</value></data>
+  <data name="BrowserHandedOff" xml:space="preserve"><value>Enviado al navegador.</value></data>
+  <data name="LinkFailed" xml:space="preserve"><value>No se pudo abrir el sitio web. Inténtalo de nuevo.</value></data>
+  <data name="LinkCanceled" xml:space="preserve"><value>Se canceló la apertura.</value></data>
 </root>

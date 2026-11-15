@@ -37,6 +37,13 @@ public static class CatalogLoader
                 || item.DurationSeconds is not null && (item.DurationSeconds <= 0
                     || item.Kind == ContentKind.Book))
                 throw new InvalidDataException("Invalid optional catalog metadata.");
+            if (item.Sample is { } sample
+                && (item.Kind != ContentKind.Book
+                    || string.IsNullOrWhiteSpace(sample.Heading)
+                    || string.IsNullOrWhiteSpace(sample.Text)
+                    || string.IsNullOrWhiteSpace(sample.Credit)
+                    || sample.Text.Length > 20000))
+                throw new InvalidDataException("Invalid reading sample.");
             if (!ids.Add(item.Id))
                 throw new InvalidDataException($"Duplicate catalog ID: {item.Id}");
             if (item.ExternalUrl is { } url

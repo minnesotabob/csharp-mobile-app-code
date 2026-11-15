@@ -18,3 +18,10 @@ Part II verified implementation: 9497b0d7e8acb74c07c50be8cb56f26453664fbb. Windo
 - Portable suite: 112 passing tests; Android Debug build passed.
 - Adds combined discovery criteria, controlled input debounce and bounded device-local favorites.
 - See verification.md for CI links; native execution and iOS remain pending.
+
+## Chapters 14–15 draft continuation
+
+Recovered Chapter 14 changes and Chapter 15 request form are packaged for review.
+Chapter 14 adds 27 test cases; Chapter 15 adds 29. Execution/compilation of these
+new cases and native checks are pending; Chapter 13 is still the verified baseline.
+See verification.md for the exact distinction and device-checks.md for scenarios.

@@ -67,3 +67,11 @@ At the Chapter 13 source revision, all 112 portable tests pass and Android Debug
 succeeds. Actual native restart/persistence, accessibility, keyboard/layout behavior and iOS
 builds remain pending. No remote search or cross-account synchronization is implemented.
 See [verification](docs/verification.md) for exact revisions and CI evidence.
+
+## Chapter 15 draft
+
+The Home screen opens a three-step custom-song request builder with conditional
+vocal notes, portable validation, review invalidation and explicit device-local
+draft save/discard. Review sends nothing. Anonymous JSON drafts are not app-encrypted
+or account-scoped. Compilation, the 29 new cases and native checks remain pending;
+see docs/verification.md. Recovered Chapter 14 changes are included in this source.

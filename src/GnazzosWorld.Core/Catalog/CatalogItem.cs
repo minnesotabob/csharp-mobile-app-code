@@ -18,4 +18,5 @@ public sealed record CatalogItem(
     string? Edition = null,
     int? DurationSeconds = null,
     ContentAvailability Availability = ContentAvailability.Unknown,
-    ContentAdvisory Advisory = ContentAdvisory.Unknown);
+    ContentAdvisory Advisory = ContentAdvisory.Unknown,
+    ReadingSample? Sample = null);

@@ -38,7 +38,12 @@
     "description": "An independent programming book by the author.",
     "externalUrl": "https://johngnazzo.com/books.html",
     "creatorId": "author-john-gnazzo",
-    "availability": "Listed"
+    "availability": "Listed",
+    "sample": {
+      "heading": "Demonstration reading sample",
+      "text": "A dependable application makes its state understandable. When work is waiting, show that it is waiting. When a step fails, keep the information the person entered and explain what can happen next.\n\nFor a small exercise, sketch three versions of the same screen: before loading, after loading, and after a recoverable failure. Decide which action helps the reader in each state. Then give those states names in the model before choosing their colors or icons.",
+      "credit": "Original teaching fixture created for this companion project. Not an excerpt from the published book."
+    }
   },
   {
     "id": "podcast-demo-01",

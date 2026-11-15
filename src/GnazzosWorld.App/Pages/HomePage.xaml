@@ -11,6 +11,7 @@
       <Label Text="{x:Static text:UiText.Welcome}" FontSize="24" />
       <Label Text="{x:Static text:UiText.Intro}" />
       <Button Text="{x:Static text:UiText.Browse}" Clicked="OnBrowse" />
+      <Button Text="Build a custom-song request" Clicked="OnRequest" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>
