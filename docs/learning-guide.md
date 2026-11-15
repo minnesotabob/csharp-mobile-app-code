@@ -112,3 +112,10 @@ a durable singleton refresh intent. Source `6553709cd7b2c770cfc6da8a8fcb2abcfa98
 passed 266 portable tests with a clean Release build. The runtime/core source also
 passed Android compilation at `74d2df5ade5b1d69b306bdb1a406722d08057ed1`.
 Native browser wiring, scheduler registration and device verification remain pending.
+
+## Chapter 21 synchronization lab
+
+Follow [the complete lab](labs/ch21-sync.md). Two durable SQLite replicas exercise
+optimistic conflicts, explicit resolution, tombstones and replay against an in-memory
+simulated-user server. This is separate from public catalog refresh and does not expose
+a new endpoint or authenticate users. See verification.md before claiming executed results.
