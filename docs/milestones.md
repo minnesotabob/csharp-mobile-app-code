@@ -52,3 +52,10 @@ See verification.md and local-api.md for evidence and reader setup.
 ## Chapter 19 — local SQLite teaching store
 
 Review branch `work/chapter16-pricing` adds a SQLite 11.0.0 package, public catalog snapshot storage, local favorite IDs, reading progress and transactional `user_version` migrations from 0 or 1 to 2. The MAUI composition root registers the store but does not switch the current UI to SQLite. Anonymous scope strings are local partitions, not authenticated accounts. Portable Windows CI at source revision `3f7b162dc2f9c7553b3e170ef7b44dcc59c9f26b` passed 253 cases, including eight new SQLite real-file cases. Android Debug compilation passed at the same code revision. Native/device execution and iOS remain pending. See `docs/verification.md`.
+
+## Chapter 21 — portable synchronization lab
+
+Source `84a3278e5d00b64699ccf8cee963a657da9fdec8` adds two SQLite replicas and an
+in-memory simulated-user server. Run samples/GnazzosWorld.SyncLab using docs/labs/ch21-sync.md.
+The executed suite totals 284 portable cases and the console scenario passes; see
+verification.md for exact CI evidence. No native or authenticated sync is implemented.

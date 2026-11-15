@@ -1,3 +1,34 @@
+# Chapter 21 synchronization verification — November 15, 2026 (Central)
+
+Tested source: `84a3278e5d00b64699ccf8cee963a657da9fdec8` on `work/chapter16-pricing`.
+SDK 11.0.100; C# 15; Microsoft.Data.Sqlite 11.0.0; xUnit v3 4.0.0.
+No dependency version was added or upgraded for the protocol lab.
+
+- Portable Release build: 0 warnings/errors. **284 executable tests passed**, no
+  errors, failures, skipped or not-run cases. This includes 18 new Chapter 21 cases.
+  Push workflow: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43737262027
+- Chapter 21 console lab ran successfully in that workflow and produced the expected
+  draft-conflict, explicit-resolution and favorite-deletion transcript in docs/labs/ch21-sync.md.
+- Android Debug compilation: success, final compilation 0 warnings/errors.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43737262069
+  Dependency installation retains the previously documented unresolved cmdline-tools;21.0 warning.
+- Existing API regression suite: **26 passed**, no errors/failures/skips/not-run cases;
+  API and probe builds 0 warnings/errors. No sync endpoint was added.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43737262061
+
+Coverage includes two devices, four value kinds, retained conflicting text, tombstones,
+uncertain acceptance followed by reopen/replay, cancellation after server acceptance,
+account partition/file-owner guards, operation-ID misuse, bounded paging, atomic
+row/cursor rollback, a local edit during download, malformed pages and worker exclusion.
+
+The replicas use real disposable SQLite files on Windows CI; the server is an in-memory,
+process-local fixture. Account labels are simulated, not authenticated. Server durability,
+HTTP sync/TLS, native screen wiring, account switching in the app, Android/iOS runtime,
+background jobs and production deployment remain unverified. Existing public-catalog
+and saved-draft UI behavior is not replaced by the teaching replicas.
+
+## Earlier verification records
+
 # Chapter 20 verification — November 15, 2026 (Central)
 
 Portable verification revision: `6553709cd7b2c770cfc6da8a8fcb2abcfa98ef7a`.
