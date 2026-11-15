@@ -79,3 +79,11 @@ Provider and native-storage observations remain pending; see verification.md.
 Configuration/documentation milestone only; application source remains
 50a5abf391e37fef04866c0528af4da195954354. Follow docs/labs/ch24-mfa-recovery.md.
 Real-provider and device observations remain pending; no MFA test total is claimed.
+
+## Chapter 25 - account-isolated SQLite workspace
+
+Executable source: 3309637a8abc06ecf1e65fafd1bec32afbbe315b.
+345 portable cases, 37 API cases, Android compilation, both console labs and public
+loopback smoke pass.
+Follow docs/labs/ch25-account-lifecycle.md; simulated receipts establish local removal
+behavior only. Native settings and real export/deletion remain pending.

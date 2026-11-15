@@ -1,3 +1,37 @@
+# Chapter 25 account workspace - November 15, 2026 (Central)
+
+Tested executable source: `3309637a8abc06ecf1e65fafd1bec32afbbe315b` on main.
+Toolchain remains SDK 11.0.100, C# 15, MAUI 11.0.10 and Microsoft.Data.Sqlite 11.0.0.
+
+- Portable Release compilation: 0 warnings/errors. **345 cases passed**, no errors,
+  failures, skipped or not-run cases; 24 added account-workspace cases.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43760294885
+- Chapter 25 console lab and existing Chapter 21 lab executed successfully. The new
+  transcript explicitly marks provider/service receipts SIMULATED. Boolean checks
+  for account isolation, obsolete handles, pending-removal freeze and stable retry pass.
+- API and probe Release compilation: 0 warnings/errors. **37 API cases passed**,
+  no errors/failures/skips/not run; real loopback public-catalog smoke passed.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43760294883
+- Android Debug compilation: success; 0 final compiler warnings/errors.
+  Dependency setup retains the documented cmdline-tools;21.0 warning.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43760294896
+
+The new tests use real temporary SQLite files. They verify restart persistence,
+issuer/subject isolation, A-B-A handle fencing, consent withdrawal/re-enable, stale
+editor rejection, scoped local export, durable request identity, wrong-owner receipts,
+accepted/completed separation, monotonic completion and rollback after an injected
+SQLite purge failure. They do not perform authentication or delete a real account.
+
+This is a separate portable lab, not native settings/session composition. Existing
+anonymous favorites, drafts and replicas are not migrated. Lifecycle transport,
+server authorization/reauthentication, complete remote export/deletion, provider
+removal/revocation, notification registration, iOS, device UX and screenshots remain
+pending. SQLite is not app-encrypted and a deletion receipt retains owner identifiers
+without an implemented expiry. Physical erasure/backups and production retention
+policy are not established. See docs/labs/ch25-account-lifecycle.md.
+
+## Earlier verification records
+
 # Chapter 24 provider lab - November 15, 2026 (Central)
 
 Documentation-only addition: hosted MFA configuration, recovery/replacement worksheet,
