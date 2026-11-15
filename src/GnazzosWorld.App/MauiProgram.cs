@@ -8,7 +8,7 @@ using GnazzosWorld.Core.Catalog;
 using GnazzosWorld.Core.Presentation;
 using GnazzosWorld.Core.Storage;
 using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Maui.MediaElement;
+using CommunityToolkit.Maui;
 using GnazzosWorld.Core.Media;
 
 namespace GnazzosWorld.App;
