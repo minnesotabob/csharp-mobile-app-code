@@ -1,3 +1,48 @@
+# Chapter 29 public downloads — November 15, 2026 (Central)
+
+Executed source: `373dad1f2ebe14843989c3f4bb578e5a97b02b19` on main.
+SDK 11.0.100; C# 15; MAUI 11.0.10; Android minimum API 26.
+
+- Portable Release build: **0 warnings/errors; 448 cases pass** (35 new download
+  cases), no errors/failures/skipped/not-run cases. Earlier Chapter 21 synchronization
+  and Chapter 25 account lifecycle console labs execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43769261598
+- API/probe Release builds: **0 warnings/errors; 53 cases pass** (7 new media/API
+  cases), no errors/failures/skipped/not-run cases. Actual ASP.NET range handling and
+  actual downloader cancellation/resume through that server pipeline pass.
+  Real Kestrel loopback HTTP smoke passes health/catalog/paging, full media hash and
+  an exact matching Range/If-Range byte slice. This is not native/TLS evidence.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43769261609
+- Android Debug compilation: **success; 0 final compiler warnings/errors**; existing
+  merged background-audio service permission/type assertions pass. Dependency setup
+  retains the historical unresolved cmdline-tools;21.0 warning, separate from compilation.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43769261603
+
+Portable cases use real temporary files with simulated HTTP/free-space conditions.
+They cover full verification/cache hit, cancel and restart, transport interruption,
+validated 206 resume, full 200 truncation, 416 discard, wrong range/ETag/encoding/type/
+length, weak validator, hash mismatch, short/oversized bodies, complete-part recovery,
+corrupt final rejection/replacement, quota/reserve/low-space failure, serialized deletion,
+safe identities/origins, private-descriptor rejection and redirect/error handling.
+API cases independently check original body/hash/strong ETag, exact slices, changed
+If-Range, 416, HEAD, absent private route and actual client cancel/resume.
+
+Native Home opens a separate foreground public-download lab. CacheDirectory holds a
+single-writer public folder with a 4 MiB quota and 64 KiB free-space reserve. Trusted
+fixed-path descriptors supply original WAV length/hash; full verification precedes
+promotion and availability. Cancel/page departure/window stop never schedules an
+automatic restart. No .part path is returned as available media.
+
+**Pending:** iOS compilation; physical-device HTTPS trust/reachability, cancellation,
+process restart, cache eviction, competing storage consumption and actual write/rename
+failures. A space check is not a reservation; rename is not power-loss durability.
+Private delivery descriptors are rejected rather than routed into anonymous storage.
+Authenticated delivery service/access, account-scoped publication, encryption/backup,
+OS background transfers and downloaded-file playback integration are not implemented.
+See download-lab.md for every native row and current limits. Historical records follow.
+
+---
+
 # Chapter 28 background audio — November 15, 2026 (Central)
 
 Corrected executable source: `a9e893d75689a48ecfbbe9f4e107fc5761780481` on main.

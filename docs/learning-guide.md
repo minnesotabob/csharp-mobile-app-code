@@ -6,11 +6,11 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 28 adds a separate opt-in background audio lab. Start with
-[the background playback worksheet](background-audio-lab.md) after Chapter 27.
-The exact verified revision and CI results are in [verification.md](verification.md).
-Native system controls, listening, routes/calls/power behavior and iOS compilation
-remain separate pending observations.
+Chapter 29 adds a public media download lab with explicit cancellation/resume,
+range validation, integrity verification and storage budgets. Start with
+[the download worksheet](download-lab.md) after Chapters 27–28. Exact executed
+source and CI results are in [verification.md](verification.md). Native TLS/storage
+behavior, provider integration and iOS compilation remain separate pending work.
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -181,3 +181,16 @@ ends the lab. No foreground timer promises background execution. Record system
 controls, route disconnection and focus recovery separately from application resume
 commands. The public 60-second timing resource has source provenance and a committed
 format/hash manifest; actual decoding and audible results remain device observations.
+
+## Chapter 29 — downloads and media storage
+
+Read PublicMediaAsset before the downloader: trusted representation identity determines
+the storage key and acceptance rules. Compare the 200/206/416 branches with the file
+mode, then follow length counting, SHA-256 verification and promotion. DownloadTests
+uses real temporary files with simulated transport/free-space failures;
+MediaDownloadApiTests runs the client against actual ASP.NET range processing. The
+Kestrel smoke separately checks a full hash and exact byte slice over loopback HTTP.
+
+Use download-lab.md for native setup, scope and acceptance. The original WAV is public;
+private delivery descriptors are rejected. Cache eviction and available-space races
+are real lifecycle concerns, not conditions that a percentage display can resolve.

@@ -129,3 +129,16 @@ Those device observations and Chapter 28 system integration remain pending.
 | T17 | Duplicate or stale system player/session | One mounted lab host, toolkit command ownership, source tickets, terminal release | Native release/notification disappearance and toolkit upgrade checks pending |
 
 The handler depends on a public native PlayerView hierarchy in pinned Toolkit 12.0.0, fails visibly when absent and uses no private reflection. Compile evidence does not establish native session privacy or shutdown.
+
+## Chapter 29 — public transfer and cache publication
+
+| ID | Risk | Current control | Remaining evidence |
+| --- | --- | --- | --- |
+| T18 | Appending the wrong representation or unbounded body | Trusted length/hash/strong ETag; exact 206 range; full 200 truncates; byte-count bound; verified promotion | Deployment proxy/CDN/TLS behavior and device storage checks pending |
+| T19 | Server filename escapes cache or abandoned partials exhaust storage | Derived fixed-extension key; dedicated folder; complete+partial quota; free-space reserve; serialized explicit deletion | Physical low-space races, OS eviction and inventory/old-revision cleanup design pending |
+| T20 | Private delivery leaks through anonymous cache or stale account operation | PrivateDelivery descriptor rejected; no credential attached; no private endpoint | Authenticated owner-scoped private delivery, lease/publication fencing, revocation/encryption/backup remain unimplemented |
+
+Descriptor authority is supplied by teaching composition, not by a hash alone. Handler
+injection is trusted; production redirects/decompression are disabled. The single-writer
+contract is one instance per folder, not a cross-process lock. Same-directory rename
+does not establish power-loss durability. Public sample data is not customer content.

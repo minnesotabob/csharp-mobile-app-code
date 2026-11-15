@@ -113,3 +113,13 @@ host across an internal browse panel; Shell departure releases it. This is not a
 app-wide or process-resilient service architecture. See background-audio-lab.md and
 verification.md for exact source/results; every native worksheet row and iOS compile
 remain pending.
+
+## Chapter 29
+
+Source `373dad1f2ebe14843989c3f4bb578e5a97b02b19` adds trusted public descriptors,
+foreground native download/cancel/verify/delete, exact range resume, bounded reads,
+length/hash promotion and storage budgets. The API embeds one original public WAV
+with GET/HEAD/Range/If-Range support. 448 portable and 53 API cases pass; Android
+compile and merged manifest pass. See verification.md and download-lab.md. Native
+TLS/storage/eviction and iOS compilation remain pending; private deliveries and OS
+background transfer scheduling are not implemented.

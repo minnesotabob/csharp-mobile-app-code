@@ -113,3 +113,10 @@ phone/audio-focus/headphone and background-system behavior are separate pending 
 ## Chapter 28 background audio
 
 Use [background-audio-lab.md](background-audio-lab.md). Every native worksheet row remains pending. Android compile/merged manifest and simulated player tests do not verify actual system controls, focus, routes, calls or power behavior. iOS compilation is also pending.
+
+## Chapter 29 public download acceptance
+
+Use download-lab.md. Every Android/iPhone row remains pending: HTTPS reachability and
+trust, cancellation timing, process restart, cache eviction, low-space/write behavior
+and deletion. Portable injected-space failures, ASP.NET pipeline tests and real loopback
+HTTP range/hash checks do not establish native networking or filesystem behavior.

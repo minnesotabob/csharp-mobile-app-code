@@ -1,7 +1,8 @@
 # Chapter 18 — run the public fixture API
 
 This is a local teaching backend for public demo catalog data. It has no customer
-write routes, authentication, database, live media proxy, payment or deployment.
+write routes, authentication, database, live media proxy, payment or deployment. The later Chapter 29 route serves one original
+public timing WAV; it is not a customer file service.
 Do not use real customer stories or contact data. The app's main catalog and its
 Chapter 17 native lab remain bundled/in-process; they are not silently reconfigured.
 
@@ -37,6 +38,7 @@ map that document endpoint. New deployments and signing/account setup are separa
 | GET route | Response |
 |---|---|
 | /health | Minimal status object |
+| /api/v1/media/timing (GET/HEAD) | Original WAV, strong ETag, bounded HTTP byte ranges |
 | /api/v1/catalog | V1 document: schemaVersion, revision, items, creators |
 | /api/v1/catalog/items | Chapter 17-compatible complete items array |
 | /api/v1/catalog/pages | Offset/limit page with revision, total and nextOffset |
@@ -133,3 +135,9 @@ Sources:
 - https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling-api
 - https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services
 - https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/cli-commands
+
+## Chapter 29 public range fixture
+
+See download-lab.md for the descriptor, foreground downloader and pending native/TLS
+checks. Results.File owns Range/If-Range/HEAD processing; no path parameter or private
+delivery identifier is accepted. API tests and the loopback smoke check actual bytes.

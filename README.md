@@ -1,11 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 28: Home opens separate foreground and
-opt-in background audio labs using original WAV timing fixtures and anonymous local
-checkpoints. The background lab adds toolkit system controls and Media3 focus/noisy
-configuration. See [the lab worksheet](docs/background-audio-lab.md) and
-[verification](docs/verification.md). Android requires API 26; native listening,
-lock-screen, interruption and iOS checks remain pending.
+Current expanded source reaches Chapter 29: Home opens a public media download lab
+with explicit cancellation/resume, range validation, hash verification and storage
+budgets. A fixed API route serves an original WAV with byte-range support. See
+[the download worksheet](docs/download-lab.md) and [verification](docs/verification.md).
+Public cache storage is anonymous; private delivery descriptors are rejected. Native
+TLS/filesystem behavior and iOS compilation remain pending.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -17,8 +17,8 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 413 portable tests and 46 API tests pass,
-including the new simulated playback-owner cases. Earlier milestone notes below
+[verification](docs/verification.md): 448 portable tests and 53 API tests pass,
+including file/transfer policy cases and real ASP.NET range-processing integration. Earlier milestone notes below
 are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows
