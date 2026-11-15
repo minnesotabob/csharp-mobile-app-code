@@ -124,7 +124,7 @@ public sealed class CatalogMetadataTests
             Assert.Equal(ContentAdvisory.Unknown, item.Advisory);
         });
         Assert.Equal(ContentAvailability.Unavailable,
-            Assert.Single(snapshot.Items.Where(x => x.Kind == ContentKind.Podcast)).Availability);
+            Assert.Single(snapshot.Items, x => x.Kind == ContentKind.Podcast).Availability);
     }
 
     [Fact]
