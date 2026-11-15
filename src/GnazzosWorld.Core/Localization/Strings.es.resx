@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+<resheader name="version"><value>2.0</value></resheader>
+<data name="Home" xml:space="preserve"><value>Inicio</value></data>
+<data name="Discover" xml:space="preserve"><value>Explorar</value></data>
+<data name="Welcome" xml:space="preserve"><value>Libros, música e historias</value></data>
+<data name="Intro" xml:space="preserve"><value>Descubre la obra creativa de John F. Gnazzo. Esta versión didáctica usa un pequeño catálogo local.</value></data>
+<data name="Browse" xml:space="preserve"><value>Explorar el catálogo</value></data>
+<data name="SearchHint" xml:space="preserve"><value>Buscar títulos o creadores</value></data>
+<data name="Filter" xml:space="preserve"><value>Tipo de contenido</value></data>
+<data name="All" xml:space="preserve"><value>Todo el contenido</value></data>
+<data name="Books" xml:space="preserve"><value>Libros</value></data>
+<data name="Songs" xml:space="preserve"><value>Canciones</value></data>
+<data name="Podcasts" xml:space="preserve"><value>Pódcast</value></data>
+<data name="OpenSelected" xml:space="preserve"><value>Abrir selección</value></data>
+<data name="Empty" xml:space="preserve"><value>No hay resultados. Prueba otra búsqueda.</value></data>
+<data name="Choose" xml:space="preserve"><value>Selecciona un elemento para ver sus detalles.</value></data>
+<data name="NotFound" xml:space="preserve"><value>Este elemento no está disponible en el catálogo.</value></data>
+<data name="Details" xml:space="preserve"><value>Detalles del contenido</value></data>
+<data name="ResultsFormat" xml:space="preserve"><value>{0} resultados</value></data>
+<data name="NavigationError" xml:space="preserve"><value>No se pudo abrir la página de detalles. Inténtalo de nuevo.</value></data>
+<data name="Ok" xml:space="preserve"><value>Aceptar</value></data>
+<data name="Error" xml:space="preserve"><value>Se produjo un error</value></data>
+</root>

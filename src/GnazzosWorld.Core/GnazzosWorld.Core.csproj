@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><TargetFramework>net11.0</TargetFramework></PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
   <ItemGroup><EmbeddedResource Include="Data/catalog.json" /></ItemGroup>
 </Project>

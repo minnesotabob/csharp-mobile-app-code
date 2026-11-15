@@ -1,13 +1,15 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace GnazzosWorld.App;
 
 public partial class App : Application
 {
-    private readonly MainPage page;
-    public App(MainPage page)
+    private readonly IServiceProvider services;
+    public App(IServiceProvider services)
     {
         InitializeComponent();
-        this.page = page;
+        this.services = services;
     }
     protected override Window CreateWindow(IActivationState? activationState)
-        => new(new NavigationPage(page));
+        => new(services.GetRequiredService<AppShell>());
 }

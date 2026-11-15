@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:text="clr-namespace:GnazzosWorld.Core.Localization;assembly=GnazzosWorld.Core"
+             x:Class="GnazzosWorld.App.Pages.HomePage"
+             Title="{x:Static text:UiText.Home}">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="20">
+      <Label Text="Gnazzo's World" FontSize="32"
+             SemanticProperties.HeadingLevel="Level1" />
+      <Label Text="{x:Static text:UiText.Welcome}" FontSize="24" />
+      <Label Text="{x:Static text:UiText.Intro}" />
+      <Button Text="{x:Static text:UiText.Browse}" Clicked="OnBrowse" />
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>

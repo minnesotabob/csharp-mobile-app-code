@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="11.0.10" />
     <ProjectReference Include="../GnazzosWorld.Core/GnazzosWorld.Core.csproj" />
+    <MauiImage Include="Resources/Images/*" />
     <MauiIcon Include="Resources/AppIcon/appicon.svg" Color="#192D3A" />
     <MauiSplashScreen Include="Resources/Splash/splash.svg" Color="#192D3A" BaseSize="128,128" />
   </ItemGroup>
