@@ -1,3 +1,5 @@
+using GnazzosWorld.App.Identity;
+using GnazzosWorld.Core.Identity;
 using GnazzosWorld.App.Navigation;
 using GnazzosWorld.App.Pages;
 using GnazzosWorld.App.Storage;
@@ -34,6 +36,9 @@ public static class MauiProgram
         builder.Services.AddTransient<SongRequestPage>();
         builder.Services.AddSingleton<GnazzosWorld.Core.Networking.DemoCatalogSource>();
         builder.Services.AddTransient<NetworkingLabPage>();
+        builder.Services.AddSingleton<IInteractiveSignIn, Auth0InteractiveSignIn>();
+        builder.Services.AddSingleton<SignInSession>();
+        builder.Services.AddTransient<AccountPage>();
         builder.Services.AddTransient<HomePage>();
         builder.Services.AddTransient<CatalogPage>();
         builder.Services.AddTransient<DetailsPage>();

@@ -14,6 +14,7 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Auth0.OidcClient.MAUI" Version="1.4.0" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="11.0.10" />
     <ProjectReference Include="../GnazzosWorld.Core/GnazzosWorld.Core.csproj" />
     <MauiImage Include="Resources/Images/*" />

@@ -119,3 +119,10 @@ Follow [the complete lab](labs/ch21-sync.md). Two durable SQLite replicas exerci
 optimistic conflicts, explicit resolution, tombstones and replay against an in-memory
 simulated-user server. This is separate from public catalog refresh and does not expose
 a new endpoint or authenticate users. See verification.md before claiming executed results.
+
+## Chapter 22 identity setup
+
+Follow [the identity lab](labs/ch22-identity.md) for provider registration, exact callback,
+platform files, portable tests and the native verification worksheet. The distributed
+app intentionally has no tenant configured. A build or simulated reply is not evidence
+of real authentication; see verification.md for the executed boundary.
