@@ -117,7 +117,10 @@ public sealed class BackgroundPlaybackOwner : IDisposable
             Message = ended ? "Completed. Session released; load again from the foreground to replay." : "Native playback failed; session released.";
         }
         else if (!InForeground && !AllowBackground && Session.State == PlaybackState.Playing) Stop();
-        else if (observation.Signal == PlaybackSignal.Paused) Save();
+        else if (observation.Signal == PlaybackSignal.Paused)
+        {
+            Session.Observe(new(observation.Ticket, PlaybackSignal.Position, observation.Position)); Save();
+        }
         Notify();
     }
     private void CapturePosition()
