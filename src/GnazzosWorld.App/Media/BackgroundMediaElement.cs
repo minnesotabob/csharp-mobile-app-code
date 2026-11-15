@@ -18,8 +18,11 @@ public sealed class FocusAwareMediaElementHandler : MediaElementHandler
         if (playerView.Player is AndroidX.Media3.ExoPlayer.IExoPlayer native)
         {
             // Android/Media3 public constants: USAGE_MEDIA=1, CONTENT_TYPE_SPEECH=1.
-            var attributes = new AndroidX.Media3.Common.AudioAttributes.Builder()
-                .SetUsage(1).SetContentType(1).Build();
+            using var attributesBuilder = new AndroidX.Media3.Common.AudioAttributes.Builder();
+            attributesBuilder.SetUsage(1);
+            attributesBuilder.SetContentType(1);
+            var attributes = attributesBuilder.Build()
+                ?? throw new InvalidOperationException("Audio attributes could not be created.");
             native.SetAudioAttributes(attributes, true); // Media3 owns gain/loss and user play intent.
             native.SetHandleAudioBecomingNoisy(true); // Pause when private audio output disconnects.
         }
