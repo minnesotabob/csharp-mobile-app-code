@@ -1,5 +1,6 @@
 using GnazzosWorld.App.Navigation;
 using GnazzosWorld.App.Pages;
+using GnazzosWorld.App.Storage;
 using GnazzosWorld.Core.Catalog;
 using GnazzosWorld.Core.Presentation;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,8 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder().UseMauiApp<App>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());
+        builder.Services.AddSingleton<IFavoriteStore, PreferencesFavoriteStore>();
+        builder.Services.AddSingleton<FavoriteCatalog>();
         builder.Services.AddSingleton<ICatalogNavigation, ShellCatalogNavigation>();
         builder.Services.AddTransient<CatalogBrowserViewModel>();
         builder.Services.AddTransient<DetailViewModel>();

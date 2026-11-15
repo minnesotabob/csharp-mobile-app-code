@@ -11,15 +11,43 @@
              SizeChanged="OnSizeChanged">
   <Grid x:Name="ContentGrid" Padding="20" ColumnDefinitions="*,0">
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*" RowSpacing="10">
-      <SearchBar Placeholder="{x:Static text:UiText.SearchHint}"
-                 Text="{Binding Query, Mode=TwoWay}" />
-      <Picker Grid.Row="1" Title="{x:Static text:UiText.Filter}"
-              ItemsSource="{Binding FilterLabels}"
-              SelectedIndex="{Binding FilterIndex, Mode=TwoWay}" />
+      <Grid ColumnDefinitions="*,Auto">
+        <SearchBar Placeholder="{x:Static text:UiText.SearchHint}"
+                   Text="{Binding Query, Mode=OneWay}" TextChanged="OnQueryTextChanged" />
+        <Button Grid.Column="1" Text="{x:Static text:UiText.Refine}"
+                Command="{Binding ToggleFilters}" />
+      </Grid>
+      <ScrollView Grid.Row="1" MaximumHeightRequest="220"
+                  IsVisible="{Binding FiltersExpanded}">
+        <VerticalStackLayout Spacing="8">
+          <Picker Title="{x:Static text:UiText.Filter}"
+                  ItemsSource="{Binding FilterLabels}"
+                  SelectedIndex="{Binding FilterIndex, Mode=TwoWay}" />
+          <Picker Title="{x:Static text:UiText.CreatorFilter}"
+                  ItemsSource="{Binding CreatorLabels}"
+                  SelectedIndex="{Binding CreatorIndex, Mode=TwoWay}" />
+          <Picker Title="{x:Static text:UiText.Sort}"
+                  ItemsSource="{Binding SortLabels}"
+                  SelectedIndex="{Binding SortIndex, Mode=TwoWay}" />
+          <HorizontalStackLayout Spacing="12">
+            <Label Text="{x:Static text:UiText.FavoritesOnly}" VerticalOptions="Center" />
+            <Switch IsToggled="{Binding FavoritesOnly, Mode=TwoWay}"
+                    SemanticProperties.Description="{x:Static text:UiText.FavoritesOnly}" />
+          </HorizontalStackLayout>
+          <Button Text="{x:Static text:UiText.RetryFavorites}"
+                  Command="{Binding RetryFavorites}" />
+        </VerticalStackLayout>
+      </ScrollView>
       <Label Grid.Row="2" Text="{Binding ResultSummary}" />
-      <Button Grid.Row="3" Text="{x:Static text:UiText.OpenSelected}"
-              Command="{Binding OpenDetails}" />
-      <Label Grid.Row="4" Text="{Binding NavigationError}" />
+      <Grid Grid.Row="3" ColumnDefinitions="*,*" ColumnSpacing="8">
+        <Button Text="{x:Static text:UiText.OpenSelected}" Command="{Binding OpenDetails}" />
+        <Button Grid.Column="1" Text="{Binding FavoriteAction}" Command="{Binding ToggleFavorite}" />
+      </Grid>
+      <VerticalStackLayout Grid.Row="4" Spacing="2">
+        <Label Text="{Binding NavigationError}" />
+        <Label Text="{Binding FavoritesError}" />
+        <Label Text="{Binding SearchError}" />
+      </VerticalStackLayout>
       <CollectionView Grid.Row="5" ItemsSource="{Binding Items}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                       SelectionMode="Single"

@@ -9,6 +9,18 @@ public static class UiText
         "GnazzosWorld.Core.Localization.Strings", typeof(UiText).Assembly);
     public static string Get(string key, CultureInfo? culture = null)
         => Resources.GetString(key, culture) ?? key;
+    public static string AllCreators => Get(nameof(AllCreators));
+    public static string ByTitle => Get(nameof(ByTitle));
+    public static string NewestFirst => Get(nameof(NewestFirst));
+    public static string RemoveFavorite => Get(nameof(RemoveFavorite));
+    public static string AddFavorite => Get(nameof(AddFavorite));
+    public static string FavoritesError => Get(nameof(FavoritesError));
+    public static string SearchError => Get(nameof(SearchError));
+    public static string Refine => Get(nameof(Refine));
+    public static string CreatorFilter => Get(nameof(CreatorFilter));
+    public static string Sort => Get(nameof(Sort));
+    public static string FavoritesOnly => Get(nameof(FavoritesOnly));
+    public static string RetryFavorites => Get(nameof(RetryFavorites));
     public static string OneResult => Get(nameof(OneResult));
     public static string Home => Get(nameof(Home));
     public static string Discover => Get(nameof(Discover));
