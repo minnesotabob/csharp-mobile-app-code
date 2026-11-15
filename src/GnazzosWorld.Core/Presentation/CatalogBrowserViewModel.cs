@@ -35,7 +35,8 @@ public sealed class CatalogBrowserViewModel : ObservableObject
     public AsyncCommand OpenDetails { get; }
     public IReadOnlyList<CatalogItem> Items { get; private set; }
     public string ResultSummary => string.Format(
-        CultureInfo.CurrentCulture, UiText.ResultsFormat, Items.Count);
+        CultureInfo.CurrentCulture,
+        Items.Count == 1 ? UiText.OneResult : UiText.ResultsFormat, Items.Count);
 
     public string Query
     {

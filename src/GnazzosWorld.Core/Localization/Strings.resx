@@ -22,4 +22,5 @@
 <data name="NavigationError" xml:space="preserve"><value>The detail page could not be opened. Try again.</value></data>
 <data name="Ok" xml:space="preserve"><value>OK</value></data>
 <data name="Error" xml:space="preserve"><value>Something went wrong</value></data>
+<data name="OneResult" xml:space="preserve"><value>{0} result</value></data>
 </root>

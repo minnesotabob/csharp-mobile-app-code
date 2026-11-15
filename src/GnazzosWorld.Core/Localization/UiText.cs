@@ -9,6 +9,7 @@ public static class UiText
         "GnazzosWorld.Core.Localization.Strings", typeof(UiText).Assembly);
     public static string Get(string key, CultureInfo? culture = null)
         => Resources.GetString(key, culture) ?? key;
+    public static string OneResult => Get(nameof(OneResult));
     public static string Home => Get(nameof(Home));
     public static string Discover => Get(nameof(Discover));
     public static string Welcome => Get(nameof(Welcome));

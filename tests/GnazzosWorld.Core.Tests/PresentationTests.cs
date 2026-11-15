@@ -159,4 +159,20 @@ public sealed class PresentationTests
         Assert.Equal("Explorar", UiText.Get("Discover", CultureInfo.GetCultureInfo("es")));
         Assert.Equal("Discover", UiText.Get("Discover", CultureInfo.GetCultureInfo("fr")));
     }
+
+    [Theory]
+    [InlineData("en", "1 result")]
+    [InlineData("es", "1 resultado")]
+    public void One_match_has_a_localized_singular_summary(string culture, string expected)
+    {
+        var previous = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(culture);
+            var vm = new CatalogBrowserViewModel(CatalogLoader.LoadBundled(), new Navigation());
+            vm.Query = "Kai";
+            Assert.Equal(expected, vm.ResultSummary);
+        }
+        finally { CultureInfo.CurrentUICulture = previous; }
+    }
 }
