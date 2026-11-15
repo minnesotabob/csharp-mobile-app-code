@@ -1,3 +1,38 @@
+# Chapter 26 protected-read security - November 15, 2026 (Central)
+
+Tested source: `a3d2a880195714dc61a2971bc2ab3f7aab1d78a9` on main.
+No new package dependency: SDK 11.0.100, C# 15, MAUI 11.0.10; framework rate limiter.
+
+- Portable Release build: 0 warnings/errors; **360 cases pass**, including 15 new
+  destination/identifier-boundary cases; no errors/failures/skips/not-run cases.
+  Both Chapter 21 and Chapter 25 console labs execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43761369874
+- API/probe Release builds: 0 warnings/errors; **46 API cases pass**, including nine
+  new ID/cache/budget/audit cases; no errors/failures/skips/not-run cases. Real public
+  loopback smoke passes for health, catalog and pagination.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43761369921
+- Android Debug compilation: success; 0 final compiler warnings/errors.
+  Dependency setup retains the documented unresolved cmdline-tools;21.0 warning.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43761369900
+
+The server calls the shared 64-character ASCII request-ID policy, emits no-store for
+private-prefix responses, enforces a named eight/minute aggregate process-local read
+budget after authorization, and records event 2601 using fixed decision strings only.
+API tests keep real bearer middleware/static ephemeral RSA metadata; no fake login
+handler. They check 400, private no-store, ninth-call 429/Retry-After, public availability,
+pre-budget 401/403, shared-subject budget and a minimal custom audit projection.
+
+Limits: the limiter is not per-user fair, distributed, restart-persistent or protection
+against auth/public/volumetric load. Fixed-window bursts remain possible. The log test
+covers only the ReadSecurityAudit category, not framework/proxy/provider sinks or a
+complete tamper-resistant audit. Device caching, OS callbacks, TLS, secure storage and
+backups remain pending. Current package-advisory/secret scans are documented but not
+performed by these tests. No customer-file or lifecycle endpoint is added. Live provider,
+iOS/native runtime, full removal and screenshots remain pending as earlier chapters state.
+Read docs/security/threat-model.md and docs/labs/ch26-security-verification.md.
+
+## Earlier verification records
+
 # Chapter 25 account workspace - November 15, 2026 (Central)
 
 Tested executable source: `3309637a8abc06ecf1e65fafd1bec32afbbe315b` on main.

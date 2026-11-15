@@ -148,3 +148,10 @@ AccountWorkspace is a separate local SQLite lab with owner-partitioned preferenc
 versioned sync choice, scoped export and durable lifecycle intents/receipts. Its service
 receipts are simulated. Check verification.md for executable evidence and limits; no
 native settings or real deletion is enabled by this chapter.
+
+## Chapter 26 - threat model and security checks
+
+Read docs/security/threat-model.md and docs/labs/ch26-security-verification.md. Trace
+T-IDs to existing SDK/session/workspace cases and the new shared request-ID policy,
+protected-route no-store, process-local read budget and allowlisted decision events.
+See verification.md for 360 portable / 46 API results and separate native limits.

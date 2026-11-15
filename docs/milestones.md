@@ -87,3 +87,10 @@ Executable source: 3309637a8abc06ecf1e65fafd1bec32afbbe315b.
 loopback smoke pass.
 Follow docs/labs/ch25-account-lifecycle.md; simulated receipts establish local removal
 behavior only. Native settings and real export/deletion remain pending.
+
+## Chapter 26 - protected-read security boundaries
+
+Source a3d2a880195714dc61a2971bc2ab3f7aab1d78a9: 360 portable and 46 API cases pass,
+with Android compilation, both console labs and public loopback smoke. The threat
+register maps actual checks to residual native/provider/deployment work. No complete
+security certification, live penetration test or dependency-advisory result is implied.
