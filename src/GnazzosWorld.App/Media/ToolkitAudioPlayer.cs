@@ -4,7 +4,7 @@ using GnazzosWorld.Core.Media;
 namespace GnazzosWorld.App.Media;
 
 /// <summary>UI-thread-only foreground adapter. Fresh element/closures for every source.</summary>
-public sealed class ToolkitAudioPlayer(ContentView host) : IAudioPlayer
+public sealed class ToolkitAudioPlayer(ContentView host, bool allowBackground = false) : IAudioPlayer
 {
     private MediaElement? current;
     private TaskCompletionSource<TimeSpan>? opening;
@@ -14,12 +14,12 @@ public sealed class ToolkitAudioPlayer(ContentView host) : IAudioPlayer
     {
         Stop(); ct.ThrowIfCancellationRequested();
         if (item.Resource is null) throw new InvalidOperationException("This media is unavailable.");
-        var element = new MediaElement
-        {
-            ShouldAutoPlay = false, ShouldShowPlaybackControls = false, ShouldLoopPlayback = false,
-            ShouldKeepScreenOn = false, Volume = 0.25, HeightRequest = 40,
-            MetadataTitle = item.Title, MetadataArtist = "Original teaching fixture"
-        };
+        MediaElement element = allowBackground
+            ? new BackgroundMediaElement { IsAndroidForegroundServiceEnabled = true }
+            : new MediaElement { IsAndroidForegroundServiceEnabled = false };
+        element.ShouldAutoPlay = false; element.ShouldShowPlaybackControls = false; element.ShouldLoopPlayback = false;
+        element.ShouldKeepScreenOn = false; element.Volume = 0.25; element.HeightRequest = 40;
+        element.MetadataTitle = item.Title; element.MetadataArtist = "Original teaching fixture";
         var ready = new TaskCompletionSource<TimeSpan>(TaskCreationOptions.RunContinuationsAsynchronously);
         current = element; opening = ready;
         void Emit(PlaybackSignal signal)

@@ -3,7 +3,13 @@ using Microsoft.Data.Sqlite;
 namespace GnazzosWorld.Core.Media;
 
 /// <summary>Small anonymous-device lab store; not encrypted, account-scoped or synchronized.</summary>
-public sealed class AudioProgressDatabase : IDisposable
+public interface IAudioCheckpointStore
+{
+    AudioCheckpoint? Read(AudioItem item);
+    void Save(AudioCheckpoint checkpoint);
+    void Remove(AudioItem item);
+}
+public sealed class AudioProgressDatabase : IAudioCheckpointStore, IDisposable
 {
     private readonly SqliteConnection connection;
     private readonly object gate = new();

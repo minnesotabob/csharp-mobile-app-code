@@ -4,7 +4,7 @@ import hashlib, json, math, struct, wave
 root=Path(__file__).resolve().parents[1]
 out=root/'src/GnazzosWorld.App/Resources/Raw';out.mkdir(parents=True,exist_ok=True)
 records=[]
-for name,seconds,frequency in [('demo_chimes.wav',10,440),('demo_pulses.wav',14,660)]:
+for name,seconds,frequency in [('demo_chimes.wav',10,440),('demo_pulses.wav',14,660),('background_timing.wav',60,880)]:
     samples=[];rate=8000
     for i in range(rate*seconds):
         t=i/rate;phase=t%2

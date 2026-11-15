@@ -217,6 +217,7 @@ public sealed class PlaybackTests : IDisposable
     [Theory]
     [InlineData("demo_chimes.wav", 10)]
     [InlineData("demo_pulses.wav", 14)]
+    [InlineData("background_timing.wav", 60)]
     public void Distributed_fixtures_match_recorded_pcm_format_duration_and_hash(string filename, int seconds)
     {
         var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../"));

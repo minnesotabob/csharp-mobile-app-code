@@ -16,6 +16,7 @@
       <Button Text="Account and sign-in" Clicked="OnAccount" />
       <Button Text="Open session lab" Clicked="OnSessionLab" />
       <Button Text="Open foreground audio lab" Clicked="OnAudioLab" />
+      <Button Text="Open background audio lab" Clicked="OnBackgroundAudioLab" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

@@ -17,6 +17,14 @@
       "channels": 1,
       "bits": 16,
       "sha256": "d5392c07885f40a3a2f460c798243fcf19796e2ccce8e8370e7a2670a6829dc8"
+    },
+    {
+      "file": "background_timing.wav",
+      "seconds": 60,
+      "sample_rate": 8000,
+      "channels": 1,
+      "bits": 16,
+      "sha256": "900c29bad676548d9a6f4b4baca4612cd395838b3b61c3f9f7b1a4b51ba66d4a"
     }
   ]
 }

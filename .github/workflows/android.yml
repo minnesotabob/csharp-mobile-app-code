@@ -48,6 +48,18 @@ jobs:
           -f net11.0-android -c Debug
           "-p:AndroidSdkDirectory=$env:ANDROID_HOME"
           "-p:JavaSdkDirectory=$env:JAVA_HOME"
+      - name: Verify merged background audio manifest
+        shell: pwsh
+        run: |
+          [xml]$manifest = Get-Content src/GnazzosWorld.App/obj/Debug/net11.0-android/android/AndroidManifest.xml
+          $ns = [System.Xml.XmlNamespaceManager]::new($manifest.NameTable)
+          $ns.AddNamespace('android', 'http://schemas.android.com/apk/res/android')
+          foreach ($permission in @('android.permission.FOREGROUND_SERVICE', 'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK')) {
+            if (!$manifest.SelectSingleNode("/manifest/uses-permission[@android:name='$permission']", $ns)) { throw "Missing $permission" }
+          }
+          $service = $manifest.SelectSingleNode("/manifest/application/service[@android:name='communityToolkit.maui.media.services']", $ns)
+          if (!$service -or $service.GetAttribute('foregroundServiceType', 'http://schemas.android.com/apk/res/android') -ne 'mediaPlayback') { throw 'Missing media playback service declaration' }
+          Write-Host 'Merged background audio manifest passed (configuration only; no device playback claim).'
       - name: Preserve diagnostic logs
         if: always()
         uses: actions/upload-artifact@v4
