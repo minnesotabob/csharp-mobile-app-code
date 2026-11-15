@@ -33,3 +33,10 @@ acceptance, key/payload conflicts, quote single use, in-process atomic deduplica
 client overlap protection and same-operation retry after an uncertain outcome.
 Chapter 14–15 review-bundle source is recovered in the same review branch.
 Default branches remain unchanged; no milestone tag is created before verification.
+
+## Chapter 17 — bounded public-catalog HTTP reads
+
+Verified source 352b0bc901b6de7b54494922e181e6311edf34b1 adds ICatalogSource,
+HttpCatalogSource, an in-process fixture source and native lab route. All 235
+portable cases pass; Android Debug compilation succeeds. See verification.md.
+No live backend, actual device run, iOS build or main-catalog remote replacement.

@@ -83,3 +83,12 @@ the same specification, a 15-minute demo quote, and simulated submission.
 The simulator creates no live order or payment and uses only process memory.
 An uncertain response preserves the same key/quote/request for explicit retry.
 See SubmissionTests.cs and docs/verification.md for evidence and limits.
+
+## Chapter 17 networking lab
+
+Open Networking lab from Home to run a GET through an explicitly in-process
+HTTP handler. No server is contacted; the main catalog remains bundled.
+HttpCatalogSource bounds bodies at 1 MiB, uses one 20-second deadline, permits
+at most three GET attempts and honors bounded Retry-After waits. It rejects
+malformed payloads and exposes safe typed failures. Real API/local networking
+integration follows in Chapter 18. See HttpCatalogTests.cs and docs/verification.md.

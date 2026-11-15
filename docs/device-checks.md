@@ -69,3 +69,18 @@ Multiwindow, RTL, fold hinge geometry, remote image pipelines and persisted stat
 - Test phone/tablet, rotation, large text, dark theme and keyboard reachability.
   New form/quote strings remain English; localization/focus refinement is pending.
 - Use fictitious contact/story details. There is no live transmission or payment.
+
+## Chapter 17 networking lab — native checks pending
+
+- Open the lab from Home on Android and iOS; labels must identify an in-process
+  demo, not a test of internet access. Main catalog browsing remains bundled.
+- Run the fixture and check five validated records. Repeat with airplane mode;
+  local transport still runs, and the connectivity hint must not imply reachability.
+- Inject a delayed handler, leave the page, return and run again. Observe that
+  cancellation/late results do not publish success to an obsolete visit or leave
+  the button disabled. Try repeated taps, large text, rotation and screen readers.
+- New lab strings are English; full form/lab localization and focus refinement
+  remain pending. No accessibility-runtime claim follows from compilation.
+- When a real Chapter 18 endpoint is configured, separately test local addressing,
+  TLS trust, redirect policy, Wi-Fi/cellular changes, captive portals, rate limits,
+  socket timeouts and interrupted bodies. Handler tests do not prove these.

@@ -1,3 +1,43 @@
+# Chapter 17 verification — November 15, 2026 (Central)
+
+Verified source revision: 352b0bc901b6de7b54494922e181e6311edf34b1.
+
+| Check | Environment | Result |
+|---|---|---|
+| Portable Release compilation | GitHub-hosted Windows | Zero warnings/errors |
+| Executable xUnit suite | GitHub-hosted Windows | 235 tests; zero errors/failures/skipped/not run |
+| Android Debug compilation | GitHub-hosted Windows | Success; final compile zero warnings/errors |
+| Native device execution / real socket transport | Not performed | Pending |
+| iOS compilation and runtime | Not performed | Pending |
+
+Portable evidence: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43706546704
+Android evidence: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43706546699
+
+Thirty-seven new cases exercise request shape, fixture data, malformed JSON/metadata,
+media types, permanent/transient statuses, bounded retries, Retry-After delta/date,
+response disposal before waits, classified transport failures, payload sizes,
+caller cancellation and deadline cancellation during body reads. Time/delays and
+transport are controlled; no public service is used by the suite or native lab.
+
+The native lab uses an explicit in-process handler and shows a connectivity hint.
+It does not contact a live API, replace the main bundled catalog, test internet
+access, persist an offline cache, or authorize customer workflows. Local-address,
+TLS/redirect, socket-interruption and actual Android/iOS observations remain separate.
+New lab strings remain English pending localization/focus refinement.
+
+The items-only HTTP contract validates CatalogLoader metadata but not relationships
+against a separately refreshed creators list. Chapter 18 must establish the real
+service schema/integration before moving the main browser onto remote data.
+
+Android dependency setup retains the historical cmdline-tools;21.0 warning. The
+final compile is clean. Platform build setup also reports existing action/runtime
+deprecations. These are environment maintenance items, not failed source checks.
+
+All work remains in draft PR #1 on work/chapter16-pricing. Default branches are
+unchanged. The follow-up commit only updates documentation; no code tag is created.
+
+## Earlier verification record
+
 # Chapter 16 verification — November 15, 2026 (Central)
 
 Verified portable source revision: 2d15aa9452ef2f70b66176c99aebb3acf8027362.
