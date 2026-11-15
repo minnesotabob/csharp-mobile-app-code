@@ -2,13 +2,17 @@
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
-## Parts I and II milestone (not a finished app)
+## Start learning
 
-- Portable net11.0 catalog models, bundled sample data, search, and versioned example pricing.
-- xUnit v3 executable tests. The major package line is v3; its package version is 4.0.0.
-- MAUI 11.0.10 Shell navigation, typed bindings, MVVM browser, search/kind filtering, stable-ID details, reusable cards, English/Spanish resources, themes and adaptive inline details.
-- Windows CI: 61 portable tests and Android Debug compilation passed. Device execution and iOS compilation remain pending; see [verification](docs/verification.md).
-- See [source milestones](docs/milestones.md) to match the Part I starter or current Part II implementation.
+Follow [the reader learning guide](docs/learning-guide.md) for setup, a source/test
+map, expected results and troubleshooting. Then use [the guided Chapter 18 API lab](docs/labs/ch18-api.md)
+to run the service and client, inspect paging and work through failure cases.
+
+Current recorded implementation: Chapter 18, with 245 portable tests and 26 API
+integration tests passing, a local Kestrel HTTP startup check, probe compilation and
+Android Debug compilation. Exact revisions and limits are in [verification](docs/verification.md).
+Device/TLS integration and iOS builds remain pending. Earlier milestone notes below
+are historical and do not replace that current record.
 
 ## Run portable checks on Windows
 
@@ -33,7 +37,7 @@ dotnet build src/GnazzosWorld.App/GnazzosWorld.App.csproj -f net11.0-android
 
 The scaffold selects Android on Windows/Linux and adds iOS on macOS. A Windows-to-Mac remote iOS build configuration is not implemented yet. Do not read the conditional framework list as a claim that Windows can build/sign iOS independently.
 
-The application ID and minimum OS versions are provisional development values. No identity tenant, MFA, API, checkout, real media, or production deployment exists yet. Data is illustrative; the podcast episode is fictitious. Prices are a snapshot, not a live commercial offer. No credentials are needed for portable examples.
+The application ID and minimum OS versions are provisional development values. The local public-fixture API is available separately. No identity tenant, MFA, checkout, real media, or production deployment exists yet. Data is illustrative; the podcast episode is fictitious. Prices are a snapshot, not a live commercial offer. No credentials are needed for portable examples.
 
 Manuscript: https://github.com/minnesotabob/csharp-mobile-app-man
 
@@ -73,8 +77,8 @@ See [verification](docs/verification.md) for exact revisions and CI evidence.
 The Home screen opens a three-step custom-song request builder with conditional
 vocal notes, portable validation, review invalidation and explicit device-local
 draft save/discard. Review sends nothing. Anonymous JSON drafts are not app-encrypted
-or account-scoped. Compilation, the 29 new cases and native checks remain pending;
-see docs/verification.md. Recovered Chapter 14 changes are included in this source.
+or account-scoped. Its portable cases now run within the verified Chapter 18 suite;
+native checks remain pending. See docs/verification.md. Recovered Chapter 14 changes are included in this source.
 
 ## Chapter 16 demo
 
