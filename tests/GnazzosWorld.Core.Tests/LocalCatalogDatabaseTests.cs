@@ -32,17 +32,17 @@ public sealed class LocalCatalogDatabaseTests
         using var folder = new TemporaryDatabase();
         using (var store = new LocalCatalogDatabase(folder.PathName))
         {
-            Assert.Equal(3, await store.GetSchemaVersionAsync());
-            Assert.Null(await store.ReadCatalogAsync());
-            await store.ReplaceCatalogAsync(Document());
-            await store.SetFavoriteAsync("guest", "book-kai-01", true);
-            await store.SetProgressAsync("guest", "book-kai-01", 35);
+            Assert.Equal(3, await store.GetSchemaVersionAsync(ct: TestContext.Current.CancellationToken));
+            Assert.Null(await store.ReadCatalogAsync(ct: TestContext.Current.CancellationToken));
+            await store.ReplaceCatalogAsync(Document(), ct: TestContext.Current.CancellationToken);
+            await store.SetFavoriteAsync("guest", "book-kai-01", true, ct: TestContext.Current.CancellationToken);
+            await store.SetProgressAsync("guest", "book-kai-01", 35, ct: TestContext.Current.CancellationToken);
         }
         using var reopened = new LocalCatalogDatabase(folder.PathName);
-        Assert.Equal(3, await reopened.GetSchemaVersionAsync());
-        Assert.Equal("sample-1", (await reopened.ReadCatalogAsync())!.Revision);
-        Assert.Equal(new[] { "book-kai-01" }, await reopened.ReadFavoritesAsync("guest"));
-        Assert.Equal(35, await reopened.ReadProgressAsync("guest", "book-kai-01"));
+        Assert.Equal(3, await reopened.GetSchemaVersionAsync(ct: TestContext.Current.CancellationToken));
+        Assert.Equal("sample-1", (await reopened.ReadCatalogAsync(ct: TestContext.Current.CancellationToken))!.Revision);
+        Assert.Equal(new[] { "book-kai-01" }, await reopened.ReadFavoritesAsync("guest", ct: TestContext.Current.CancellationToken));
+        Assert.Equal(35, await reopened.ReadProgressAsync("guest", "book-kai-01", ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -50,14 +50,14 @@ public sealed class LocalCatalogDatabaseTests
     {
         using var folder = new TemporaryDatabase();
         using var store = new LocalCatalogDatabase(folder.PathName);
-        await store.ReplaceCatalogAsync(Document("before"));
+        await store.ReplaceCatalogAsync(Document("before"), ct: TestContext.Current.CancellationToken);
         var snapshot = Document("invalid");
         var bad = snapshot with { Items = snapshot.Items
             .Select(item => item with { CreatorId = "missing-creator" }).ToArray() };
-        await Assert.ThrowsAsync<InvalidDataException>(() => store.ReplaceCatalogAsync(bad));
-        Assert.Equal("before", (await store.ReadCatalogAsync())!.Revision);
-        await store.ReplaceCatalogAsync(Document("after"));
-        Assert.Equal("after", (await store.ReadCatalogAsync())!.Revision);
+        await Assert.ThrowsAsync<InvalidDataException>(() => store.ReplaceCatalogAsync(bad, ct: TestContext.Current.CancellationToken));
+        Assert.Equal("before", (await store.ReadCatalogAsync(ct: TestContext.Current.CancellationToken))!.Revision);
+        await store.ReplaceCatalogAsync(Document("after"), ct: TestContext.Current.CancellationToken);
+        Assert.Equal("after", (await store.ReadCatalogAsync(ct: TestContext.Current.CancellationToken))!.Revision);
     }
 
     [Fact]
@@ -65,15 +65,15 @@ public sealed class LocalCatalogDatabaseTests
     {
         using var folder = new TemporaryDatabase();
         using var store = new LocalCatalogDatabase(folder.PathName);
-        await store.SetFavoriteAsync("guest-a", "book-kai-01", true);
-        await store.SetFavoriteAsync("guest-b", "song-1", true);
-        await store.SetProgressAsync("guest-a", "book-kai-01", 25);
-        Assert.Equal(new[] { "book-kai-01" }, await store.ReadFavoritesAsync("guest-a"));
-        Assert.Equal(new[] { "song-1" }, await store.ReadFavoritesAsync("guest-b"));
-        Assert.Null(await store.ReadProgressAsync("guest-b", "book-kai-01"));
-        await store.SetFavoriteAsync("guest-a", "book-kai-01", false);
-        Assert.Empty(await store.ReadFavoritesAsync("guest-a"));
-        Assert.Equal(25, await store.ReadProgressAsync("guest-a", "book-kai-01"));
+        await store.SetFavoriteAsync("guest-a", "book-kai-01", true, ct: TestContext.Current.CancellationToken);
+        await store.SetFavoriteAsync("guest-b", "song-1", true, ct: TestContext.Current.CancellationToken);
+        await store.SetProgressAsync("guest-a", "book-kai-01", 25, ct: TestContext.Current.CancellationToken);
+        Assert.Equal(new[] { "book-kai-01" }, await store.ReadFavoritesAsync("guest-a", ct: TestContext.Current.CancellationToken));
+        Assert.Equal(new[] { "song-1" }, await store.ReadFavoritesAsync("guest-b", ct: TestContext.Current.CancellationToken));
+        Assert.Null(await store.ReadProgressAsync("guest-b", "book-kai-01", ct: TestContext.Current.CancellationToken));
+        await store.SetFavoriteAsync("guest-a", "book-kai-01", false, ct: TestContext.Current.CancellationToken);
+        Assert.Empty(await store.ReadFavoritesAsync("guest-a", ct: TestContext.Current.CancellationToken));
+        Assert.Equal(25, await store.ReadProgressAsync("guest-a", "book-kai-01", ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -98,10 +98,10 @@ public sealed class LocalCatalogDatabaseTests
             cmd.ExecuteNonQuery();
         }
         using var store = new LocalCatalogDatabase(folder.PathName);
-        Assert.Equal(3, await store.GetSchemaVersionAsync());
-        Assert.Equal(new[] { "book-kai-01" }, await store.ReadFavoritesAsync("guest"));
-        await store.SetProgressAsync("guest", "book-kai-01", 60);
-        Assert.Equal(60, await store.ReadProgressAsync("guest", "book-kai-01"));
+        Assert.Equal(3, await store.GetSchemaVersionAsync(ct: TestContext.Current.CancellationToken));
+        Assert.Equal(new[] { "book-kai-01" }, await store.ReadFavoritesAsync("guest", ct: TestContext.Current.CancellationToken));
+        await store.SetProgressAsync("guest", "book-kai-01", 60, ct: TestContext.Current.CancellationToken);
+        Assert.Equal(60, await store.ReadProgressAsync("guest", "book-kai-01", ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -117,7 +117,7 @@ public sealed class LocalCatalogDatabaseTests
             cmd.ExecuteNonQuery();
         }
         using var store = new LocalCatalogDatabase(folder.PathName);
-        await Assert.ThrowsAsync<InvalidDataException>(() => store.GetSchemaVersionAsync());
+        await Assert.ThrowsAsync<InvalidDataException>(() => store.GetSchemaVersionAsync(ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -125,14 +125,14 @@ public sealed class LocalCatalogDatabaseTests
     {
         using var folder = new TemporaryDatabase();
         using var store = new LocalCatalogDatabase(folder.PathName);
-        await store.SetProgressAsync("guest", "book-kai-01", 42);
+        await store.SetProgressAsync("guest", "book-kai-01", 42, ct: TestContext.Current.CancellationToken);
         await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
-            store.SetProgressAsync("guest", "book-kai-01", 101));
+            store.SetProgressAsync("guest", "book-kai-01", 101, ct: TestContext.Current.CancellationToken));
         using var cancel = new CancellationTokenSource();
         cancel.Cancel();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
             store.SetProgressAsync("guest", "book-kai-01", 50, cancel.Token));
-        Assert.Equal(42, await store.ReadProgressAsync("guest", "book-kai-01"));
+        Assert.Equal(42, await store.ReadProgressAsync("guest", "book-kai-01", ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -140,7 +140,7 @@ public sealed class LocalCatalogDatabaseTests
     {
         using var folder = new TemporaryDatabase();
         using var store = new LocalCatalogDatabase(folder.PathName);
-        await store.SetProgressAsync("guest", "book-kai-01", 22);
+        await store.SetProgressAsync("guest", "book-kai-01", 22, ct: TestContext.Current.CancellationToken);
         using (var connection = new SqliteConnection($"Data Source={folder.PathName};Pooling=False"))
         {
             connection.Open();
@@ -152,8 +152,8 @@ public sealed class LocalCatalogDatabaseTests
             trigger.ExecuteNonQuery();
         }
         await Assert.ThrowsAsync<SqliteException>(() =>
-            store.SetProgressAsync("guest", "book-kai-01", 80));
-        Assert.Equal(22, await store.ReadProgressAsync("guest", "book-kai-01"));
+            store.SetProgressAsync("guest", "book-kai-01", 80, ct: TestContext.Current.CancellationToken));
+        Assert.Equal(22, await store.ReadProgressAsync("guest", "book-kai-01", ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -162,8 +162,8 @@ public sealed class LocalCatalogDatabaseTests
         using var folder = new TemporaryDatabase();
         using var store = new LocalCatalogDatabase(folder.PathName);
         var operations = Enumerable.Range(1, 12)
-            .Select(i => store.SetFavoriteAsync("guest", $"item-{i:D2}", true));
+            .Select(i => store.SetFavoriteAsync("guest", $"item-{i:D2}", true, ct: TestContext.Current.CancellationToken));
         await Task.WhenAll(operations);
-        Assert.Equal(12, (await store.ReadFavoritesAsync("guest")).Count);
+        Assert.Equal(12, (await store.ReadFavoritesAsync("guest", ct: TestContext.Current.CancellationToken)).Count);
     }
 }

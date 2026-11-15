@@ -32,11 +32,11 @@ public sealed class OfflineCatalogTests : IDisposable
         using var db = new LocalCatalogDatabase(DatabasePath);
         var calls = 0;
         var service = Service(db, new(), _ => { calls++; return Task.FromResult(Document()); });
-        var result = await service.ReadLocalAsync();
+        var result = await service.ReadLocalAsync(ct: TestContext.Current.CancellationToken);
         Assert.Equal(CatalogOrigin.Bundled, result.Origin);
         Assert.True(result.IsStale);
         Assert.Null(result.FetchedUtc);
-        await service.RunPendingAsync();
+        await service.RunPendingAsync(ct: TestContext.Current.CancellationToken);
         Assert.Equal(0, calls);
     }
 
@@ -49,9 +49,9 @@ public sealed class OfflineCatalogTests : IDisposable
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
         var clock = new Clock();
-        await db.CommitCatalogRefreshAsync("fixture", Document(), clock.Now);
+        await db.CommitCatalogRefreshAsync("fixture", Document(), clock.Now, ct: TestContext.Current.CancellationToken);
         clock.Now = clock.Now.AddMinutes(minutes);
-        Assert.Equal(stale, (await Service(db, clock).ReadLocalAsync()).IsStale);
+        Assert.Equal(stale, (await Service(db, clock).ReadLocalAsync(ct: TestContext.Current.CancellationToken)).IsStale);
     }
 
     [Fact]
@@ -59,9 +59,9 @@ public sealed class OfflineCatalogTests : IDisposable
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
         var clock = new Clock();
-        await db.CommitCatalogRefreshAsync("fixture", Document(), clock.Now);
-        await db.ReplaceCatalogAsync(Document("legacy"));
-        var result = await Service(db, clock).ReadLocalAsync();
+        await db.CommitCatalogRefreshAsync("fixture", Document(), clock.Now, ct: TestContext.Current.CancellationToken);
+        await db.ReplaceCatalogAsync(Document("legacy"), ct: TestContext.Current.CancellationToken);
+        var result = await Service(db, clock).ReadLocalAsync(ct: TestContext.Current.CancellationToken);
         Assert.Equal("legacy", result.Document.Revision);
         Assert.Null(result.FetchedUtc);
         Assert.True(result.IsStale);
@@ -71,60 +71,60 @@ public sealed class OfflineCatalogTests : IDisposable
     public async Task Pending_intent_survives_reopen_and_success_commits_snapshot_and_acknowledgment()
     {
         using (var first = new LocalCatalogDatabase(DatabasePath))
-            await first.RequestCatalogRefreshAsync();
+            await first.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
         using var reopened = new LocalCatalogDatabase(DatabasePath);
-        var result = await Service(reopened, new()).RunPendingAsync();
+        var result = await Service(reopened, new()).RunPendingAsync(ct: TestContext.Current.CancellationToken);
         Assert.Equal(CatalogOrigin.Refreshed, result.Origin);
         Assert.False(result.IsStale);
-        Assert.Null(await reopened.ReadPendingRefreshAsync());
-        Assert.Equal("sample-20", (await reopened.ReadCachedCatalogAsync())!.Document.Revision);
+        Assert.Null(await reopened.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
+        Assert.Equal("sample-20", (await reopened.ReadCachedCatalogAsync(ct: TestContext.Current.CancellationToken))!.Document.Revision);
     }
 
     [Fact]
     public async Task Failed_fetch_preserves_old_snapshot_and_pending_intent()
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
-        await db.ReplaceCatalogAsync(Document("before"));
-        await db.RequestCatalogRefreshAsync();
+        await db.ReplaceCatalogAsync(Document("before"), ct: TestContext.Current.CancellationToken);
+        await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
         var service = Service(db, new(), _ => throw new CatalogFetchException(CatalogFetchProblem.Network));
-        var result = await service.RunPendingAsync();
+        var result = await service.RunPendingAsync(ct: TestContext.Current.CancellationToken);
         Assert.Equal("before", result.Document.Revision);
         Assert.Equal(CatalogFetchProblem.Network, result.RefreshProblem);
-        Assert.NotNull(await db.ReadPendingRefreshAsync());
+        Assert.NotNull(await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
     public async Task Cancellation_during_fetch_keeps_intent_and_propagates()
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
-        await db.RequestCatalogRefreshAsync();
+        await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
         using var cts = new CancellationTokenSource();
         var service = Service(db, new(), token => { cts.Cancel(); token.ThrowIfCancellationRequested(); return Task.FromResult(Document()); });
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.RunPendingAsync(cts.Token));
-        Assert.NotNull(await db.ReadPendingRefreshAsync());
-        Assert.Null(await db.ReadCachedCatalogAsync());
+        Assert.NotNull(await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
+        Assert.Null(await db.ReadCachedCatalogAsync(ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
     public async Task Request_arriving_during_fetch_is_not_erased_by_older_acknowledgment()
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
-        await db.RequestCatalogRefreshAsync();
-        var oldTicket = await db.ReadPendingRefreshAsync();
-        var service = Service(db, new(), async _ => { await db.RequestCatalogRefreshAsync(); return Document(); });
-        await service.RunPendingAsync();
-        Assert.NotNull(await db.ReadPendingRefreshAsync());
-        Assert.NotEqual(oldTicket, await db.ReadPendingRefreshAsync());
-        await Service(db, new()).RunPendingAsync();
-        Assert.Null(await db.ReadPendingRefreshAsync());
+        await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
+        var oldTicket = await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken);
+        var service = Service(db, new(), async _ => { await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken); return Document(); });
+        await service.RunPendingAsync(ct: TestContext.Current.CancellationToken);
+        Assert.NotNull(await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
+        Assert.NotEqual(oldTicket, await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
+        await Service(db, new()).RunPendingAsync(ct: TestContext.Current.CancellationToken);
+        Assert.Null(await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
     public async Task Failure_between_save_and_acknowledgment_rolls_back_both()
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
-        await db.ReplaceCatalogAsync(Document("before"));
-        await db.RequestCatalogRefreshAsync();
+        await db.ReplaceCatalogAsync(Document("before"), ct: TestContext.Current.CancellationToken);
+        await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
         using (var connection = new SqliteConnection($"Data Source={DatabasePath};Pooling=False"))
         {
             connection.Open();
@@ -135,9 +135,9 @@ public sealed class OfflineCatalogTests : IDisposable
                 """;
             trigger.ExecuteNonQuery();
         }
-        await Assert.ThrowsAsync<SqliteException>(() => Service(db, new()).RunPendingAsync());
-        Assert.Equal("before", (await db.ReadCatalogAsync())!.Revision);
-        Assert.NotNull(await db.ReadPendingRefreshAsync());
+        await Assert.ThrowsAsync<SqliteException>(() => Service(db, new()).RunPendingAsync(ct: TestContext.Current.CancellationToken));
+        Assert.Equal("before", (await db.ReadCatalogAsync(ct: TestContext.Current.CancellationToken))!.Revision);
+        Assert.NotNull(await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -159,25 +159,25 @@ public sealed class OfflineCatalogTests : IDisposable
             cmd.ExecuteNonQuery();
         }
         using var db = new LocalCatalogDatabase(DatabasePath);
-        Assert.Equal(3, await db.GetSchemaVersionAsync());
-        Assert.Equal(new[] { "book-kai-01" }, await db.ReadFavoritesAsync("guest"));
-        Assert.Equal(35, await db.ReadProgressAsync("guest", "book-kai-01"));
-        await db.RequestCatalogRefreshAsync();
-        Assert.NotNull(await db.ReadPendingRefreshAsync());
+        Assert.Equal(3, await db.GetSchemaVersionAsync(ct: TestContext.Current.CancellationToken));
+        Assert.Equal(new[] { "book-kai-01" }, await db.ReadFavoritesAsync("guest", ct: TestContext.Current.CancellationToken));
+        Assert.Equal(35, await db.ReadProgressAsync("guest", "book-kai-01", ct: TestContext.Current.CancellationToken));
+        await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
+        Assert.NotNull(await db.ReadPendingRefreshAsync(ct: TestContext.Current.CancellationToken));
     }
 
     [Fact]
     public async Task Concurrent_workers_on_one_coordinator_fetch_once()
     {
         using var db = new LocalCatalogDatabase(DatabasePath);
-        await db.RequestCatalogRefreshAsync();
+        await db.RequestCatalogRefreshAsync(ct: TestContext.Current.CancellationToken);
         var entered = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         var release = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         var calls = 0;
         var service = Service(db, new(), async _ => { calls++; entered.SetResult(true); await release.Task; return Document(); });
-        var first = service.RunPendingAsync();
-        await entered.Task.WaitAsync(TimeSpan.FromSeconds(10));
-        var second = service.RunPendingAsync();
+        var first = service.RunPendingAsync(ct: TestContext.Current.CancellationToken);
+        await entered.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+        var second = service.RunPendingAsync(ct: TestContext.Current.CancellationToken);
         release.SetResult(true);
         await Task.WhenAll(first, second);
         Assert.Equal(1, calls);
