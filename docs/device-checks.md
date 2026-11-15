@@ -84,3 +84,17 @@ Multiwindow, RTL, fold hinge geometry, remote image pipelines and persisted stat
 - When a real Chapter 18 endpoint is configured, separately test local addressing,
   TLS trust, redirect policy, Wi-Fi/cellular changes, captive portals, rate limits,
   socket timeouts and interrupted bodies. Handler tests do not prove these.
+
+## Chapter 18 — real endpoint integration (pending device observations)
+
+- Follow docs/local-api.md to run the workstation API and HTTPS probe. Record the
+  chosen hostname, certificate trust, source revision, schema/revision and counts.
+- Establish endpoint reachability on the actual Android emulator/phone or paired
+  Mac/iOS device. localhost is not the Windows workstation in every environment.
+- Check exact TLS hostname/trust, request host filtering, redirect behavior, network
+  permission and canceled reads. Do not add blanket trust or cleartext exceptions.
+- If deliberately using a public-fixture development tunnel, use the exact printed
+  HTTPS endpoint and chosen access policy, then stop hosting after the exercise.
+  No tunnel, listener exposure or service deployment is created by this milestone.
+- Main catalog/native lab are not switched onto the real API here. TestServer
+  integration and the loopback HTTP smoke do not prove native HTTPS connectivity.

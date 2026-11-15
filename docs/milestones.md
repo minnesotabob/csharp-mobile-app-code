@@ -40,3 +40,11 @@ Verified source 352b0bc901b6de7b54494922e181e6311edf34b1 adds ICatalogSource,
 HttpCatalogSource, an in-process fixture source and native lab route. All 235
 portable cases pass; Android Debug compilation succeeds. See verification.md.
 No live backend, actual device run, iOS build or main-catalog remote replacement.
+
+## Chapter 18 — executable public fixture API
+
+Source 5c24e63dffd494463716730fdf553af74453a2ae passed 245 portable cases,
+26 API integration cases, an actual Kestrel loopback HTTP smoke, Android Debug
+compilation and HTTPS probe compilation. No device HTTPS or iOS result is claimed.
+The service owns public fixtures only; customer write routes are absent.
+See verification.md and local-api.md for evidence and reader setup.

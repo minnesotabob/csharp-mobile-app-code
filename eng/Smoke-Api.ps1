@@ -9,7 +9,7 @@ $logBase = Join-Path ([System.IO.Path]::GetTempPath()) ("gnazzo-api-" + [guid]::
 $serverProcess = $null
 try {
     $serverProcess = Start-Process dotnet -PassThru -NoNewWindow -ArgumentList @(
-        'run', '--project', $apiProject, '-c', 'Release', '--no-build', '--no-launch-profile',
+        'run', '--project', ('"' + $apiProject + '"'), '-c', 'Release', '--no-build', '--no-launch-profile',
         '--', '--urls', $baseUrl, '--environment', 'Development'
     ) -RedirectStandardOutput "$logBase.out" -RedirectStandardError "$logBase.err"
     $ready = $false

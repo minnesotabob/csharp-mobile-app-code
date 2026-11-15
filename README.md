@@ -92,3 +92,11 @@ HttpCatalogSource bounds bodies at 1 MiB, uses one 20-second deadline, permits
 at most three GET attempts and honors bounded Retry-After waits. It rejects
 malformed payloads and exposes safe typed failures. Real API/local networking
 integration follows in Chapter 18. See HttpCatalogTests.cs and docs/verification.md.
+
+## Chapter 18 public fixture API
+
+The ASP.NET Core companion now exposes versioned public catalog documents, the
+earlier items array, revision-aware paging and development OpenAPI. Run the service
+and HTTPS probe using docs/local-api.md. The API has no customer writes or deployment.
+Tests cover the actual pipeline; a separate Kestrel loopback HTTP smoke checks startup.
+The native main catalog and networking lab retain their earlier bundled/demo modes.

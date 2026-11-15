@@ -1,3 +1,45 @@
+# Chapter 18 verification — November 15, 2026 (Central)
+
+Verified source revision: 5c24e63dffd494463716730fdf553af74453a2ae.
+
+| Check | Environment | Result |
+|---|---|---|
+| Portable Release compilation | GitHub-hosted Windows | Zero warnings/errors |
+| Executable portable suite | GitHub-hosted Windows | 245 tests; zero errors/failures/skipped/not run |
+| API/test Release compilation | GitHub-hosted Windows | Zero warnings/errors |
+| Executable API integration suite | GitHub-hosted Windows, TestServer | 26 tests; zero errors/failures/skipped/not run |
+| HTTPS catalog probe compilation | GitHub-hosted Windows | Success; zero warnings/errors |
+| Kestrel startup and health/catalog/page smoke | Real temporary loopback HTTP listener | Pass; process stopped afterward |
+| Android Debug compilation | GitHub-hosted Windows | Success; final compile zero warnings/errors |
+| Real HTTPS probe/device connection / iOS build | Not performed | Pending |
+
+Portable: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43709057778
+API/tests/probe/smoke: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43709057781
+Android: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43709057777
+
+Ten new portable document cases extend the earlier 235 tests. The 26 API cases
+exercise actual routing, DI, JSON/DTO serialization, client/server compatibility,
+pagination and revision conflicts, malformed/duplicate queries, safe errors,
+development OpenAPI and absence of customer writes. TestServer does not use sockets
+or establish TLS/device connectivity. The separate Kestrel smoke uses loopback HTTP
+only; the compiled HTTPS probe has not been run against a real trusted endpoint here.
+
+The new BoundedJsonClient factors the existing Chapter 17 GET transport without
+changing its time, retry or byte budgets. The complete document validates creator
+relationships; the compatibility array remains available. No public deployment,
+database, account, tunnel, customer-data mutation or actual payment is added.
+Main app browsing and native networking lab remain bundled/in-process respectively.
+
+Android setup retains the historical cmdline-tools warning, and runner actions
+report existing runtime deprecations. Final compilation is clean. Native TLS,
+redirect/addressing, device UX and iOS compilation remain pending.
+
+Changes continue in existing draft PR #1; default branches are unchanged. Follow-up
+commits update documentation and quote the PowerShell project path for folders with spaces.
+API/mobile source and test cases remain identical to the verified revision. No new verified chapter tag is created.
+
+## Earlier verification record
+
 # Chapter 17 verification — November 15, 2026 (Central)
 
 Verified source revision: 352b0bc901b6de7b54494922e181e6311edf34b1.
