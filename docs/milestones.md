@@ -73,3 +73,9 @@ Use source `50a5abf391e37fef04866c0528af4da195954354` and docs/labs/ch23-session
 321 portable and 37 API cases pass, as do Android compilation and the public listener
 smoke. The API read is ownership-filtered and its default customer store is empty.
 Provider and native-storage observations remain pending; see verification.md.
+
+## Chapter 24 - provider-supported MFA and recovery lab
+
+Configuration/documentation milestone only; application source remains
+50a5abf391e37fef04866c0528af4da195954354. Follow docs/labs/ch24-mfa-recovery.md.
+Real-provider and device observations remain pending; no MFA test total is claimed.

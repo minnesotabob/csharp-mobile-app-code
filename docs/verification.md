@@ -1,3 +1,11 @@
+# Chapter 24 provider lab - November 15, 2026 (Central)
+
+Documentation-only addition: hosted MFA configuration, recovery/replacement worksheet,
+interruption/renewal observations and future step-up contract. No executable source
+or package change; Chapter 23 test totals below are historical evidence, not a new
+MFA result. Official provider documentation reviewed; live tenant/device execution,
+recovery-code consumption, factor replacement and screenshots remain pending.
+
 # Chapter 23 sessions and API authorization — November 15, 2026 (Central)
 
 Tested source: `50a5abf391e37fef04866c0528af4da195954354` on `work/chapter16-pricing`.

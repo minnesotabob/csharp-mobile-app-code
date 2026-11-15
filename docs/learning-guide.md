@@ -134,3 +134,9 @@ storage adapter and bounded read client to a portable session coordinator, and a
 an independently authorized read route with no seeded customer data. Signed test tokens
 exercise real bearer middleware; live provider, device storage and TLS checks remain
 separate. See verification.md for executed revisions.
+
+## Chapter 24 - MFA and recovery
+
+Follow docs/labs/ch24-mfa-recovery.md for the hosted-provider configuration and
+acceptance worksheet. Application code remains the Chapter 23 implementation. Real
+enrollment, recovery, factor replacement and native observations remain pending.
