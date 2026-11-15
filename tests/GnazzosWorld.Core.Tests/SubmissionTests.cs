@@ -30,7 +30,7 @@ public sealed class SubmissionTests
     public async Task Quote_has_version_currency_and_snapshot_amount(int minutes, bool voice, int quantity, int cents)
     {
         var clock = new Clock(); var service = new DemoSongSubmissionService(clock);
-        var quote = await service.QuoteAsync(Valid() with { Minutes = minutes, WithVocals = voice, Quantity = quantity });
+        var quote = await service.QuoteAsync(Valid() with { Minutes = minutes, WithVocals = voice, Quantity = quantity }, TestContext.Current.CancellationToken);
         Assert.Equal(cents / 100m, quote.Total); Assert.Equal("USD", quote.Currency);
         Assert.Equal(SongPricing.Version, quote.PricingVersion);
         Assert.Equal(clock.Now.AddMinutes(15), quote.ExpiresAt);
@@ -39,16 +39,16 @@ public sealed class SubmissionTests
     [InlineData(0)] [InlineData(4)]
     public async Task Invalid_quantity_is_rejected_before_quote(int quantity)
         => await Rejected(SubmissionProblem.InvalidRequest, () =>
-            new DemoSongSubmissionService(new Clock()).QuoteAsync(Valid() with { Quantity = quantity }));
+            new DemoSongSubmissionService(new Clock()).QuoteAsync(Valid() with { Quantity = quantity }, TestContext.Current.CancellationToken));
     [Fact]
     public async Task Invalid_contact_is_revalidated_at_service_boundary()
         => await Rejected(SubmissionProblem.InvalidRequest, () =>
-            new DemoSongSubmissionService(new Clock()).QuoteAsync(Valid() with { Email = "bad" }));
+            new DemoSongSubmissionService(new Clock()).QuoteAsync(Valid() with { Email = "bad" }, TestContext.Current.CancellationToken));
     [Fact]
     public async Task Quote_normalizes_without_mutating_draft()
     {
         var request = Valid() with { Genre = " Folk ", WithVocals = false, VocalNotes = "Hidden" };
-        var quote = await new DemoSongSubmissionService(new Clock()).QuoteAsync(request);
+        var quote = await new DemoSongSubmissionService(new Clock()).QuoteAsync(request, TestContext.Current.CancellationToken);
         Assert.Equal("Folk", quote.Request.Genre); Assert.Equal("", quote.Request.VocalNotes);
         Assert.Equal("Hidden", request.VocalNotes);
     }
@@ -56,62 +56,62 @@ public sealed class SubmissionTests
     public async Task Expiration_includes_exact_boundary()
     {
         var clock = new Clock(); var service = new DemoSongSubmissionService(clock);
-        var quote = await service.QuoteAsync(Valid()); clock.Now = quote.ExpiresAt;
-        await Rejected(SubmissionProblem.ExpiredQuote, () => service.SubmitAsync(Attempt(quote)));
+        var quote = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken); clock.Now = quote.ExpiresAt;
+        await Rejected(SubmissionProblem.ExpiredQuote, () => service.SubmitAsync(Attempt(quote), TestContext.Current.CancellationToken));
     }
     [Fact]
     public async Task Quote_can_be_accepted_just_before_expiration()
     {
         var clock = new Clock(); var service = new DemoSongSubmissionService(clock);
-        var quote = await service.QuoteAsync(Valid()); clock.Now = quote.ExpiresAt.AddTicks(-1);
-        Assert.Equal(quote.Id, (await service.SubmitAsync(Attempt(quote))).QuoteId);
+        var quote = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken); clock.Now = quote.ExpiresAt.AddTicks(-1);
+        Assert.Equal(quote.Id, (await service.SubmitAsync(Attempt(quote), TestContext.Current.CancellationToken)).QuoteId);
     }
     [Fact]
     public async Task Same_key_and_payload_replay_same_receipt_even_after_expiry()
     {
         var clock = new Clock(); var service = new DemoSongSubmissionService(clock);
-        var quote = await service.QuoteAsync(Valid()); var attempt = Attempt(quote);
-        var receipt = await service.SubmitAsync(attempt); clock.Now = quote.ExpiresAt.AddDays(1);
-        Assert.Equal(receipt, await service.SubmitAsync(attempt));
+        var quote = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken); var attempt = Attempt(quote);
+        var receipt = await service.SubmitAsync(attempt, TestContext.Current.CancellationToken); clock.Now = quote.ExpiresAt.AddDays(1);
+        Assert.Equal(receipt, await service.SubmitAsync(attempt, TestContext.Current.CancellationToken));
     }
     [Fact]
     public async Task Reusing_key_with_changed_payload_is_conflict()
     {
-        var service = new DemoSongSubmissionService(new Clock()); var quote = await service.QuoteAsync(Valid());
-        var attempt = Attempt(quote); await service.SubmitAsync(attempt);
+        var service = new DemoSongSubmissionService(new Clock()); var quote = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken);
+        var attempt = Attempt(quote); await service.SubmitAsync(attempt, TestContext.Current.CancellationToken);
         await Rejected(SubmissionProblem.KeyConflict, () => service.SubmitAsync(attempt with
-            { Request = attempt.Request with { Story = "Changed" } }));
+            { Request = attempt.Request with { Story = "Changed" } }, TestContext.Current.CancellationToken));
     }
     [Fact]
     public async Task Changed_request_requires_new_quote()
     {
-        var service = new DemoSongSubmissionService(new Clock()); var quote = await service.QuoteAsync(Valid());
+        var service = new DemoSongSubmissionService(new Clock()); var quote = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken);
         await Rejected(SubmissionProblem.ChangedRequest, () => service.SubmitAsync(Attempt(quote) with
-            { Request = quote.Request with { Quantity = 2 } }));
+            { Request = quote.Request with { Quantity = 2 } }, TestContext.Current.CancellationToken));
     }
     [Fact]
     public async Task Unknown_quote_is_rejected()
         => await Rejected(SubmissionProblem.UnknownQuote, () => new DemoSongSubmissionService(new Clock())
-            .SubmitAsync(new(Guid.NewGuid(), Guid.NewGuid(), Valid())));
+            .SubmitAsync(new(Guid.NewGuid(), Guid.NewGuid(), Valid()), TestContext.Current.CancellationToken));
     [Fact]
     public async Task Empty_key_is_rejected()
     {
-        var service = new DemoSongSubmissionService(new Clock()); var q = await service.QuoteAsync(Valid());
-        await Rejected(SubmissionProblem.InvalidRequest, () => service.SubmitAsync(Attempt(q) with { Key = Guid.Empty }));
+        var service = new DemoSongSubmissionService(new Clock()); var q = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken);
+        await Rejected(SubmissionProblem.InvalidRequest, () => service.SubmitAsync(Attempt(q) with { Key = Guid.Empty }, TestContext.Current.CancellationToken));
     }
     [Fact]
     public async Task Another_key_cannot_accept_the_same_quote_twice()
     {
-        var service = new DemoSongSubmissionService(new Clock()); var q = await service.QuoteAsync(Valid());
-        await service.SubmitAsync(Attempt(q));
-        await Rejected(SubmissionProblem.QuoteUsed, () => service.SubmitAsync(Attempt(q)));
+        var service = new DemoSongSubmissionService(new Clock()); var q = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken);
+        await service.SubmitAsync(Attempt(q), TestContext.Current.CancellationToken);
+        await Rejected(SubmissionProblem.QuoteUsed, () => service.SubmitAsync(Attempt(q), TestContext.Current.CancellationToken));
     }
     [Fact]
     public async Task Concurrent_duplicate_deliveries_share_one_receipt()
     {
-        var service = new DemoSongSubmissionService(new Clock()); var q = await service.QuoteAsync(Valid());
+        var service = new DemoSongSubmissionService(new Clock()); var q = await service.QuoteAsync(Valid(), TestContext.Current.CancellationToken);
         var attempt = Attempt(q);
-        var receipts = await Task.WhenAll(Enumerable.Range(0, 16).Select(_ => Task.Run(() => service.SubmitAsync(attempt))));
+        var receipts = await Task.WhenAll(Enumerable.Range(0, 16).Select(_ => Task.Run(() => service.SubmitAsync(attempt, TestContext.Current.CancellationToken))));
         Assert.Single(receipts.Select(r => r.Id).Distinct());
     }
     private sealed class LostResponse(ISongSubmissionService inner) : ISongSubmissionService
@@ -129,27 +129,27 @@ public sealed class SubmissionTests
     public async Task Lost_response_preserves_exact_operation_and_blocks_requote()
     {
         var adapter = new LostResponse(new DemoSongSubmissionService(new Clock()));
-        var vm = new SongSubmissionViewModel(adapter); await vm.PrepareAsync(Valid());
-        await vm.SubmitAsync(); Assert.True(vm.RequiresResolution); Assert.Null(vm.Receipt);
-        var quote = vm.Quote; vm.Invalidate(); await vm.PrepareAsync(Valid() with { Quantity = 2 });
+        var vm = new SongSubmissionViewModel(adapter); await vm.PrepareAsync(Valid(), TestContext.Current.CancellationToken);
+        await vm.SubmitAsync(TestContext.Current.CancellationToken); Assert.True(vm.RequiresResolution); Assert.Null(vm.Receipt);
+        var quote = vm.Quote; vm.Invalidate(); await vm.PrepareAsync(Valid() with { Quantity = 2 }, TestContext.Current.CancellationToken);
         Assert.Equal(quote, vm.Quote);
-        await vm.SubmitAsync(); Assert.NotNull(vm.Receipt); Assert.False(vm.RequiresResolution);
+        await vm.SubmitAsync(TestContext.Current.CancellationToken); Assert.NotNull(vm.Receipt); Assert.False(vm.RequiresResolution);
         Assert.Equal(adapter.Calls[0], adapter.Calls[1]); Assert.False(vm.CanSubmit);
-        await vm.SubmitAsync(); Assert.Equal(2, adapter.Calls.Count);
+        await vm.SubmitAsync(TestContext.Current.CancellationToken); Assert.Equal(2, adapter.Calls.Count);
     }
     [Fact]
     public async Task Draft_edit_invalidates_unsent_quote()
     {
         var vm = new SongSubmissionViewModel(new DemoSongSubmissionService(new Clock()));
-        await vm.PrepareAsync(Valid()); vm.Invalidate(); Assert.Null(vm.Quote); Assert.False(vm.CanSubmit);
+        await vm.PrepareAsync(Valid(), TestContext.Current.CancellationToken); vm.Invalidate(); Assert.Null(vm.Quote); Assert.False(vm.CanSubmit);
     }
     [Fact]
     public async Task Expiry_rejection_requires_explicit_requote()
     {
         var clock = new Clock(); var vm = new SongSubmissionViewModel(new DemoSongSubmissionService(clock));
-        await vm.PrepareAsync(Valid()); var old = vm.Quote!; clock.Now = old.ExpiresAt;
-        await vm.SubmitAsync(); Assert.False(vm.CanSubmit); Assert.False(vm.RequiresResolution);
-        await vm.PrepareAsync(Valid()); Assert.NotEqual(old.Id, vm.Quote!.Id); Assert.True(vm.CanSubmit);
+        await vm.PrepareAsync(Valid(), TestContext.Current.CancellationToken); var old = vm.Quote!; clock.Now = old.ExpiresAt;
+        await vm.SubmitAsync(TestContext.Current.CancellationToken); Assert.False(vm.CanSubmit); Assert.False(vm.RequiresResolution);
+        await vm.PrepareAsync(Valid(), TestContext.Current.CancellationToken); Assert.NotEqual(old.Id, vm.Quote!.Id); Assert.True(vm.CanSubmit);
     }
     private sealed class Delayed(ISongSubmissionService inner) : ISongSubmissionService
     {
@@ -163,16 +163,16 @@ public sealed class SubmissionTests
     public async Task Overlapping_taps_only_call_service_once()
     {
         var adapter = new Delayed(new DemoSongSubmissionService(new Clock()));
-        var vm = new SongSubmissionViewModel(adapter); await vm.PrepareAsync(Valid());
-        var first = vm.SubmitAsync(); await vm.SubmitAsync(); Assert.Equal(1, adapter.Calls);
+        var vm = new SongSubmissionViewModel(adapter); await vm.PrepareAsync(Valid(), TestContext.Current.CancellationToken);
+        var first = vm.SubmitAsync(TestContext.Current.CancellationToken); await vm.SubmitAsync(TestContext.Current.CancellationToken); Assert.Equal(1, adapter.Calls);
         adapter.Release.SetResult(true); await first; Assert.NotNull(vm.Receipt); Assert.False(vm.IsBusy);
     }
     [Fact]
     public async Task Cancellation_before_acceptance_has_no_receipt_and_can_retry()
     {
         var vm = new SongSubmissionViewModel(new DemoSongSubmissionService(new Clock()));
-        await vm.PrepareAsync(Valid()); using var cts = new CancellationTokenSource(); cts.Cancel();
+        await vm.PrepareAsync(Valid(), TestContext.Current.CancellationToken); using var cts = new CancellationTokenSource(); cts.Cancel();
         await vm.SubmitAsync(cts.Token); Assert.Null(vm.Receipt); Assert.True(vm.CanSubmit);
-        await vm.SubmitAsync(); Assert.NotNull(vm.Receipt);
+        await vm.SubmitAsync(TestContext.Current.CancellationToken); Assert.NotNull(vm.Receipt);
     }
 }

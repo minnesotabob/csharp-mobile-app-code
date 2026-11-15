@@ -106,7 +106,7 @@ public sealed class SongRequestPage : ContentPage
                 s => vm.Edit(vm.Draft with { Email = s }), email: true);
         }
         var errors = new Label { TextColor = Colors.DarkRed };
-        errors.SetBinding(Label.TextProperty, nameof(vm.Errors), source: vm);
+        errors.SetBinding(Label.TextProperty, new Binding(nameof(vm.Errors), source: vm));
         panel.Children.Add(errors);
         if (vm.Review is SongRequest r)
         {
@@ -116,12 +116,12 @@ public sealed class SongRequestPage : ContentPage
                 $"Vocal notes: {r.VocalNotes}\nStory: {r.Story}\n" +
                 $"Contact: {r.ContactName}, {r.Email}" };
             // Editing invalidates the visible review immediately.
-            summary.SetBinding(IsVisibleProperty, nameof(vm.Review),
-                converter: new HasReviewConverter(), source: vm);
+            summary.SetBinding(IsVisibleProperty, new Binding(nameof(vm.Review),
+                converter: new HasReviewConverter(), source: vm));
             panel.Children.Add(summary);
             var quoteButton = AsyncButton("Get demo quote", () => submission.PrepareAsync(r));
-            quoteButton.SetBinding(IsVisibleProperty, nameof(vm.Review),
-                converter: new HasReviewConverter(), source: vm);
+            quoteButton.SetBinding(IsVisibleProperty, new Binding(nameof(vm.Review),
+                converter: new HasReviewConverter(), source: vm));
             if (submission.Quote is SongQuote quote)
             {
                 var quotePanel = new VerticalStackLayout { Spacing = 8 };
@@ -135,15 +135,15 @@ public sealed class SongRequestPage : ContentPage
                     try { await submission.SubmitAsync(); }
                     finally { panel.IsEnabled = true; Draw(); }
                 };
-                submit.SetBinding(IsEnabledProperty, nameof(submission.CanSubmit), source: submission);
+                submit.SetBinding(IsEnabledProperty, new Binding(nameof(submission.CanSubmit), source: submission));
                 quotePanel.Children.Add(submit);
                 // Hide a quote as soon as any field invalidates the reviewed snapshot.
-                quotePanel.SetBinding(IsVisibleProperty, nameof(vm.Review),
-                    converter: new HasReviewConverter(), source: vm);
+                quotePanel.SetBinding(IsVisibleProperty, new Binding(nameof(vm.Review),
+                    converter: new HasReviewConverter(), source: vm));
                 panel.Children.Add(quotePanel);
             }
             var submissionStatus = new Label();
-            submissionStatus.SetBinding(Label.TextProperty, nameof(submission.Status), source: submission);
+            submissionStatus.SetBinding(Label.TextProperty, new Binding(nameof(submission.Status), source: submission));
             panel.Children.Add(submissionStatus);
         }
         if (vm.Step > 0) Button("Back", () => { vm.Back(); Draw(); });
@@ -159,7 +159,7 @@ public sealed class SongRequestPage : ContentPage
             { vm.Discard(); Draw(); }
         });
         var status = new Label();
-        status.SetBinding(Label.TextProperty, nameof(vm.Status), source: vm);
+        status.SetBinding(Label.TextProperty, new Binding(nameof(vm.Status), source: vm));
         panel.Children.Add(status);
     }
     private sealed class HasReviewConverter : IValueConverter

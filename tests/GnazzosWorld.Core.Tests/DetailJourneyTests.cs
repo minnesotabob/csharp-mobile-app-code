@@ -156,7 +156,7 @@ public sealed class DetailJourneyTests
     [Fact]
     public void Bundled_sample_has_explicit_fixture_provenance()
     {
-        var item = Assert.Single(CatalogLoader.LoadBundled().Where(x => x.Sample is not null));
+        var item = Assert.Single(CatalogLoader.LoadBundled(), x => x.Sample is not null);
         Assert.Equal(ContentKind.Book, item.Kind);
         Assert.Contains("Not an excerpt", item.Sample!.Credit);
     }
