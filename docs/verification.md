@@ -1,3 +1,19 @@
+# Chapter 19 verification — November 15, 2026 (Central)
+
+**Verified source revision:** `3f7b162dc2f9c7553b3e170ef7b44dcc59c9f26b` (review branch).
+
+| Check | Result | Evidence |
+|---|---|---|
+| Windows portable Release + executable tests | **253 passed**, zero errors/failures/skips | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43720268893 |
+| Windows Android Debug compilation | **Passed** | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43720264777 |
+| ASP.NET Core API tests | Previously passed after the SQLite package addition; no API endpoint changed at the final MAUI DI commit | Earlier workflow results below |
+| Android SQLite runtime and app UX | **Not tested** | Pending device/emulator |
+| iOS build, storage and device runtime | **Not tested** | Pending Mac/device setup |
+
+Chapter 19 adds `LocalCatalogDatabase` with real-file tests for fresh schema v2, v1 upgrade retaining favorites, version-99 refusal, coherent document replacement, local scope partitioning, cancellation, database-trigger failure retaining earlier progress, and concurrent writes through one store. Those checks establish real SQLite behavior on the Windows CI runner. They do not establish performance, native library loading on a phone, disk-full recovery, encryption, secure account ownership, backup policy, or sync. The SQLite store is registered but not yet used by the main browsing UI, and personal song drafts remain in their existing explicit JSON store.
+
+## Earlier verification record
+
 # Chapter 18 verification — November 15, 2026 (Central)
 
 Verified source revision: 5c24e63dffd494463716730fdf553af74453a2ae.
