@@ -6,6 +6,7 @@ on:
       - 'src/GnazzosWorld.Core/**'
       - 'tests/GnazzosWorld.Api.Tests/**'
       - 'eng/Smoke-Api.ps1'
+      - 'tools/GnazzosWorld.CatalogProbe/**'
       - 'Directory.Build.props'
       - 'global.json'
       - 'GnazzosWorld.sln'
@@ -24,6 +25,8 @@ jobs:
           dotnet-version: '11.0.100'
       - name: Build API and integration tests
         run: dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release
+      - name: Build executable HTTPS catalog probe
+        run: dotnet build tools/GnazzosWorld.CatalogProbe/GnazzosWorld.CatalogProbe.csproj -c Release
       - name: Run executable integration tests
         run: dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
       - name: Start real loopback HTTP listener and check contract

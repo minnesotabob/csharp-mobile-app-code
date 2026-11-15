@@ -128,6 +128,8 @@ public sealed class CatalogApiTests
         var paths = json.RootElement.GetProperty("paths");
         Assert.True(paths.TryGetProperty("/api/v1/catalog", out _));
         var page = paths.GetProperty("/api/v1/catalog/pages").GetProperty("get");
+        Assert.Equal(new[] { "limit", "offset", "revision" }, page.GetProperty("parameters").EnumerateArray()
+            .Select(p => p.GetProperty("name").GetString()).OrderBy(n => n, StringComparer.Ordinal));
         Assert.True(page.GetProperty("responses").TryGetProperty("400", out _));
         Assert.True(page.GetProperty("responses").TryGetProperty("409", out _));
         Assert.False(paths.TryGetProperty("/api/v1/orders", out _));
