@@ -40,3 +40,14 @@ Manuscript: https://github.com/minnesotabob/csharp-mobile-app-man
 ## Rights
 
 Copyright 2026 John F. Gnazzo. A distribution license for companion code has not yet been selected; public visibility alone does not grant a general license. Third-party dependencies retain their own licenses.
+
+## Part III in progress: Chapter 12 catalog metadata
+
+Catalog items now support stable creator references, optional release dates, book editions,
+audio durations, availability, and explicit-content advisories. The bundled snapshot validates
+creator references before it is returned. Unknown dates and advisories remain unknown.
+The existing browser continues to use the same five records and three content kinds.
+Metadata labels and artist detail pages are not wired into the native UI yet.
+
+See `CatalogMetadataTests.cs` for import-boundary regression cases. The 61-test result
+above records the earlier Part II milestone; Chapter 12 validation will be recorded separately.

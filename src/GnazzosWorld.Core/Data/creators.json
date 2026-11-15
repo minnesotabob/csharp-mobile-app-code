@@ -1,0 +1,17 @@
+[
+  {
+    "id": "artist-minnesota-bob",
+    "name": "Minnesota Bob",
+    "kind": "Artist"
+  },
+  {
+    "id": "author-john-gnazzo",
+    "name": "John F. Gnazzo",
+    "kind": "Author"
+  },
+  {
+    "id": "host-demo",
+    "name": "Demonstration fixture",
+    "kind": "Host"
+  }
+]

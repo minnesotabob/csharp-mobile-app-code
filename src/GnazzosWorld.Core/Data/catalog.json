@@ -5,7 +5,9 @@
     "creator": "Minnesota Bob",
     "kind": "Song",
     "description": "A featured song from the source website.",
-    "externalUrl": "https://johngnazzo.com/minnesota-bob.html"
+    "externalUrl": "https://johngnazzo.com/minnesota-bob.html",
+    "creatorId": "artist-minnesota-bob",
+    "availability": "Listed"
   },
   {
     "id": "song-minnesota-bob-beret-violet",
@@ -13,7 +15,9 @@
     "creator": "Minnesota Bob",
     "kind": "Song",
     "description": "A catalog entry used to demonstrate accented-title searches.",
-    "externalUrl": "https://johngnazzo.com/minnesota-bob.html"
+    "externalUrl": "https://johngnazzo.com/minnesota-bob.html",
+    "creatorId": "artist-minnesota-bob",
+    "availability": "Listed"
   },
   {
     "id": "book-kai-01",
@@ -21,7 +25,10 @@
     "creator": "John F. Gnazzo",
     "kind": "Book",
     "description": "Book One: The Fall of the Sun King.",
-    "externalUrl": "https://johngnazzo.com/books.html"
+    "externalUrl": "https://johngnazzo.com/books.html",
+    "creatorId": "author-john-gnazzo",
+    "availability": "Listed",
+    "edition": "Book One"
   },
   {
     "id": "book-csharp",
@@ -29,13 +36,17 @@
     "creator": "John F. Gnazzo",
     "kind": "Book",
     "description": "An independent programming book by the author.",
-    "externalUrl": "https://johngnazzo.com/books.html"
+    "externalUrl": "https://johngnazzo.com/books.html",
+    "creatorId": "author-john-gnazzo",
+    "availability": "Listed"
   },
   {
     "id": "podcast-demo-01",
     "title": "Inside the Studio — Demo Episode",
     "creator": "Demonstration fixture",
     "kind": "Podcast",
-    "description": "Fictitious episode metadata for development. No audio is included."
+    "description": "Fictitious episode metadata for development. No audio is included.",
+    "creatorId": "host-demo",
+    "availability": "Unavailable"
   }
 ]

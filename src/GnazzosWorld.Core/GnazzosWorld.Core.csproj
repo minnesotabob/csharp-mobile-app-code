@@ -3,5 +3,5 @@
     <TargetFramework>net11.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
-  <ItemGroup><EmbeddedResource Include="Data/catalog.json" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Data/*.json" /></ItemGroup>
 </Project>
