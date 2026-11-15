@@ -12,6 +12,7 @@ public sealed class AppShell : Shell
         Routing.RegisterRoute("song-request", typeof(SongRequestPage));
         Routing.RegisterRoute("networking-lab", typeof(NetworkingLabPage));
         Routing.RegisterRoute("account", typeof(AccountPage));
+        Routing.RegisterRoute("session-lab", typeof(SessionLabPage));
         var tabs = new TabBar { Route = "main" };
         var homeTab = new Tab { Route = "home", Title = UiText.Home };
         homeTab.Items.Add(new ShellContent

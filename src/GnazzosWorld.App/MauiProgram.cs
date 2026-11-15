@@ -1,4 +1,5 @@
 using GnazzosWorld.App.Identity;
+using GnazzosWorld.Core.Networking;
 using GnazzosWorld.Core.Identity;
 using GnazzosWorld.App.Navigation;
 using GnazzosWorld.App.Pages;
@@ -39,6 +40,14 @@ public static class MauiProgram
         builder.Services.AddSingleton<IInteractiveSignIn, Auth0InteractiveSignIn>();
         builder.Services.AddSingleton<SignInSession>();
         builder.Services.AddTransient<AccountPage>();
+        builder.Services.AddSingleton<ISessionVault, MauiSessionVault>();
+        builder.Services.AddSingleton<ISessionProvider, Auth0SessionProvider>();
+        builder.Services.AddSingleton(sp => new ApiSession(AuthenticationConfiguration.ApiSession,
+            sp.GetRequiredService<ISessionVault>(), sp.GetRequiredService<ISessionProvider>(), TimeProvider.System));
+        builder.Services.AddSingleton(sp => new ProtectedRequestClient(
+            new HttpClient(new HttpClientHandler { AllowAutoRedirect = false }) { Timeout = TimeSpan.FromSeconds(20) },
+            sp.GetRequiredService<ApiSession>()));
+        builder.Services.AddTransient<SessionLabPage>();
         builder.Services.AddTransient<HomePage>();
         builder.Services.AddTransient<CatalogPage>();
         builder.Services.AddTransient<DetailsPage>();

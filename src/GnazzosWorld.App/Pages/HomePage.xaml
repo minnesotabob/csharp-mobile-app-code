@@ -14,6 +14,7 @@
       <Button Text="Build a custom-song request" Clicked="OnRequest" />
       <Button Text="Open networking lab" Clicked="OnNetworkingLab" />
       <Button Text="Account and sign-in" Clicked="OnAccount" />
+      <Button Text="Open session lab" Clicked="OnSessionLab" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

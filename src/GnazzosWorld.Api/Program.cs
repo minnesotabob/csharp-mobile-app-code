@@ -1,4 +1,6 @@
 using System.Globalization;
+using GnazzosWorld.Api.Identity;
+using GnazzosWorld.Core.Networking;
 using System.Text.Json.Serialization;
 using GnazzosWorld.Api;
 using GnazzosWorld.Core.Catalog;
@@ -9,6 +11,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
+ApiIdentity.AddIdentity(builder.Services, builder.Configuration);
+builder.Services.AddSingleton(new OwnedRequestStore());
 builder.Services.AddSingleton<IPublicCatalog>(_ => new PublicCatalog(CatalogSnapshot.LoadBundled(),
     builder.Configuration["Catalog:Revision"] ?? "fixture-2026-11-15-v1"));
 var app = builder.Build();
@@ -19,6 +23,13 @@ app.UseStatusCodePages(context => Results.Problem(statusCode: context.HttpContex
     title: "The request could not be completed.").ExecuteAsync(context.HttpContext));
 if (!app.Environment.IsDevelopment()) app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment()) app.MapOpenApi();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests) =>
+{
+    var row = requests.ForOwner(id, context.User);
+    return row is null ? Results.NotFound() : Results.Ok(new RequestPreview(row.Id, row.Summary));
+}).RequireAuthorization(ApiIdentity.ReadPolicy);
 app.MapGet("/health", () => TypedResults.Ok(new { status = "ok" })).WithName("Health");
 app.MapGet("/api/v1/catalog", (IPublicCatalog catalog) => TypedResults.Ok(catalog.Document))
     .WithName("GetCatalog").ProducesProblem(500);

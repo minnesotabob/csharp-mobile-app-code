@@ -126,3 +126,11 @@ Follow [the identity lab](labs/ch22-identity.md) for provider registration, exac
 platform files, portable tests and the native verification worksheet. The distributed
 app intentionally has no tenant configured. A build or simulated reply is not evidence
 of real authentication; see verification.md for the executed boundary.
+
+## Chapter 23 sessions and owned API reads
+
+Follow [the session/API lab](labs/ch23-sessions-api.md). It connects a native secure
+storage adapter and bounded read client to a portable session coordinator, and adds
+an independently authorized read route with no seeded customer data. Signed test tokens
+exercise real bearer middleware; live provider, device storage and TLS checks remain
+separate. See verification.md for executed revisions.
