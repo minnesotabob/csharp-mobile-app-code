@@ -6,10 +6,10 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-The Chapter 18 implementation verified in docs/verification.md is
-5c24e63dffd494463716730fdf553af74453a2ae. It passed 245 portable cases, 26 API
-integration cases, probe compilation, a local Kestrel HTTP smoke and Android Debug
-compilation. Follow-up documentation is available on the current review branch.
+The current Chapter 27 executable source is c73f3cd25e175d7e89de84f3cbdaa9bacdd86af6.
+It passed 394 portable cases, 46 API cases, probe compilation, public loopback smoke
+and Android Debug compilation. Native listening/provider/device and iOS checks remain
+separate pending observations. See docs/verification.md and the chapter-specific labs.
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -24,7 +24,7 @@ dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Relea
 dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
 ```
 
-At the recorded revision, expect totals of 245 and 26 respectively, with zero
+At the recorded revision, expect totals of 394 and 46 respectively, with zero
 failures, errors, skipped or not-run cases. Later chapters will change these totals;
 compare against the verification record for your selected revision. Read a failing
 case's name and assertion before changing its expected result.
@@ -155,3 +155,11 @@ Read docs/security/threat-model.md and docs/labs/ch26-security-verification.md. 
 T-IDs to existing SDK/session/workspace cases and the new shared request-ID policy,
 protected-route no-store, process-local read budget and allowlisted decision events.
 See verification.md for 360 portable / 46 API results and separate native limits.
+
+## Chapter 27 - foreground playback and progress
+
+Follow docs/labs/ch27-audio-progress.md. The Media core contains PlaybackSession,
+IAudioPlayer and AudioProgressDatabase; Home opens the native foreground audio lab.
+Original WAVs, generation source and a hash manifest ship in the repository. Progress
+is anonymous/local; source events are fenced by ticket and completion is terminal.
+Read verification.md for matching portable/native build evidence and listening limits.

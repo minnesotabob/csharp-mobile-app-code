@@ -98,3 +98,14 @@ Multiwindow, RTL, fold hinge geometry, remote image pipelines and persisted stat
   No tunnel, listener exposure or service deployment is created by this milestone.
 - Main catalog/native lab are not switched onto the real API here. TestServer
   integration and the loopback HTTP smoke do not prove native HTTPS connectivity.
+
+## Chapter 27 - foreground audio (all native observations pending)
+
+Use docs/labs/ch27-audio-progress.md. Current expanded app minimum is Android API 26;
+MediaElement is pinned to 12.0.0. Original bundled WAV fixtures are 10/14 seconds.
+Record source/package/device/OS, native state, audible result and persisted checkpoint.
+Check load without autoplay, Play, pause/save/reload, seek rounding/endpoints, replay,
+manual next/previous, unavailable resource, native failure, navigation/background during
+open/seek, save failure/reset, text size and screen reader focus. Recheck hosted browser
+return after the activity single-task setup change. iOS build/runtime, memory cleanup,
+phone/audio-focus/headphone and background-system behavior are separate pending work.

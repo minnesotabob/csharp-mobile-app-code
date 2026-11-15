@@ -94,3 +94,12 @@ Source a3d2a880195714dc61a2971bc2ab3f7aab1d78a9: 360 portable and 46 API cases p
 with Android compilation, both console labs and public loopback smoke. The threat
 register maps actual checks to residual native/provider/deployment work. No complete
 security certification, live penetration test or dependency-advisory result is implied.
+
+## Chapter 27 - foreground audio and durable local checkpoints
+
+Corrected source: c73f3cd25e175d7e89de84f3cbdaa9bacdd86af6. Portable 394 and API 46
+cases pass, with Android compilation, both earlier console labs and public loopback
+smoke. Follow verification.md for exact evidence and limits. The native foreground
+page uses original bundled WAV fixtures; progress is anonymous and local. Playback,
+seeks, foreground stop and iOS remain pending device observations. No background or
+remote/customer-media capability is enabled by this milestone.

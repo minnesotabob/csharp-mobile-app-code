@@ -102,3 +102,20 @@ Microsoft rate limiting (https://learn.microsoft.com/aspnet/core/performance/rat
 development secrets (https://learn.microsoft.com/aspnet/core/security/app-secrets).
 The retrieved rate-limit/secrets guidance is the .NET 10 documentation view; actual
 .NET 11 source behavior is established separately by matching CI evidence.
+
+## Chapter 27 media extension (November 15, 2026)
+
+T12: source substitution and late events. Current playback accepts only bundled WAV
+resource names, creates a fresh native element/ticket per selection and checks ownership
+again after dispatch. PlaybackTests reject URL/path substitution, old-source events and
+A-B-A tickets. Native callback/disposal and actual decoder behavior remain pending.
+
+T13: progress collision and privacy. Checkpoints include media ID/revision; this database
+is explicitly anonymous to the installation, not account-owned or encrypted. It must not
+be automatically assigned to a signed-in account. Tests cover revision isolation and
+real write failure; future account migration/consent/deletion needs a separate contract.
+
+T14: unintended continued sound. The page requests save/stop and invalidates work on
+navigation/Window.Stopped, with foreground service disabled. Compile/policy evidence
+cannot establish audible stop, audio focus, call/headphone behavior or lock-screen state.
+Those device observations and Chapter 28 system integration remain pending.

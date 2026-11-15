@@ -1,3 +1,41 @@
+# Chapter 27 foreground audio - November 15, 2026 (Central)
+
+Corrected source: `c73f3cd25e175d7e89de84f3cbdaa9bacdd86af6` on main.
+SDK 11.0.100; C# 15; MAUI 11.0.10; CommunityToolkit.Maui.MediaElement 12.0.0.
+The compiled bootstrap uses CommunityToolkit.Maui and the actual parameter name
+isAndroidForegroundServiceEnabled: false. Initial native checks exposed the overview's
+namespace and parameter mismatch; the matching source below contains both corrections.
+
+- Portable Release build: **0 warnings/errors; 394 cases pass**, including 34 new
+  playback/storage/fixture cases; no errors/failures/skipped/not-run cases. Existing
+  Chapter 21 and Chapter 25 console labs also execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43764322521
+- API/probe Release builds: **0 warnings/errors; 46 API cases pass**, no errors,
+  failures/skips/not run; public loopback smoke passes.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43764322453
+- Android Debug compilation: **success; 0 final compiler warnings/errors**.
+  Dependency setup retains the documented unresolved cmdline-tools;21.0 warning.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43764322496
+
+Android minimum changes from API 24 to 26; the activity uses resize/single-task setup.
+No background service/audio entitlement is enabled by this lab. Original bundled PCM
+WAV files (10/14 seconds, mono 16-bit 8000 Hz) have generation source and SHA-256 manifest.
+
+The 34 new portable cases use simulated native observations and real temporary SQLite.
+They cover no-autoplay readiness, source ticket fencing including A-B-A, bounded seek
+and observed position, completion/replay, failure, item/revision restart, rewind,
+corruption and injected write failure/retry. Fixture tests verify source headers,
+duration and hashes. They do not establish actual decoding or audible output.
+
+Limits: anonymous unencrypted local progress, not account synchronization. Small
+synchronous SQLite writes, one page/foreground owner and no arbitrary termination save
+guarantee. No public/private streaming transport, downloads, native background controls
+or account migration is added. Device playback, seek rounding/cancellation, lifecycle,
+phone/focus/headphones, actual disposal, iOS build/runtime and screenshots remain pending.
+Follow docs/labs/ch27-audio-progress.md and T12-T14 in docs/security/threat-model.md.
+
+## Earlier verification records
+
 # Chapter 26 protected-read security - November 15, 2026 (Central)
 
 Tested source: `a3d2a880195714dc61a2971bc2ab3f7aab1d78a9` on main.
