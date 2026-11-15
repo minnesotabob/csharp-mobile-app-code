@@ -33,6 +33,7 @@ case's name and assertion before changing its expected result.
 
 | Reader task | Source to inspect | Executable checks / next instructions |
 |---|---|---|
+| Persist catalog, favorites and reading progress (Chapter 19) | Storage/LocalCatalogDatabase.cs | LocalCatalogDatabaseTests.cs; temporary real SQLite files |
 | Validate catalog meaning and identities | src/GnazzosWorld.Core/Catalog | CatalogTests.cs and CatalogMetadataTests.cs |
 | Trace UI state, navigation and adaptive decisions | src/GnazzosWorld.Core/Presentation | PresentationTests.cs; docs/device-checks.md for native observations |
 | Search, sort and persist favorites | Catalog/CatalogSearch.cs, Catalog/Favorites.cs, Presentation/CatalogBrowserViewModel.cs | DiscoveryTests.cs |
@@ -93,9 +94,9 @@ behavior from a successful portable test.
 ## Guided practice and chapter status
 
 Start with [the Part I foundation lab](labs/part01-foundation.md) for Chapters 1–5,
-using its dedicated historical starter checkout and 37-case baseline. Chapters 1–18
+using its dedicated historical starter checkout and 37-case baseline. Chapters 1–19
 of the manuscript now have an initial instructional revision with learning objectives,
-guided exercises and chapter summaries. Chapters 6–18 contain guided labs in the
+guided exercises and chapter summaries. Chapters 6–19 contain guided labs in the
 manuscript itself; a dedicated companion lab document has not been created for every
 chapter. Use [Chapter 18's API lab](labs/ch18-api.md) for the later API milestone.
 
