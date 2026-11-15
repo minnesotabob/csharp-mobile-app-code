@@ -59,3 +59,10 @@ Source `84a3278e5d00b64699ccf8cee963a657da9fdec8` adds two SQLite replicas and a
 in-memory simulated-user server. Run samples/GnazzosWorld.SyncLab using docs/labs/ch21-sync.md.
 The executed suite totals 284 portable cases and the console scenario passes; see
 verification.md for exact CI evidence. No native or authenticated sync is implemented.
+
+## Chapter 22 — native provider adapter (live validation pending)
+
+Use corrected source `13b32a90075de1d1bd8701237c61f404253f707d` and docs/labs/ch22-identity.md.
+307 portable cases and Android compilation pass. The optional Account page uses
+Auth0 SDK 1.4.0 after public tenant/client configuration; source ships unconfigured.
+Live tenant/device sign-in and screenshots remain pending. See verification.md.

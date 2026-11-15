@@ -1,3 +1,44 @@
+# Chapter 22 native identity adapter — November 15, 2026 (Central)
+
+Corrected source: `13b32a90075de1d1bd8701237c61f404253f707d` on `work/chapter16-pricing`.
+Initial implementation: `3e7ffa04e9328d52d074103d7bdfb7304d361461`.
+
+SDK 11.0.100; C# 15; MAUI Controls 11.0.10; Auth0.OidcClient.MAUI 1.4.0,
+Auth0.OidcClient.Core 4.2.0, underlying Duende.IdentityModel.OidcClient 6.0.1.
+Portable tests reference the underlying engine 6.0.1 explicitly; the app uses the
+provider SDK. The initial Android check found an ambiguous IBrowser name; the
+corrected source fully qualifies the provider interface.
+
+- Corrected portable Release build: **0 warnings/errors; 307 cases passed**, no
+  errors, failures, skipped or not-run cases. This includes 23 new Chapter 22 cases.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43744434467
+- Corrected Android Debug compilation: **success, 0 final compiler warnings/errors**.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43744434539
+  Android dependency installation retains the earlier unresolved cmdline-tools;21.0
+  setup warning. That warning is separate from the clean final compilation.
+- Existing API regression workflow passed at initial implementation (the subsequent
+  correction only disambiguates the native browser interface):
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43743986823
+
+The tests exercise simulated presentation outcomes, destination guards, cancellation,
+duplicate taps, retry, sanitized errors and late-result ownership. Three checks use
+the underlying SDK engine with static metadata and a no-network handler: unrelated
+callback state, missing authorization code and canceled browser. They do not mint or
+validate a real provider token and do not perform a native browser round trip.
+
+The distributed configuration is intentionally null. **Live Auth0 tenant sign-in,
+provider enrollment, actual Android browser return/cancellation, iOS build/device,
+MFA/recovery and native screenshots are NOT verified.** The chapter is a setup/integration
+draft pending that matrix, not a completed real-provider outcome. No tenant was created,
+paid service enabled or credentials requested. No token is exposed to the view model
+or persisted by this adapter. Anonymous catalog behavior remains independent.
+
+Follow docs/labs/ch22-identity.md for exact public client setup and native checks.
+Session storage, provider logout/revocation, authenticated API access and associating
+existing drafts/favorites with identity remain Chapter 23+ work.
+
+## Earlier verification records
+
 # Chapter 21 synchronization verification — November 15, 2026 (Central)
 
 Tested source: `84a3278e5d00b64699ccf8cee963a657da9fdec8` on `work/chapter16-pricing`.
