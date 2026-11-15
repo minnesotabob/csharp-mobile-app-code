@@ -6,7 +6,7 @@ using Microsoft.Maui.Authentication;
 namespace GnazzosWorld.App.Identity;
 
 // Own the platform browser boundary; the provider SDK owns PKCE/state/nonce/token validation.
-public sealed class ProviderBrowser(NativeIdentitySettings settings) : IBrowser
+public sealed class ProviderBrowser(NativeIdentitySettings settings) : Duende.IdentityModel.OidcClient.Browser.IBrowser
 {
     public bool WasCanceled { get; private set; }
     public void BeginAttempt() => WasCanceled = false;
