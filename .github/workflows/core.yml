@@ -24,3 +24,5 @@ jobs:
         run: dotnet run --project tests/GnazzosWorld.Core.Tests/GnazzosWorld.Core.Tests.csproj -c Release --no-build
       - name: Run Chapter 21 synchronization lab
         run: dotnet run --project samples/GnazzosWorld.SyncLab/GnazzosWorld.SyncLab.csproj -c Release
+      - name: Run Chapter 25 account lifecycle lab
+        run: dotnet run --project samples/GnazzosWorld.AccountLab/GnazzosWorld.AccountLab.csproj -c Release
