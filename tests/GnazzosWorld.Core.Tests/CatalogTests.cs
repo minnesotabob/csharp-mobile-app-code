@@ -51,7 +51,7 @@ public sealed class CatalogTests
     [Theory]
     [InlineData("[null]")]
     [InlineData("null")]
-    [InlineData("[{\"id\":\"x\"}]")]
+    [InlineData("[{\"id\":\"x\",\"title\":\" \",\"creator\":\"C\",\"description\":\"D\",\"kind\":\"Book\"}]")]
     [InlineData("[{\"id\":\"x\",\"title\":\"T\",\"creator\":\"C\",\"description\":\"D\",\"kind\":99}]")]
     [InlineData("[{\"id\":\"x\",\"title\":\"T\",\"creator\":\"C\",\"description\":\"D\",\"kind\":\"Book\",\"externalUrl\":\"http://example.com\"}]")]
     public void Invalid_metadata_is_rejected(string json)
