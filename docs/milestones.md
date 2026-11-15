@@ -48,3 +48,7 @@ Source 5c24e63dffd494463716730fdf553af74453a2ae passed 245 portable cases,
 compilation and HTTPS probe compilation. No device HTTPS or iOS result is claimed.
 The service owns public fixtures only; customer write routes are absent.
 See verification.md and local-api.md for evidence and reader setup.
+
+## Chapter 19 — local SQLite teaching store
+
+Review branch `work/chapter16-pricing` adds a SQLite 11.0.0 package, public catalog snapshot storage, local favorite IDs, reading progress and transactional `user_version` migrations from 0 or 1 to 2. The MAUI composition root registers the store but does not switch the current UI to SQLite. Anonymous scope strings are local partitions, not authenticated accounts. Portable Windows CI at source revision `3f7b162dc2f9c7553b3e170ef7b44dcc59c9f26b` passed 253 cases, including eight new SQLite real-file cases. Android Debug compilation passed at the same code revision. Native/device execution and iOS remain pending. See `docs/verification.md`.
