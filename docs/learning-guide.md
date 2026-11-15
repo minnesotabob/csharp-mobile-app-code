@@ -92,7 +92,9 @@ behavior from a successful portable test.
 
 ## Guided practice and chapter status
 
-Start with [Chapter 18's guided API lab](labs/ch18-api.md), including predicted
-outputs, deliberate failures and worked checks. Earlier chapters still need their
-expanded numbered walkthroughs, troubleshooting and worked-exercise pass. This guide
-starts that work; it does not label all eighteen chapters instructionally complete.
+Start with [the Part I foundation lab](labs/part01-foundation.md) for Chapters 1–5,
+using its dedicated historical starter checkout and 37-case baseline. The first five
+chapters now have an initial instructional revision, with device observations still
+pending. Then use [Chapter 18's guided API lab](labs/ch18-api.md) for the later API
+milestone. Chapters 6–18 still need their full instructional revision; neither guide
+labels all eighteen chapters complete.

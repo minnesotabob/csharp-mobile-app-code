@@ -5,7 +5,8 @@ Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to 
 ## Start learning
 
 Follow [the reader learning guide](docs/learning-guide.md) for setup, a source/test
-map, expected results and troubleshooting. Then use [the guided Chapter 18 API lab](docs/labs/ch18-api.md)
+map, expected results and troubleshooting. Begin with [the Part I foundation lab](docs/labs/part01-foundation.md)
+for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md)
 to run the service and client, inspect paging and work through failure cases.
 
 Current recorded implementation: Chapter 18, with 245 portable tests and 26 API
