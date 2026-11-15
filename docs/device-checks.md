@@ -53,3 +53,19 @@ Multiwindow, RTL, fold hinge geometry, remote image pipelines and persisted stat
   reading order. Field-specific focus routing is not implemented in this milestone.
 - Use synthetic personal data. Check actual local-file restore/corruption behavior
   separately from portable store-double tests. New form strings are English only.
+
+## Chapter 16 — pricing and simulated submission (pending native checks)
+
+- Quote one, two, and three songs; check the explicit USD amounts and version.
+- Edit quantity, story, and email after review. Ensure review and quote actions
+  disappear and existing writing remains. Re-review and request a fresh quote.
+- Obtain a quote, wait until its service expiry, submit, then explicitly requote.
+- Tap rapidly with an injected delayed service; check disabled controls, navigation,
+  focus and screen-reader announcement behavior on Android and iOS.
+- Inject a response loss after acceptance; retry must use the same operation and
+  display the original receipt. No new quote or editing while unresolved.
+- Navigate away/back after uncertainty and acceptance. State survives navigation
+  in this single process. Restart loses all demo quotes/receipts/pending operations.
+- Test phone/tablet, rotation, large text, dark theme and keyboard reachability.
+  New form/quote strings remain English; localization/focus refinement is pending.
+- Use fictitious contact/story details. There is no live transmission or payment.

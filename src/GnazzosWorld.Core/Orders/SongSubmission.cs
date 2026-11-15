@@ -21,6 +21,7 @@ public interface ISongSubmissionService
 }
 
 // Process-local teaching fixture. No HTTP, identity, database, checkout, or live order.
+// The lock protects one instance only; production acceptance needs a database transaction.
 public sealed class DemoSongSubmissionService(TimeProvider clock) : ISongSubmissionService
 {
     private readonly object gate = new();

@@ -25,3 +25,11 @@ Recovered Chapter 14 changes and Chapter 15 request form are packaged for review
 Chapter 14 adds 27 test cases; Chapter 15 adds 29. Execution/compilation of these
 new cases and native checks are pending; Chapter 13 is still the verified baseline.
 See verification.md for the exact distinction and device-checks.md for scenarios.
+
+## Chapter 16 draft
+
+Quantity, versioned archived pricing, short-lived immutable quotes, simulated
+acceptance, key/payload conflicts, quote single use, in-process atomic deduplication,
+client overlap protection and same-operation retry after an uncertain outcome.
+Chapter 14–15 review-bundle source is recovered in the same review branch.
+Default branches remain unchanged; no milestone tag is created before verification.

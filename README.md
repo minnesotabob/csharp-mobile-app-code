@@ -75,3 +75,11 @@ vocal notes, portable validation, review invalidation and explicit device-local
 draft save/discard. Review sends nothing. Anonymous JSON drafts are not app-encrypted
 or account-scoped. Compilation, the 29 new cases and native checks remain pending;
 see docs/verification.md. Recovered Chapter 14 changes are included in this source.
+
+## Chapter 16 demo
+
+The request review now offers archived USD pricing for one to three songs with
+the same specification, a 15-minute demo quote, and simulated submission.
+The simulator creates no live order or payment and uses only process memory.
+An uncertain response preserves the same key/quote/request for explicit retry.
+See SubmissionTests.cs and docs/verification.md for evidence and limits.
