@@ -9,3 +9,5 @@ https://github.com/minnesotabob/csharp-mobile-app-code/tree/0b8973660cc21269ff79
 The following commits develop Shell, portable view models, reusable views, localization, and width-based list/detail presentation. See docs/verification.md for the exact verified revision. Part I source remains available in history; current main intentionally has different startup/navigation.
 
 No app-store release, runtime device validation, or chapter tag is implied by these source milestones.
+
+Part II verified implementation: 9497b0d7e8acb74c07c50be8cb56f26453664fbb. Windows CI passed 61 portable tests and Android Debug compilation; native device and iOS verification remain pending. See verification.md for exact run links.

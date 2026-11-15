@@ -2,12 +2,13 @@
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
-## Foundation milestone (not a finished app)
+## Parts I and II milestone (not a finished app)
 
 - Portable net11.0 catalog models, bundled sample data, search, and versioned example pricing.
 - xUnit v3 executable tests. The major package line is v3; its package version is 4.0.0.
-- MAUI 11.0.10 Android/iOS first-screen scaffold; mobile compilation/device verification status is in docs/verification.md.
-- Windows CI for the portable tests. Mobile builds are not included in that workflow yet.
+- MAUI 11.0.10 Shell navigation, typed bindings, MVVM browser, search/kind filtering, stable-ID details, reusable cards, English/Spanish resources, themes and adaptive inline details.
+- Windows CI: 61 portable tests and Android Debug compilation passed. Device execution and iOS compilation remain pending; see [verification](docs/verification.md).
+- See [source milestones](docs/milestones.md) to match the Part I starter or current Part II implementation.
 
 ## Run portable checks on Windows
 
