@@ -93,8 +93,13 @@ behavior from a successful portable test.
 ## Guided practice and chapter status
 
 Start with [the Part I foundation lab](labs/part01-foundation.md) for Chapters 1–5,
-using its dedicated historical starter checkout and 37-case baseline. The first five
-chapters now have an initial instructional revision, with device observations still
-pending. Then use [Chapter 18's guided API lab](labs/ch18-api.md) for the later API
-milestone. Chapters 6–18 still need their full instructional revision; neither guide
-labels all eighteen chapters complete.
+using its dedicated historical starter checkout and 37-case baseline. Chapters 1–18
+of the manuscript now have an initial instructional revision with learning objectives,
+guided exercises and chapter summaries. Chapters 6–18 contain guided labs in the
+manuscript itself; a dedicated companion lab document has not been created for every
+chapter. Use [Chapter 18's API lab](labs/ch18-api.md) for the later API milestone.
+
+This is **not** a claim that all chapters have completed a technical source audit.
+The 8 × 10 PDF proof predates the newest text edits, and native Android/iOS behavior
+still needs recorded device evidence. Treat the archived CI counts as revision-specific
+results, not new verification of every revised manuscript instruction.
