@@ -30,7 +30,7 @@ public sealed class NotificationRouter(RouteInbox inbox, TimeProvider clock)
         busy = true;
         try
         {
-            while (foreground && inbox.Peek(clock.GetUtcNow()) is { } next)
+            if (foreground && inbox.Peek(clock.GetUtcNow()) is { } next)
             {
                 var route = next.Target.Kind == LinkKind.Catalog ? "details" : "linked-request";
                 await shell.GoToAsync(route, new ShellNavigationQueryParameters { ["id"] = next.Target.Id });

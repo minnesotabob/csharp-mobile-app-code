@@ -59,7 +59,9 @@ jobs:
           }
           $service = $manifest.SelectSingleNode("/manifest/application/service[@android:name='communityToolkit.maui.media.services']", $ns)
           if (!$service -or $service.GetAttribute('foregroundServiceType', 'http://schemas.android.com/apk/res/android') -ne 'mediaPlayback') { throw 'Missing media playback service declaration' }
-          if (!$manifest.SelectSingleNode("/manifest/application/activity/intent-filter/data[@android:scheme='gnazzosworld' and @android:host='open']", $ns)) { throw 'Missing lab link intent filter' }
+          $linkFilter = $manifest.SelectSingleNode("/manifest/application/activity/intent-filter[action[@android:name='android.intent.action.VIEW'] and category[@android:name='android.intent.category.BROWSABLE'] and category[@android:name='android.intent.category.DEFAULT'] and data[@android:scheme='gnazzosworld'] and data[@android:host='open']]", $ns)
+          if (!$linkFilter) { throw 'Missing lab link intent filter' }
+          Write-Host $linkFilter.OuterXml
           Write-Host 'Merged notification permission/link filter passed (configuration only).'
           Write-Host 'Merged background audio manifest passed (configuration only; no device playback claim).'
       - name: Preserve diagnostic logs

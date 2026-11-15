@@ -16,7 +16,8 @@ public sealed class LocalNotificationService(TimeProvider clock)
     {
 #if ANDROID
         var permission = await Permissions.RequestAsync<NotificationPermission>();
-        return permission == PermissionStatus.Granted && NotificationManagerCompat.From(Platform.AppContext).AreNotificationsEnabled();
+        using var compat = NotificationManagerCompat.From(Platform.AppContext);
+        return permission == PermissionStatus.Granted && compat?.AreNotificationsEnabled() == true;
 #elif IOS
         var result = await UNUserNotificationCenter.Current.RequestAuthorizationAsync(UNAuthorizationOptions.Alert);
         return result.Item1;
@@ -32,7 +33,7 @@ public sealed class LocalNotificationService(TimeProvider clock)
         if (OperatingSystem.IsAndroidVersionAtLeast(33) && await Permissions.CheckStatusAsync<NotificationPermission>() != PermissionStatus.Granted) return false;
         var context = Platform.AppContext;
         using var compat = NotificationManagerCompat.From(context);
-        if (!compat.AreNotificationsEnabled()) return false;
+        if (compat is null || !compat.AreNotificationsEnabled()) return false;
         var manager = (NotificationManager?)context.GetSystemService(Context.NotificationService);
         if (manager is null) return false;
         const string channel = "gnazzo-public-updates-v1";
