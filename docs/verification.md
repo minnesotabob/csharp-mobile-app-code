@@ -1,3 +1,46 @@
+# Chapter 23 sessions and API authorization — November 15, 2026 (Central)
+
+Tested source: `50a5abf391e37fef04866c0528af4da195954354` on `work/chapter16-pricing`.
+SDK 11.0.100; C# 15; MAUI 11.0.10; Auth0 MAUI SDK 1.4.0; API adds
+Microsoft.AspNetCore.Authentication.JwtBearer 11.0.0. Provider configuration remains null.
+
+- Portable Release build: **0 warnings/errors; 321 tests passed**, no errors, failures,
+  skipped or not-run cases. This includes 14 new session/client cases.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43746174414
+- API/probe Release builds: **0 warnings/errors; 37 API integration tests passed**,
+  no errors/failures/skips/not run, including 11 signed-token/ownership cases. Existing
+  real-loopback public catalog smoke also passed.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43746174402
+- Android Debug compilation: **success; 0 final compiler warnings/errors**.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43746174337
+  SDK dependency setup retains the documented unresolved cmdline-tools;21.0 warning.
+
+Session checks cover envelope restore, serialized rotation, save failure after renewal,
+uncertain refresh, sign-out during renewal, incomplete persistent cleanup, corrupt vault,
+changed subject, bounded preview, per-request bearer headers, rejected statuses and a
+late response from an earlier session. Portable vault/provider doubles do not test native
+encryption, platform restore or real Auth0 renewal.
+
+API tests use real JWT bearer validation with ephemeral per-factory RSA signing material
+and static metadata injected only through test-host DI. They reject malformed, expired,
+wrong-key, wrong-issuer, wrong-audience and underscoped credentials; enforce owner lookup;
+and show that an account query parameter cannot replace validated claims. The running
+API seeds no customer records or signing keys. Its default unconfigured protected read
+does not accept those fixture credentials. This is not a production token issuer.
+
+The native Session lab is separate from Chapter 22's process-only Account page. It
+uses one SecureStorage envelope, SDK renewal and one configured HTTPS API origin with
+redirects disabled. No existing favorites/drafts are migrated. Local sign-out is not
+provider logout, grant revocation or account deletion. A failed secure overwrite blocks
+current-process use without claiming stored credentials were removed.
+
+**Unverified:** live provider acquisition/rotation/revocation, actual phone secure-storage
+and reinstall/backup behavior, native sign-out/cancellation UX, device-to-API TLS, iOS
+build/runtime and screenshots. The default server has an empty customer store, so real
+owned-record setup is also pending. Follow docs/labs/ch23-sessions-api.md.
+
+## Earlier verification records
+
 # Chapter 22 native identity adapter — November 15, 2026 (Central)
 
 Corrected source: `13b32a90075de1d1bd8701237c61f404253f707d` on `work/chapter16-pricing`.

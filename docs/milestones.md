@@ -66,3 +66,10 @@ Use corrected source `13b32a90075de1d1bd8701237c61f404253f707d` and docs/labs/ch
 307 portable cases and Android compilation pass. The optional Account page uses
 Auth0 SDK 1.4.0 after public tenant/client configuration; source ships unconfigured.
 Live tenant/device sign-in and screenshots remain pending. See verification.md.
+
+## Chapter 23 — secure sessions and independent API authorization
+
+Use source `50a5abf391e37fef04866c0528af4da195954354` and docs/labs/ch23-sessions-api.md.
+321 portable and 37 API cases pass, as do Android compilation and the public listener
+smoke. The API read is ownership-filtered and its default customer store is empty.
+Provider and native-storage observations remain pending; see verification.md.
