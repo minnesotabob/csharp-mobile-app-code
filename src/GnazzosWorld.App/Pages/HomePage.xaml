@@ -17,7 +17,8 @@
       <Button Text="Open session lab" Clicked="OnSessionLab" />
       <Button Text="Open foreground audio lab" Clicked="OnAudioLab" />
       <Button Text="Open background audio lab" Clicked="OnBackgroundAudioLab" />
-    <Button Text="Public media download lab" Clicked="OnDownloadClicked" />
-        </VerticalStackLayout>
+      <Button Text="Public media download lab" Clicked="OnDownloadClicked" />
+      <Button Text="Notifications, links and sharing lab" Clicked="OnNotificationClicked" />
+    </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

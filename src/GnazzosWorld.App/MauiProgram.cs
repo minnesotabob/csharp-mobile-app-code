@@ -29,6 +29,12 @@ public static class MauiProgram
         builder.Services.AddSingleton(_ => new GnazzosWorld.Core.Downloads.PublicMediaDownloader(
             Path.Combine(FileSystem.Current.CacheDirectory, "public-media-v1")));
         builder.Services.AddTransient<DownloadLabPage>();
+        builder.Services.AddSingleton(_ => new GnazzosWorld.Core.Notifications.RouteInbox(
+            Path.Combine(FileSystem.Current.AppDataDirectory, "untrusted-route-hints.sqlite3")));
+        builder.Services.AddSingleton<GnazzosWorld.App.Notifications.NotificationRouter>();
+        builder.Services.AddSingleton<GnazzosWorld.App.Notifications.LocalNotificationService>();
+        builder.Services.AddTransient<NotificationLabPage>();
+        builder.Services.AddTransient<LinkedRequestPage>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());
         builder.Services.AddSingleton<IFavoriteStore, PreferencesFavoriteStore>();

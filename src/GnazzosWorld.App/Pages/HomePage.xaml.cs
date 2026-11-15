@@ -50,4 +50,5 @@ public partial class HomePage : ContentPage
         }
     }
     private async void OnDownloadClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("download-lab");
+    private async void OnNotificationClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("notification-lab");
 }

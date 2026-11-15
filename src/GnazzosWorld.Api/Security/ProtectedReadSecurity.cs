@@ -43,12 +43,13 @@ public static class ProtectedReadSecurity
             });
             options.OnRejected = async (context, ct) =>
             {
-                context.HttpContext.RequestServices.GetRequiredService<ReadSecurityAudit>().Record(ReadDecision.RateLimited);
+                if (context.HttpContext.Request.Path.StartsWithSegments("/api/v1/requests"))
+                    context.HttpContext.RequestServices.GetRequiredService<ReadSecurityAudit>().Record(ReadDecision.RateLimited);
                 if (context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var retry))
                     context.HttpContext.Response.Headers.RetryAfter =
                         Math.Max(1, (int)Math.Ceiling(retry.TotalSeconds)).ToString(System.Globalization.CultureInfo.InvariantCulture);
                 await Results.Problem(statusCode: StatusCodes.Status429TooManyRequests,
-                    title: "Protected read budget exhausted. Try again later.").ExecuteAsync(context.HttpContext);
+                    title: "Protected operation budget exhausted. Try again later.").ExecuteAsync(context.HttpContext);
             };
         });
     }
