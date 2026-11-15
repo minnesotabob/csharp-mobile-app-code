@@ -11,3 +11,10 @@ The following commits develop Shell, portable view models, reusable views, local
 No app-store release, runtime device validation, or chapter tag is implied by these source milestones.
 
 Part II verified implementation: 9497b0d7e8acb74c07c50be8cb56f26453664fbb. Windows CI passed 61 portable tests and Android Debug compilation; native device and iOS verification remain pending. See verification.md for exact run links.
+
+## Chapter 13
+
+- Source: 51870ac298eff6198e098a063bdc391fecc665f8.
+- Portable suite: 112 passing tests; Android Debug build passed.
+- Adds combined discovery criteria, controlled input debounce and bounded device-local favorites.
+- See verification.md for CI links; native execution and iOS remain pending.

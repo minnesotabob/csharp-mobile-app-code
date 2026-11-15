@@ -1,3 +1,36 @@
+# Chapter 13 verification — November 14, 2026 (Central)
+
+Verified application and test source: 51870ac298eff6198e098a063bdc391fecc665f8.
+
+| Check | Environment | Result |
+|---|---|---|
+| Portable Release compilation | GitHub-hosted Windows | 0 warnings/errors |
+| Executable xUnit suite | GitHub-hosted Windows | 112 tests; 0 errors/failures/skipped/not run |
+| Android Debug compilation | GitHub-hosted Windows | Success; final compilation 0 warnings/errors |
+| Device launch and native preferences restart | Not performed | Pending |
+| iOS compilation and native behavior | Not performed | Pending |
+
+Portable run: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43678204364
+Android run: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43678204305
+
+Chapter 13 adds 29 portable cases. Search intersects query, content kind, ordinal creator ID,
+sort mode and favorites; missing dates sort last. The page has debounced typing with
+latest-input ownership, collapsible filters and favorite actions. PreferencesFavoriteStore
+serializes item IDs through a bounded codec. Failed saves preserve visible state; failed
+initial reads disable edits while allowing ordinary browsing. Reload favorites retries a read.
+
+The portable store-recreation test does not prove actual platform persistence. Page lifecycle,
+keyboard behavior, expanded-filter reachability, screen readers, selection restoration and
+large text need native checks. iOS is still unbuilt. Remote search/result publication,
+favorites synchronization, account ownership, multiwindow notifications, migrations and
+corruption repair are not implemented. The preferences format is limited to 32 IDs,
+128 characters per ID and 4096 serialized UTF-8 bytes.
+
+Android dependency setup retains the previously documented cmdline-tools warning; the final
+compilation is clean. Earlier source milestones and toolchain history follow below.
+
+## Earlier verification record
+
 # Chapter 12 verification — November 14, 2026 (Central)
 
 Portable source revision: cda4092131cfbf9793587fc36a2c5bba67bfd52d.

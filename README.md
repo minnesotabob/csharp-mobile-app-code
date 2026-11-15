@@ -51,3 +51,19 @@ Metadata labels and artist detail pages are not wired into the native UI yet.
 
 See `CatalogMetadataTests.cs` for import-boundary regression cases. The 61-test result
 above records the earlier Part II milestone; Chapter 12 adds 22 cases: all 83 tests pass with a clean portable Release build. See the verification record for exact source revisions and the Android build.
+
+## Part III in progress: Chapter 13 discovery
+
+The browser now combines text, kind and creator filters, stable title/newest-release sorting,
+and a favorites-only view. A collapsible filter panel preserves browsing space. Typed input
+uses a 250 ms debounce; clearing is immediate and canceled/stale input cannot apply later.
+
+Favorites are item IDs stored locally through MAUI Preferences. The teaching format is bounded
+to 32 IDs, 128 characters per ID and 4096 serialized UTF-8 bytes. Save failures do not change
+the visible set. An unreadable initial store disables favorite edits and offers reload while
+ordinary browsing remains usable. There is no automatic destructive repair.
+
+At the Chapter 13 source revision, all 112 portable tests pass and Android Debug compilation
+succeeds. Actual native restart/persistence, accessibility, keyboard/layout behavior and iOS
+builds remain pending. No remote search or cross-account synchronization is implemented.
+See [verification](docs/verification.md) for exact revisions and CI evidence.
