@@ -1,3 +1,51 @@
+# Chapter 28 background audio — November 15, 2026 (Central)
+
+Corrected executable source: `a9e893d75689a48ecfbbe9f4e107fc5761780481` on main.
+SDK 11.0.100, C# 15, MAUI 11.0.10, MediaElement 12.0.0; Android minimum API 26.
+
+- Portable Release build: **0 warnings/errors; 413 cases pass**, no errors/failures/
+  skipped/not-run cases. The 19 added cases are 18 simulated playback-owner cases
+  plus the third original WAV header/duration/hash case. Both earlier console labs
+  (Chapters 21 and 25) execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43767142547
+- API/probe (unchanged service/probe/test source at parent
+  `bedeec9000f65a3492989fe80778bd7f1a3e76b6`) Release builds: **0 warnings/errors; 46 cases pass**, no errors/failures/
+  skipped/not-run cases; real Kestrel public loopback smoke passes.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43766620130
+- Android Debug compilation: **success; 0 final compiler warnings/errors**.
+  Merged manifest assertions pass for both foreground-service permissions and the
+  toolkit mediaPlayback service type. Dependency installation retains its historical
+  unresolved cmdline-tools;21.0 setup warning; this is separate from final compilation.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43767142544
+
+The initial check exposed two actionable defects: a remote Pause observation did not
+capture its accompanying position, and pinned Toolkit 12.0.0 does not expose
+MediaManager.Player to this application. The corrected owner applies the pause's
+position before saving; the handler uses the public native PlayerView hierarchy and
+IExoPlayer interface, failing visibly if absent. This is a toolkit-upgrade compatibility
+dependency. The corrected tests pass cancellation tokens and compile without warnings.
+
+New portable cases exercise no-autoplay loading; default stop; opted-in continuation;
+foreground-only loading; opt-in revocation; canceled/late preparation; stale source
+observations; remote pause checkpointing; no application resume Play; terminal release;
+failed save/retry; cleanup uncertainty; unavailable media; disposal; actual seek position;
+and restoration without autoplay. They use a simulated native port, not device audio.
+
+The app keeps one mounted lab host while toggling an internal browse panel. Shell
+departure/window destruction releases it. Global toolkit service capability is enabled,
+but Chapter 27 elements explicitly disable it. The background handler delegates Android
+focus/noisy behavior to Media3; iOS adds audio mode and pause-only observers. Metadata
+is public fixture information. The finite original 60-second WAV is not a keep-alive.
+
+**Pending:** iOS compilation, native launch/decoding, actual system controls, focus gain/
+loss, calls, wired/Bluetooth routes, task removal, force-stop, process termination and
+power constraints. The foreground timer is best effort, not guaranteed background
+execution. No app-wide playback host, production MediaSessionService architecture,
+process restoration, streaming URLs, customer media or authenticated delivery is claimed.
+See background-audio-lab.md for every pending device row. Historical records follow.
+
+---
+
 # Chapter 27 foreground audio - November 15, 2026 (Central)
 
 Corrected source: `c73f3cd25e175d7e89de84f3cbdaa9bacdd86af6` on main.

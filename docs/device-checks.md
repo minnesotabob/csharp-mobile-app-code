@@ -109,3 +109,7 @@ manual next/previous, unavailable resource, native failure, navigation/backgroun
 open/seek, save failure/reset, text size and screen reader focus. Recheck hosted browser
 return after the activity single-task setup change. iOS build/runtime, memory cleanup,
 phone/audio-focus/headphone and background-system behavior are separate pending work.
+
+## Chapter 28 background audio
+
+Use [background-audio-lab.md](background-audio-lab.md). Every native worksheet row remains pending. Android compile/merged manifest and simulated player tests do not verify actual system controls, focus, routes, calls or power behavior. iOS compilation is also pending.

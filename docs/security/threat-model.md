@@ -119,3 +119,13 @@ T14: unintended continued sound. The page requests save/stop and invalidates wor
 navigation/Window.Stopped, with foreground service disabled. Compile/policy evidence
 cannot establish audible stop, audio focus, call/headphone behavior or lock-screen state.
 Those device observations and Chapter 28 system integration remain pending.
+
+## Chapter 28 — system-visible media and ownership
+
+| ID | Risk | Current control | Remaining evidence |
+| --- | --- | --- | --- |
+| T15 | Private listening metadata exposed on lock screen | Only public original fixture titles/neutral artist are supplied | Device inspection and private-delivery metadata policy pending |
+| T16 | Unexpected background start or audio after interruption | Foreground-only load, opt-in continuation, canceled loading, no app resume Play, native focus/noisy handling | Android/iPhone route, focus, call, task-removal and power worksheet pending |
+| T17 | Duplicate or stale system player/session | One mounted lab host, toolkit command ownership, source tickets, terminal release | Native release/notification disappearance and toolkit upgrade checks pending |
+
+The handler depends on a public native PlayerView hierarchy in pinned Toolkit 12.0.0, fails visibly when absent and uses no private reflection. Compile evidence does not establish native session privacy or shutdown.

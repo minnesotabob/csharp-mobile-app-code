@@ -6,10 +6,11 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-The current Chapter 27 executable source is c73f3cd25e175d7e89de84f3cbdaa9bacdd86af6.
-It passed 394 portable cases, 46 API cases, probe compilation, public loopback smoke
-and Android Debug compilation. Native listening/provider/device and iOS checks remain
-separate pending observations. See docs/verification.md and the chapter-specific labs.
+Chapter 28 adds a separate opt-in background audio lab. Start with
+[the background playback worksheet](background-audio-lab.md) after Chapter 27.
+The exact verified revision and CI results are in [verification.md](verification.md).
+Native system controls, listening, routes/calls/power behavior and iOS compilation
+remain separate pending observations.
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -163,3 +164,20 @@ IAudioPlayer and AudioProgressDatabase; Home opens the native foreground audio l
 Original WAVs, generation source and a hash manifest ship in the repository. Progress
 is anonymous/local; source events are fenced by ticket and completion is terminal.
 Read verification.md for matching portable/native build evidence and listening limits.
+
+## Chapter 28 — background playback and system controls
+
+Follow [the background audio worksheet](background-audio-lab.md). Read
+`BackgroundPlaybackOwner` before the native page: the policy controls foreground-only
+loads, opt-in continuation, cancellation and session release. `BackgroundPlaybackTests`
+uses a simulated port to make late preparation and stale system events reproducible.
+The native handler then configures Media3 through the pinned toolkit's public view
+hierarchy; inspect that compatibility boundary rather than copying an inaccessible
+MediaManager.Player example. The iOS observer code still needs a Mac build.
+
+Run the portable cases and Android compile/merged-manifest checks, then use the separate
+Android/iPhone acceptance rows. Internal browsing retains the host; Shell departure
+ends the lab. No foreground timer promises background execution. Record system
+controls, route disconnection and focus recovery separately from application resume
+commands. The public 60-second timing resource has source provenance and a committed
+format/hash manifest; actual decoding and audible results remain device observations.

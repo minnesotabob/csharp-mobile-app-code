@@ -1,10 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 27: Home opens a foreground audio lab using
-original bundled WAV fixtures and durable anonymous local progress. Android now requires
-API 26 for MediaElement 12.0.0. See docs/labs/ch27-audio-progress.md and
-docs/verification.md for exact source/build evidence; listening, seeks, lifecycle and
-iOS observations remain pending. Earlier reader checkpoints retain their own requirements.
+Current expanded source reaches Chapter 28: Home opens separate foreground and
+opt-in background audio labs using original WAV timing fixtures and anonymous local
+checkpoints. The background lab adds toolkit system controls and Media3 focus/noisy
+configuration. See [the lab worksheet](docs/background-audio-lab.md) and
+[verification](docs/verification.md). Android requires API 26; native listening,
+lock-screen, interruption and iOS checks remain pending.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -15,11 +16,10 @@ map, expected results and troubleshooting. Begin with [the Part I foundation lab
 for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md)
 to run the service and client, inspect paging and work through failure cases.
 
-Current verified executable source: `c73f3cd25e175d7e89de84f3cbdaa9bacdd86af6`, with
-394 portable tests and 46 API tests passing, public loopback smoke, probe compilation
-and Android Debug compilation. Exact revisions and limits are in
-[verification](docs/verification.md). Native listening, provider/TLS integration and
-iOS builds remain pending. Earlier milestone notes below are historical.
+Current executed evidence and exact source revision are in
+[verification](docs/verification.md): 413 portable tests and 46 API tests pass,
+including the new simulated playback-owner cases. Earlier milestone notes below
+are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows
 

@@ -103,3 +103,13 @@ smoke. Follow verification.md for exact evidence and limits. The native foregrou
 page uses original bundled WAV fixtures; progress is anonymous and local. Playback,
 seeks, foreground stop and iOS remain pending device observations. No background or
 remote/customer-media capability is enabled by this milestone.
+
+## Chapter 28
+
+Source `a9e893d75689a48ecfbbe9f4e107fc5761780481`: separate opt-in background audio lab, portable playback owner and source fencing,
+public original 60-second fixture, toolkit system session/metadata, Media3 focus/noisy
+configuration and iOS pause-only interruption observers. The lab retains its mounted
+host across an internal browse panel; Shell departure releases it. This is not an
+app-wide or process-resilient service architecture. See background-audio-lab.md and
+verification.md for exact source/results; every native worksheet row and iOS compile
+remain pending.
