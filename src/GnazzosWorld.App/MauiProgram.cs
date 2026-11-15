@@ -3,6 +3,7 @@ using GnazzosWorld.App.Pages;
 using GnazzosWorld.App.Storage;
 using GnazzosWorld.Core.Catalog;
 using GnazzosWorld.Core.Presentation;
+using GnazzosWorld.Core.Storage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GnazzosWorld.App;
@@ -16,6 +17,10 @@ public static class MauiProgram
             _ => CatalogLoader.LoadBundled());
         builder.Services.AddSingleton<IFavoriteStore, PreferencesFavoriteStore>();
         builder.Services.AddSingleton<FavoriteCatalog>();
+        // Chapter 19: registered for the storage lab, not yet a replacement for
+        // the existing JSON draft store or bundled catalog on the main screen.
+        builder.Services.AddSingleton(_ => new LocalCatalogDatabase(
+            Path.Combine(FileSystem.Current.AppDataDirectory, "public-catalog-v2.sqlite3")));
         builder.Services.AddSingleton<ICatalogNavigation, ShellCatalogNavigation>();
         builder.Services.AddSingleton<IExternalBrowser, ExternalBrowser>();
         builder.Services.AddTransient<CatalogBrowserViewModel>();
