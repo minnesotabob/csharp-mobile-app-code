@@ -69,6 +69,12 @@ public sealed class AudioLabPage : ContentPage
         {
             session.Observe(observation);
             if (session.IsCurrent(observation.Ticket) && observation.Signal == PlaybackSignal.Ended) TrySave();
+            if (session.IsCurrent(observation.Ticket) && observation.Signal == PlaybackSignal.Failed)
+            {
+                TrySave();
+                try { player.Stop(); }
+                catch { persistence.Text = "Native failure cleanup could not be confirmed on this device."; }
+            }
             Refresh();
         };
         timer = Dispatcher.CreateTimer(); timer.Interval = TimeSpan.FromSeconds(5);

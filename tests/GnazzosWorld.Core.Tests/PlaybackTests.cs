@@ -68,6 +68,7 @@ public sealed class PlaybackTests : IDisposable
         Assert.False(session.Ready(ticket, Seconds(10), Seconds(3)));
         session.Observe(new(ticket, PlaybackSignal.Ended, Seconds(10)));
         Assert.Equal(PlaybackState.Empty, session.State); Assert.Null(session.Checkpoint());
+        Assert.Null(session.Current);
     }
     [Fact]
     public void Partial_resume_uses_absolute_time_for_the_same_media_revision()

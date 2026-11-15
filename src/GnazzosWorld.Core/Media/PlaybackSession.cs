@@ -112,7 +112,7 @@ public sealed class PlaybackSession
         new(Current.Id, Current.Revision, Position.Ticks, Duration.Ticks, State == PlaybackState.Ended);
     public void Close()
     {
-        generation = checked(generation + 1); State = PlaybackState.Empty;
+        generation = checked(generation + 1); State = PlaybackState.Empty; Index = -1;
         Duration = Position = TimeSpan.Zero;
     }
     private TimeSpan Clamp(TimeSpan position) => position < TimeSpan.Zero ? TimeSpan.Zero : position > Duration ? Duration : position;

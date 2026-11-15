@@ -18,7 +18,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder().UseMauiApp<App>()
-            .UseMauiCommunityToolkitMediaElement(enableForegroundService: false);
+            .UseMauiCommunityToolkitMediaElement(isAndroidForegroundServiceEnabled: false);
         builder.Services.AddSingleton(_ => new AudioProgressDatabase(
             Path.Combine(FileSystem.Current.AppDataDirectory, "anonymous-audio-progress.sqlite3")));
         builder.Services.AddTransient<AudioLabPage>();
