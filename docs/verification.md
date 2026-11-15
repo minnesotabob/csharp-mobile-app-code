@@ -1,26 +1,45 @@
-# Foundation verification
+# Part I verification — November 14, 2026 (Central)
 
-Date: November 14, 2026 (Central time).
+## Passing evidence
 
-## Observed locally
+| Check | Environment | Result |
+|---|---|---|
+| SDK inspection | Local Debian 13 | SDK 11.0.100 / runtime 11.0.0 |
+| Portable Release build and tests | GitHub-hosted Windows | 37 tests, 0 errors, 0 failures, 0 skipped |
+| Android Debug compilation | GitHub-hosted Windows, isolated SDK | Passed, final compile 0 warnings / 0 errors |
+| JSON/project/XAML validation | Local static inspection | Passed previously; not runtime evidence |
 
-.NET SDK 11.0.100, MSBuild 18.12.2, and .NET runtime 11.0.0 installed and answered dotnet --info on Debian 13. Local C# compilation/test execution was blocked during package restore; see the independent Windows CI result below.
+Portable run: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43672656910  
+Portable source: bf6f2f55b57223d28ea1cf0181b289a362ba8d40  
+Android run: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43672619935  
+Android source: 45e17eb16bfc7b5cfd17e2ea3cebc48d3e8398d4
 
-Automatic approval review rejected both the local MAUI workload installation and the test/restore process because they attempted to contact the host cloud metadata endpoint, a potential credential boundary. They were not retried or bypassed. Static JSON/XML validation is independent of compilation.
+The portable commit only adjusts a test input after the Android commit; application/core source is identical between these two verification revisions.
 
-## Safer verification route
+## Recorded Android toolchain
 
-The repository workflow uses a GitHub-hosted Windows runner, read-only repository permissions, and no repository secrets. It restores/builds only portable code/tests, then runs the xUnit executable. This avoids using the blocked local host for package restore/testing. Windows workflow run 43669410320 completed successfully at commit 0f05bf9c16a1e97118a2f85a56fc477cbe01ddd8. Its restore, Release build, and xUnit executable test steps all succeeded.
+- .NET SDK and workload set: 11.0.100.
+- .NET runtime: 11.0.0.
+- maui-android manifest: 11.0.0/11.0.100.
+- Android workload manifest/pack: 37.2.29.
+- Microsoft.Maui.Controls: 11.0.10.
+- Microsoft OpenJDK: 21.0.11+10 LTS.
+- Target framework: net11.0-android.
+- Workflow installs its SDK under runner.temp to avoid using preinstalled preview workloads.
 
-Evidence: https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43669410320
+The dependency-install target emitted one warning about unresolved cmdline-tools;21.0. Final Android compilation completed with zero warnings/errors. This remains an environment-cleanup item; it is not concealed as a wholly warning-free setup.
 
-Static validation also passed for nine XML/XAML/project/plist/SVG files and five unique catalog records. This check does not compile or execute MAUI.
+## What was corrected
 
-## Unverified
+The initial Android attempt mixed stable MAUI packages with a runner preview workload and failed with CS1705 (Java.Interop version mismatch). The workflow now explicitly installs stable workload set 11.0.100 in an isolated SDK location. An intermediate workflow expression-placement error was also corrected before the successful run.
 
-- MAUI Android and iOS compilation and launch.
-- Android SDK/JDK and Xcode compatibility; chosen minimum OS targets are provisional.
-- Emulator/physical device behavior, accessibility, signing, and release packages.
-- MFA, backend, playback, payments, and deployment are future features.
+Catalog model JSON properties are explicitly required. Tests now distinguish omitted-property serialization errors from semantic invalid metadata and cover malformed JSON, empty arrays, caller stream ownership, and null streams. No local red/green execution is claimed for these additions.
 
-SDK is pinned to 11.0.100 (latestPatch in that feature band); MAUI Controls is provisionally pinned to 11.0.10; xunit.v3 package is pinned to 4.0.0. Use no preview language switch.
+## Still unverified
+
+- Emulator and physical Android launch/interaction; no screenshot is presented as actual runtime evidence.
+- iOS compilation, Xcode compatibility, signing, simulator/device launch.
+- Accessibility on devices, keyboard/rotation behavior, process restart.
+- MFA, backend, playback, payments, and public deployment: not implemented yet.
+
+The local workload/test attempts were previously blocked by automatic review after attempted cloud metadata access. They were not retried; the isolated GitHub-hosted Windows workflows provide separate compilation/test evidence.
