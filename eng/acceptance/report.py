@@ -4,6 +4,7 @@ import hashlib
 import json
 import re
 import sys
+import uuid
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -37,16 +38,24 @@ def load_suite(path):
     require(assembly.get('errors') == '0' and not assembly.findall('./errors/error'), 'environment_error')
     tests = assembly.findall('./collection/test')
     require(tests and len(tests) <= 10000, 'case_count')
-    names, results, methods = set(), [], {}
+    case_ids, results, methods = set(), [], {}
     for case in tests:
-        name = case.get('name')
+        case_id = case.get('id')
         selector = (case.get('type'), case.get('method'))
         result = case.get('result')
-        require(name and name not in names and all(selector), 'case_identity')
+        require(isinstance(case_id, str) and len(case_id) <= 64 and case_id not in case_ids, 'case_identity')
+        try:
+            case_id = str(uuid.UUID(case_id))
+        except ValueError:
+            raise InvalidEvidence('case_identity') from None
+        require(case_id not in case_ids, 'case_identity')
         require(result in ('Pass', 'Fail', 'Skip', 'NotRun'), 'case_result')
-        names.add(name)
+        case_ids.add(case_id)
         results.append(result)
-        methods.setdefault('.'.join(selector), []).append(result)
+        # Type/method are optional in xUnit XML. Unmapped cases still affect suite cleanliness.
+        # A required method without metadata cannot match its exact selector and fails the gate.
+        if all(selector):
+            methods.setdefault('.'.join(selector), []).append(result)
     for attr, result in [('passed', 'Pass'), ('failed', 'Fail'), ('skipped', 'Skip'), ('not-run', 'NotRun')]:
         require(int(assembly.get(attr, '-1')) == results.count(result), 'summary_count')
     require(int(assembly.get('total', '-1')) == len(tests), 'summary_total')

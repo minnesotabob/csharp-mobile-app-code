@@ -19,7 +19,7 @@ class ReportTests(unittest.TestCase):
         counts = {'passed': str(int(result == 'Pass')), 'failed': str(int(result == 'Fail')), 'skipped': str(int(result == 'Skip')), 'not-run': str(int(result == 'NotRun')), 'total': '1', 'errors': '0'}
         counts.update(attrs)
         attr = ' '.join(f'{k}="{v}"' for k, v in counts.items())
-        text = f'<assemblies schema-version="3"><assembly {attr}><collection><test name="PRIVATE_DISPLAY" type="GnazzosWorld.Api.Tests.Journey" method="Recover" result="{result}"><output>PRIVATE_STORY</output></test>{extra}</collection></assembly></assemblies>'
+        text = f'<assemblies schema-version="3"><assembly {attr}><collection><test id="11111111-1111-1111-1111-111111111111" name="PRIVATE_DISPLAY" type="GnazzosWorld.Api.Tests.Journey" method="Recover" result="{result}"><output>PRIVATE_STORY</output></test>{extra}</collection></assembly></assemblies>'
         path = self.root / 'results.xml'
         path.write_text(text)
         return path
@@ -62,9 +62,21 @@ class ReportTests(unittest.TestCase):
     def test_summary_disagreement_is_rejected(self):
         with self.assertRaises(InvalidEvidence): load_suite(self.xml(total='2'))
 
-    def test_duplicate_display_identity_is_rejected(self):
-        extra = '<test name="PRIVATE_DISPLAY" type="GnazzosWorld.Api.Tests.Journey" method="Recover" result="Pass"/>'
+    def test_duplicate_runtime_identity_is_rejected(self):
+        extra = '<test id="11111111-1111-1111-1111-111111111111" name="PRIVATE_DISPLAY" type="GnazzosWorld.Api.Tests.Journey" method="Recover" result="Pass"/>'
         with self.assertRaises(InvalidEvidence): load_suite(self.xml(extra=extra, total='2', passed='2'))
+
+    def test_equal_display_names_with_distinct_runtime_ids_are_valid(self):
+        extra = '<test id="22222222-2222-2222-2222-222222222222" name="PRIVATE_DISPLAY" type="GnazzosWorld.Api.Tests.Journey" method="Recover" result="Pass"/>'
+        suite = load_suite(self.xml(extra=extra, total='2', passed='2'))
+        self.assertEqual(2, suite['total'])
+        self.assertEqual(2, len(suite['methods'][METHOD]))
+
+    def test_absent_optional_method_metadata_cannot_satisfy_required_selector(self):
+        path = self.xml(); path.write_text(path.read_text().replace(' method="Recover"', ''))
+        suite = load_suite(path)
+        self.assertTrue(suite['clean'])
+        self.assertEqual('not_satisfied', self.report(suite)['automated'][0]['status'])
 
     def test_dtd_is_rejected(self):
         p = self.xml(); p.write_text('<!DOCTYPE assemblies []>' + p.read_text())
