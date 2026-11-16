@@ -27,14 +27,19 @@ def run(*args):
 
 
 def badging(text, version):
-    match = re.search(r"package: name='([^']+)' versionCode='([0-9]+)' versionName='([^']+)'", text)
+    rows = re.findall(r'^package: (.*)$', text, re.M)
+    require(len(rows) == 1, 'package_row: ' + repr(text[:4000]))
+    fields = dict(re.findall(r"([A-Za-z][A-Za-z0-9]*)='([^']*)'", rows[0]))
     low = re.search(r"sdkVersion:'([0-9]+)'", text)
     target = re.search(r"targetSdkVersion:'([0-9]+)'", text)
-    require(match and low and target, 'package_metadata')
-    require(match[1] == PACKAGE and int(match[2]) == version, 'package_identity_version')
+    require(all(name in fields for name in ('name', 'versionCode', 'versionName'))
+            and low and target, 'package_metadata: ' + repr(text[:4000]))
+    require(fields['name'] == PACKAGE and fields['versionCode'] == str(version), 'package_identity_version')
     require(int(low[1]) == 26 and int(target[1]) >= 36, 'sdk_levels')
     require('application-debuggable' not in text, 'debuggable')
-    return {'package': match[1], 'versionCode': int(match[2]), 'versionName': match[3], 'minSdk': int(low[1]), 'targetSdk': int(target[1])}
+    return {'package': fields['name'], 'versionCode': version,
+            'versionName': fields['versionName'], 'minSdk': int(low[1]),
+            'targetSdk': int(target[1])}
 
 
 def apk_signer(text, expected):

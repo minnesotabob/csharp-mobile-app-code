@@ -57,6 +57,16 @@ class AuditTests(unittest.TestCase):
             with self.subTest(changed=changed), self.assertRaises(ValueError): badging(changed, 1)
         with self.assertRaises(ValueError): badging(source, 2)
 
+    def test_package_field_order_and_extra_build_fields(self):
+        source = (f"package: name='{PACKAGE}' versionCode='2' "
+                  "versionCodeMajor='0' versionName='0.1.0-lab.2' "
+                  "compileSdkVersion='37'\nsdkVersion:'26'\ntargetSdkVersion:'37'")
+        self.assertEqual(2, badging(source, 2)['versionCode'])
+        reordered = (f"package: versionName='0.1.0-lab.2' "
+                     f"name='{PACKAGE}' versionCode='2'\n"
+                     "sdkVersion:'26'\ntargetSdkVersion:'37'")
+        self.assertEqual(badging(source, 2), badging(reordered, 2))
+
     def test_disposable_bundle_contract(self):
         self.assertEqual(2, manifest_check(self.manifest(), 2)['versionCode'])
 
