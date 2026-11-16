@@ -1,3 +1,63 @@
+# Chapter 32 owned quotes/orders — November 15, 2026 (Central)
+
+Final executable source: `6e5921d05cc25fa965a2c93a326e571228d1f0d9`.
+SDK 11.0.100; C# 15; MAUI 11.0.10; Android minimum API 26.
+
+- Portable Release build: **0 warnings/errors; 552 cases pass** (29 new commerce
+  cases), no errors/failures/skipped/not-run cases. Both earlier synchronization and
+  account lifecycle console labs execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43814370719
+- API/probe Release builds at unchanged API/core source
+  `95ca22e178978f6bf9ce7558c018d5e5339a8319`: **0 warnings/errors; 77 cases pass**
+  (15 new commerce cases), no errors/failures/skipped/not-run cases. Kestrel public
+  catalog/media range/hash loopback smoke passes.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43813143415
+- Android Debug compilation: **success; 0 final compiler warnings/errors**. Earlier
+  merged capability/share/media/notification/link configuration assertions pass.
+  Dependency setup retains its historical unresolved cmdline-tools;21.0 warning,
+  separate from final compilation.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43814370792
+
+The initial implementation passed 552 portable/77 API cases and Android compilation
+at `95ca22e178978f6bf9ce7558c018d5e5339a8319`. Subsequent native-page review exposed
+all vocal/explicit fields for review and clears the displayed order receipt on actual
+route departure; final portable/Android runs above verify the revised composition.
+The API, portable policy and tests are unchanged by those UI/documentation refinements.
+
+Real temporary SQLite tests exercise server-calculated/canonical/immutable price
+snapshots, two independent writer connections, same-key replay, different-key quote
+reuse, cross-owner/issuer lookup, expiry, changed payload, forced history-insert rollback,
+optimistic state versions and terminal transitions. Journal tests prove partitioning,
+reopen, unresolved replacement blocking, rejection policy, receipt version checks and
+redacted record text. Production coordinator tests prove persistence failure sends no
+HTTP and committed-but-lost reply survives both databases reopening after quote expiry.
+Controlled delayed HTTP verifies A's sign-out prevents late publication under B.
+
+Signed JWT API integration covers default-disabled routes, dedicated scopes, owner
+predicates, no-store, strict bounded JSON and absence of customer state/payment updates.
+The production OrderApiClient/coordinator also create/accept/persist and GET-refresh a
+controlled fixture version through the actual middleware. These are in-process tests,
+not live provider or device/TLS evidence. Server AdvanceForLab is trusted in-process
+simulation only; it has no customer HTTP route and supplies no payment authorization.
+
+The opt-in API stores synthetic plaintext quotes/orders/history in a separate v1 SQLite
+file. Quoted historical amounts are teaching snapshots, not live offers. Accepted means
+recorded request, not paid or real production. App journal stores one last operation per
+issuer/subject/origin/audience (16 partitions), no tokens, and persists before POST and
+before UI success. Unresolved ambiguity retains the original key. Only ExpiredQuote,
+ChangedRequest and Unavailable are definitive post-replay rejection codes. Sign-out
+retains original-owner journal for reconciliation; it is not a physical purge.
+
+**Pending:** live tenant grants/sign-in/refresh/sign-out; native TLS, callback/browser,
+route/window, restart/storage/accessibility observations; iOS compilation; payment and
+real production authorization (Chapter 33), full owned history/private delivery (34),
+privacy export/deletion composition, schema migration/retention/backups/distributed
+budgets and operational audit (35). Historical quote rows count against lab capacity;
+there is no automatic cleanup. Customer attachment upload remains separate.
+See commerce-lab.md for configuration, protocol, state graph and acceptance worksheet.
+
+---
+
 # Chapter 31 native capabilities and attachments — November 15, 2026 (Central)
 
 Corrected workflow/executable source: `82a68ba52c2a83b84d5c1f68be7d4e733312e338`.

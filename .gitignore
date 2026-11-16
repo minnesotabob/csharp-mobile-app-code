@@ -7,3 +7,9 @@ TestResults/
 *.p12
 *.mobileprovision
 appsettings.*.local.json
+
+# Synthetic SQLite labs and their transaction sidecars remain local.
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*

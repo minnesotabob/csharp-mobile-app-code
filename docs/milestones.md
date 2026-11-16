@@ -144,3 +144,17 @@ haptics are optional. 523 portable and 62 API cases pass at the implementation r
 exact final native/configuration evidence is recorded separately. Customer uploads,
 durable owner/draft composition, native codec/provider/share acceptance and iOS compile
 remain pending. No camera capture or location permission is added.
+
+## Chapter 32 / Part VII
+
+Final executable source `6e5921d05cc25fa965a2c93a326e571228d1f0d9` adds opt-in
+server-owned canonical quotes, immutable teaching price snapshots, SQLite atomic
+order/history acceptance, owned operation replay before expiry, dedicated read/write
+scopes and a durable account/resource-partitioned client journal. 552 portable and
+77 API cases pass; Android compiles cleanly. API/core source is unchanged from its
+verified `95ca22e178978f6bf9ce7558c018d5e5339a8319` run; later UI refinements expose
+all quote fields and clear displayed receipts on route departure. Exact runs are in
+verification.md. See commerce-lab.md for configuration and acceptance worksheet.
+Accepted is not paid or real production. Live identity/device/iOS, privacy lifecycle,
+verified payment, full order tracking/private delivery and operational recovery remain
+pending separate boundaries. The lab does not upload earlier local attachments.

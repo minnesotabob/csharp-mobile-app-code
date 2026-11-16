@@ -145,5 +145,6 @@ origin and opt-in backend. Review every canonical specification field, teaching 
 and expiry. Accept/retry once, restart, switch accounts during a delayed reply and
 verify the original account can reconcile its saved key while the second account sees
 no prior receipt. Test actual Shell departure versus auth-browser visibility, local
-storage failure, token expiry and TLS failure. No payment/production outcome should be
+storage failure, token expiry and TLS failure. Leaving the route must clear the
+displayed receipt as well as the quote before another account can return. No payment/production outcome should be
 claimed. Record iOS compilation and native identity/device results separately from CI.
