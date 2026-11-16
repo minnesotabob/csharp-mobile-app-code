@@ -47,7 +47,7 @@ public sealed class OrderLabPage:ContentPage
             quote=null;quoteOwner=null;quoteText.Text="";
             var result=await api.QuoteAsync(draft,owner,ct);ct.ThrowIfCancellationRequested();if(!session.IsCurrent(owner.Access))throw new SessionEndedException();
             quote=result;quoteOwner=owner;
-            quoteText.Text=$"{result.Request.Minutes} minutes × {result.Request.Quantity}; {result.Request.Genre}; {result.Request.Occasion}\nStory: {result.Request.Story}\nContact: {result.Request.ContactName} / {result.Request.Email}\nTeaching total {result.Currency} {result.TotalMinor/100m:0.00}; expires {result.ExpiresAt:u}.";
+            quoteText.Text=$"{result.Request.Minutes} minutes × {result.Request.Quantity}; {result.Request.Genre}; {result.Request.Occasion}\nVocals: {result.Request.WithVocals}; explicit allowed: {result.Request.AllowExplicit}\nVocal notes: {result.Request.VocalNotes}\nStory: {result.Request.Story}\nContact: {result.Request.ContactName} / {result.Request.Email}\nTeaching total {result.Currency} {result.TotalMinor/100m:0.00}; expires {result.ExpiresAt:u}.";
             status.Text="Review the server-normalized snapshot before accepting. Expiry is enforced by the server.";
         }
         void Show(OrderSnapshot result)

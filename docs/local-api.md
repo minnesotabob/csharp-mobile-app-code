@@ -2,8 +2,9 @@
 
 This local teaching backend serves public demo catalog data and an original public
 WAV. Chapters 23–26 also add an independently authorized request-preview route;
-that preview is not a private media-delivery service. There are no customer-request write
-routes, production database, live media proxy, payments or deployment in this lab.
+that preview is not a private media-delivery service. Default configuration has no customer order writes. Chapter 32 separately enables
+synthetic SQLite quote/order writes: see commerce-lab.md. There is no production
+database, live media proxy, payment or deployment in this lab.
 Chapter 30 separately adds protected push-registration PUT/DELETE operations; these
 are bounded volatile registry writes, not an outbound notification sender.
 Do not use real customer stories or contact data. The app's main catalog and its

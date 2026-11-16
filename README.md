@@ -1,12 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 31: Home opens a bounded local attachment and
-native capability lab. Provider streams, text/photo limits, normalized PNG inspection,
-scope generations, verified share copies and a narrow Android FileProvider root are
-implemented. Connectivity is a hint; haptics default off. See
-[the worksheet](docs/capability-attachment-lab.md) and [verification](docs/verification.md).
-Customer upload/account attachment composition, native provider/codec/share acceptance
-and iOS compilation remain pending.
+Current expanded source reaches Chapter 32: Home opens an opt-in quote/order lab.
+The service validates owned quotes and commits immutable order snapshots/history;
+a durable account/resource-partitioned client journal reconciles lost replies.
+See [the commerce worksheet](docs/commerce-lab.md) and [verification](docs/verification.md).
+Accepted is a teaching request, not paid or real production. Live identity/device
+acceptance, privacy lifecycle composition and iOS compilation remain pending.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -18,8 +17,8 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 523 portable tests and 62 API tests pass,
-including real-file attachment policy tests with a simulated image normalizer. Earlier milestone notes below
+[verification](docs/verification.md): 552 portable tests and 77 API tests pass,
+including real SQLite transactions and signed-token order ownership tests. Earlier milestone notes below
 are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows
@@ -109,6 +108,6 @@ integration follows in Chapter 18. See HttpCatalogTests.cs and docs/verification
 
 The ASP.NET Core companion now exposes versioned public catalog documents, the
 earlier items array, revision-aware paging and development OpenAPI. Run the service
-and HTTPS probe using docs/local-api.md. The API has no customer writes or deployment.
+and HTTPS probe using docs/local-api.md. The default API has no customer order writes or deployment; Chapter 32 adds separately opt-in synthetic order routes.
 Tests cover the actual pipeline; a separate Kestrel loopback HTTP smoke checks startup.
 The native main catalog and networking lab retain their earlier bundled/demo modes.

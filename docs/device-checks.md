@@ -137,3 +137,13 @@ share URI/grants and phone/tablet presentation, receiver timing, cache/write fai
 connectivity hints and haptic/system settings. Synthetic PNG/framing and real temporary
 file policy tests do not establish native pixels or external file sharing. iOS compilation
 and account-authorized customer attachment/upload composition remain separate work.
+
+## Chapter 32 additions — native execution pending
+
+Follow [commerce-lab.md](commerce-lab.md) for configured dedicated scopes, fixed HTTPS
+origin and opt-in backend. Review every canonical specification field, teaching price
+and expiry. Accept/retry once, restart, switch accounts during a delayed reply and
+verify the original account can reconcile its saved key while the second account sees
+no prior receipt. Test actual Shell departure versus auth-browser visibility, local
+storage failure, token expiry and TLS failure. No payment/production outcome should be
+claimed. Record iOS compilation and native identity/device results separately from CI.

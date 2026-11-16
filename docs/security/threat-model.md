@@ -168,3 +168,17 @@ The lab is transient unencrypted synthetic-reference storage, not customer uploa
 16 MiB aggregate staging budget includes abandoned app-owned scope files but not all
 OS/provider/SDK caches. No camera or location feature is enabled. Clearing the local
 workspace cannot erase the provider original, recovered picker result or receiver copy.
+
+## Chapter 32 commerce boundary
+
+| Threat | Control and remaining evidence |
+| --- | --- |
+| Forged owner/amount/state | Strict DTO; validated issuer/sub owner; server teaching pricing; no customer transition/payment route |
+| Duplicate acceptance/lost reply | Owner/key + quote uniqueness; immediate SQLite order/history transaction; durable client operation before POST |
+| Late reply crosses accounts/resources | Session leases; issuer/sub/origin/audience journal partitions; signed owner predicates |
+| Pending request discarded after ambiguous error | Stable key retained except explicit post-replay definitive rejection; no automatic fresh submit |
+| Private story in cache/logs | no-store, redacted payload ToString, bounded synthetic-only plaintext SQLite; physical protection/privacy lifecycle still pending |
+
+See commerce-lab.md and verification.md. Controlled fixture state changes are not real
+payment/administrative authorization. Capacity/rate limits are lab policy; distributed
+abuse protection, backups and complete audit evidence remain operational work.
