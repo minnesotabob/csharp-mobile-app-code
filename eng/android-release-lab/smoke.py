@@ -41,7 +41,15 @@ def version(expected):
 
 def launch():
     adb('shell', 'am', 'force-stop', PACKAGE)
-    result = adb('shell', 'am', 'start', '-W', '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.LAUNCHER', '-p', PACKAGE)
+    resolved = adb('shell', 'cmd', 'package', 'resolve-activity', '--brief',
+                   '-a', 'android.intent.action.MAIN', '-c', 'android.intent.category.LAUNCHER',
+                   '-p', PACKAGE, '--include-stopped-packages')
+    components = {line.strip() for line in resolved.splitlines()
+                  if re.fullmatch(re.escape(PACKAGE) + r'/[A-Za-z0-9_.$]+', line.strip())}
+    require(len(components) == 1, 'launcher_resolution: ' + resolved[-2000:])
+    component = components.pop()
+    print('Resolved disposable launcher: ' + component)
+    result = adb('shell', 'am', 'start', '-W', '-n', component)
     require('Status: ok' in result, 'launcher')
     wait_ui(lambda nodes: any(n.get('package') == PACKAGE and n.get('text') == "Gnazzo's World" for n in nodes))
 
