@@ -285,3 +285,15 @@ a finite native list viewport and original raw image variants without claiming f
 or memory measurements. Tools/PerformanceLab records Release search/construction/API
 and controlled omitted-Dispose observations; the workflow uploads safe measured JSON.
 Source palette review and still-pending device results live under docs/reviews.
+
+
+## Chapter 38 source map
+
+[Android Release rehearsal](android-release-lab.md) maps the complete Windows signing,
+package audit and fresh-emulator install/update procedure. `eng/android-release-lab`
+contains Build-ReleaseLab.ps1, audit.py, smoke.py and twelve Python guard tests.
+`ReleaseProbeActivity` exists only in the guarded isolated testOnly profile. It seeds
+and checks invented data through the actual FileRequestDraftStore; it is absent from
+ordinary builds. The workflow transfers only disposable packages and bounded reports.
+Actual run/revision/status belongs in verification.md. Play submission, production
+signers, physical devices and 16 KiB runtime require separate evidence.

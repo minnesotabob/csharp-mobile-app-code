@@ -1,3 +1,70 @@
+# Chapter 38 Android signing and observed upgrade — November 16, 2026 (Central)
+
+The signed candidate was built at `b15607e6afe2427d4d21b38a913dafcbbc85a082`.
+The final smoke harness is `698aa3d431d0f7e39239c3a31a174263acf0295c`.
+Application/Core/API production C# is unchanged by the later harness corrections.
+
+| Check | Actual result | Evidence |
+| --- | --- | --- |
+| Portable Release at final harness source | 644 cases pass; no errors/failures/skips/not-run | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43950480838 |
+| Python package-audit guards | 12 tests pass locally and in package job | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43947661043 |
+| Signed Release publication and package audit | v1/v2 x86-64 APKs and v2 arm64 AAB pass identity, signature, manifest/SDK, native alignment and bundle checks | Same package run; package job succeeded although its earlier implicit-launch harness failed |
+| Corrected immutable-candidate emulator recheck | Actual installation, Home launch, synthetic draft save, replacement update, same UID, Home relaunch and persisted draft read all pass | https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43950480975 |
+
+## Exact observations and retained evidence
+
+The emulator reported `sdk_gphone64_x86_64`, API 35, x86_64 and a 4096-byte page size.
+It used the Pixel-6 runner profile. APK version codes 1 and 2 installed in order, without
+an intervening uninstall. Both source APK hashes matched their package report.
+The actual FileRequestDraftStore saved and recovered invented `release@example.test`
+data through the guarded test-only probe. Normal app builds do not contain that probe.
+Cleanup removed only the disposable package after the observation.
+
+The built artifacts report minimum API 26 and target API 37. Both APK signature and
+16 KiB ZIP-alignment checks passed; all ten native libraries in each of the three
+artifacts passed the static ELF load-alignment checks. The AAB passed jarsigner,
+certificate and pinned bundletool validation. Actual 16 KiB execution remains not_run.
+Individual Release publish summaries reported zero compiler warnings/errors; historical
+Android dependency-install/runner deprecation notices remain separate from compilation.
+
+Safe original reports are retained without rewriting their provenance:
+
+- `docs/reviews/ch38-package-evidence.json`: candidate b15607e / package run 43947661043.
+- `docs/reviews/ch38-upgrade-evidence.json`: same candidate, harness 698aa3d / run 43950480975.
+- `docs/reviews/ch38-package-evidence-b0e4729.json`: earlier successful package audit.
+
+Artifacts 14265787394 (packages) and 14266347694 (bounded upgrade JSON) expire after
+seven days; no private keystore/password, customer database or raw diagnostic file is
+uploaded as safe evidence. GHA console diagnostics remain a separate channel.
+Original JSON hashes/source fields are comparison metadata, not independent attestation.
+
+## Failures investigated and corrected
+
+Current apksigner labels the certificate by signature scheme (`V3.0 Signer:`), and
+current aapt2 labels the minimum `minSdkVersion`. The parser preserves one-signer,
+expected-certificate, package/version and SDK assertions while supporting those formats.
+Distinct explicit versioned manifest inputs fixed stale package-version reuse. The
+emulator's empty successful package-list query replaced pm path, whose nonzero absence
+status had stopped the freshness guard. Finally, the installed manifest was inspected:
+its MAIN/LAUNCHER filter was present. Resolving and explicitly starting that component
+fixed the implicit shell-intent failure, without altering the candidate application.
+
+The immutable recheck downloads a named audited artifact with contents/actions read
+permissions, verifies candidate identity and APK hashes, and records both candidate and
+harness revisions/runs. It does not relabel old package bytes as a new compilation.
+The optional frozen fixture expires; rebuild/audit a new one before updating its pointer.
+The full signing workflow still builds fresh candidates for app/publisher/audit changes.
+
+## Scope limits
+
+This establishes one actual isolated signed Release emulator scenario. It does not
+complete full native acceptance, production migration/recovery, physical Android/iOS,
+16 KiB runtime, TalkBack/VoiceOver, real identity/MFA, real checkout, Play signing/test
+tracks/submission, public hosting or iOS compilation/signing. Existing manual acceptance
+rows and release_readiness remain unassessed unless separately observed. No store
+upload, production signer or real customer/provider account was used. Earlier API and
+other workflow evidence retains its own source and scope; it was not silently rerun.
+
 # Chapter 37 performance, reliability and accessibility — November 16, 2026 (Central)
 
 Final executable source: `c82eff270ec50c3ef4916c4401576ba1b893b1a9`.
@@ -1151,3 +1218,4 @@ Prior local workload/test attempts were blocked by automatic review after attemp
 ## Pending
 
 Emulator/hardware launch, iOS compilation/Xcode/signing, native accessibility, keyboard/rotation/lifecycle, device language changes, runtime theme rendering and Release-device performance. Global Shell navigation is for the active single-window flow; full multiwindow ownership is not implemented. Remote images, backend, identity/MFA, media, payments and deployment remain later work. Artwork in the manuscript is editorial illustration, never runtime evidence.
+

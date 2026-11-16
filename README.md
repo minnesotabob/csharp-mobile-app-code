@@ -111,3 +111,8 @@ earlier items array, revision-aware paging and development OpenAPI. Run the serv
 and HTTPS probe using docs/local-api.md. The default API has no customer order writes or deployment; Chapter 32 adds separately opt-in synthetic order routes.
 Tests cover the actual pipeline; a separate Kestrel loopback HTTP smoke checks startup.
 The native main catalog and networking lab retain their earlier bundled/demo modes.
+
+
+## Chapter 38 Android Release rehearsal
+
+See [the complete lab](docs/android-release-lab.md) and [exact verification](docs/verification.md) for disposable signing, package audit and observed emulator installation/update. Public store submission and full native acceptance remain separate.

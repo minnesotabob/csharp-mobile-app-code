@@ -1,0 +1,246 @@
+{
+  "schema": 1,
+  "revision": "b0e47290365de434a87c2973a2761bce5334fd40",
+  "runId": "43945607138",
+  "profile": "disposable-testOnly-Release",
+  "bundletool": "1.18.3",
+  "packages": [
+    {
+      "file": "v1.apk",
+      "bytes": 25683829,
+      "sha256": "be8f24e8d367c607b9b48014f2c51319eb6cdfccbb79593d4c84aff1be0bcc49",
+      "metadata": {
+        "package": "com.johngnazzo.gnazzosworld.releaselab",
+        "versionCode": 1,
+        "versionName": "0.1.0-lab.1",
+        "minSdk": 26,
+        "targetSdk": 37
+      },
+      "signerSha256": "716f085034f67ec7f8186fe8989ce9872d77430b0afb38ece53900846c3e1a1f",
+      "signatureVerified": true,
+      "testOnly": true,
+      "nativeLibraries": [
+        {
+          "abi": "x86_64",
+          "name": "libassembly-store.so",
+          "loadSegments": 2,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libxamarin-app.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.Globalization.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.IO.Compression.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.Security.Cryptography.Native.Android.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libclrjit.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libcoreclr.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libmonodroid.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libe_sqlite3.so",
+          "loadSegments": 3,
+          "elf16k": true
+        }
+      ],
+      "zip16kChecked": true
+    },
+    {
+      "file": "v2.apk",
+      "bytes": 25683829,
+      "sha256": "4009988e0413c41f8ee795cc7c00d00329a1b8b83fe5bb5347adadd430dc8e89",
+      "metadata": {
+        "package": "com.johngnazzo.gnazzosworld.releaselab",
+        "versionCode": 2,
+        "versionName": "0.1.0-lab.2",
+        "minSdk": 26,
+        "targetSdk": 37
+      },
+      "signerSha256": "716f085034f67ec7f8186fe8989ce9872d77430b0afb38ece53900846c3e1a1f",
+      "signatureVerified": true,
+      "testOnly": true,
+      "nativeLibraries": [
+        {
+          "abi": "x86_64",
+          "name": "libxamarin-app.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.Globalization.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.IO.Compression.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libSystem.Security.Cryptography.Native.Android.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libclrjit.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libcoreclr.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libmonodroid.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libe_sqlite3.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "x86_64",
+          "name": "libassembly-store.so",
+          "loadSegments": 2,
+          "elf16k": true
+        }
+      ],
+      "zip16kChecked": true
+    },
+    {
+      "file": "v2.aab",
+      "bytes": 22278024,
+      "sha256": "0b5f836b1e7967231aba467a5aa4660a58274cb4f67242ef0a8ececef6e22ff8",
+      "metadata": {
+        "package": "com.johngnazzo.gnazzosworld.releaselab",
+        "versionCode": 2,
+        "minSdk": 26,
+        "targetSdk": 37
+      },
+      "signerSha256": "716f085034f67ec7f8186fe8989ce9872d77430b0afb38ece53900846c3e1a1f",
+      "signatureVerified": true,
+      "testOnly": true,
+      "nativeLibraries": [
+        {
+          "abi": "arm64-v8a",
+          "name": "libassembly-store.so",
+          "loadSegments": 2,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libxamarin-app.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libSystem.Globalization.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libSystem.IO.Compression.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libSystem.Native.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libSystem.Security.Cryptography.Native.Android.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libclrjit.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libcoreclr.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libmonodroid.so",
+          "loadSegments": 3,
+          "elf16k": true
+        },
+        {
+          "abi": "arm64-v8a",
+          "name": "libe_sqlite3.so",
+          "loadSegments": 3,
+          "elf16k": true
+        }
+      ],
+      "zip16kChecked": false
+    }
+  ],
+  "playSubmission": "not_run",
+  "playSigning": "not_run",
+  "physicalDevice": "not_run",
+  "runtime16k": "not_run"
+}
