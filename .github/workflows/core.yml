@@ -26,3 +26,5 @@ jobs:
         run: dotnet run --project samples/GnazzosWorld.SyncLab/GnazzosWorld.SyncLab.csproj -c Release
       - name: Run Chapter 25 account lifecycle lab
         run: dotnet run --project samples/GnazzosWorld.AccountLab/GnazzosWorld.AccountLab.csproj -c Release
+      - name: Run Chapter 34 synthetic fulfillment fixture
+        run: dotnet run --project tools/GnazzosWorld.FulfillmentLab/GnazzosWorld.FulfillmentLab.csproj -c Release -- smoke
