@@ -13,6 +13,7 @@ New-Item -ItemType Directory $owned | Out-Null
 New-Item -ItemType Directory $destination | Out-Null
 $keytool = Join-Path $JavaSdk 'bin/keytool.exe'
 $project = Join-Path $repo 'src/GnazzosWorld.App/GnazzosWorld.App.csproj'
+$manifestOwned = Join-Path (Split-Path $project) ('obj/release-lab-manifest-' + [Guid]::NewGuid().ToString('N'))
 $secretPath = Join-Path $owned 'signing-password.txt'
 $store = Join-Path $owned 'disposable.p12'
 $cert = Join-Path $owned 'public.der'
@@ -28,7 +29,10 @@ try {
     $fingerprint = (Get-FileHash $cert -Algorithm SHA256).Hash.ToLowerInvariant()
     [xml]$manifest = Get-Content (Join-Path $repo 'src/GnazzosWorld.App/Platforms/Android/AndroidManifest.xml')
     $manifest.manifest.application.SetAttribute('testOnly', 'http://schemas.android.com/apk/res/android', 'true') | Out-Null
-    $manifestPath = Join-Path $owned 'AndroidManifest.xml'; $manifest.Save($manifestPath)
+    New-Item -ItemType Directory $manifestOwned | Out-Null
+    $manifestPath = Join-Path $manifestOwned 'AndroidManifest.xml'; $manifest.Save($manifestPath)
+    # Android SDK resolves this property relative to the project, even for a Windows absolute path.
+    $manifestRelative = [IO.Path]::GetRelativePath((Split-Path $project), $manifestPath)
     $variants = @(
         @{ Name = 'v1'; Version = 1; Rid = 'android-x64'; Format = 'apk' },
         @{ Name = 'v2'; Version = 2; Rid = 'android-x64'; Format = 'apk' },
@@ -40,7 +44,7 @@ try {
             '-p:GnazzoAndroidReleaseLab=true' '-p:ApplicationId=com.johngnazzo.gnazzosworld.releaselab' `
             "-p:ApplicationVersion=$($variant.Version)" "-p:ApplicationDisplayVersion=0.1.0-lab.$($variant.Version)" `
             "-p:AndroidPackageFormats=$($variant.Format)" '-p:AndroidKeyStore=true' `
-            "-p:AndroidManifest=$manifestPath" "-p:AndroidSigningKeyStore=$store" '-p:AndroidSigningKeyAlias=disposable' `
+            "-p:AndroidManifest=$manifestRelative" "-p:AndroidSigningKeyStore=$store" '-p:AndroidSigningKeyAlias=disposable' `
             "-p:AndroidSigningKeyPass=file:$secretPath" "-p:AndroidSigningStorePass=file:$secretPath" `
             "-p:AndroidSdkDirectory=$AndroidSdk" "-p:JavaSdkDirectory=$JavaSdk"
         Check-Native "Release $($variant.Name) publish"
@@ -54,5 +58,6 @@ try {
 }
 finally {
     Remove-Item Env:GNAZZO_LAB_KEY_PASSWORD -ErrorAction SilentlyContinue
-    Remove-Item $owned -Recurse -Force -ErrorAction SilentlyContinue
+    Remove-Item $owned -Recurse -Force -ErrorAction Stop
+    if (Test-Path $manifestOwned) { Remove-Item $manifestOwned -Recurse -Force -ErrorAction Stop }
 }
