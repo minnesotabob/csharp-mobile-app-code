@@ -123,3 +123,13 @@ with GET/HEAD/Range/If-Range support. 448 portable and 53 API cases pass; Androi
 compile and merged manifest pass. See verification.md and download-lab.md. Native
 TLS/storage/eviction and iOS compilation remain pending; private deliveries and OS
 background transfer scheduling are not implemented.
+
+## Chapter 30
+
+Corrected source `23e90f12d28060120d331d02a9e77d07a1091843` adds local notification
+adapters, typed canonical links, real SQLite pending/receipt bounds, ready-window
+routing, explicit private-read continuation and public share-sheet invocation. Optional
+push registration uses current API leases and dedicated scope/owner checks, persisted
+generations and a bounded volatile server registry. 488 portable cases and 62 API cases
+pass; Android compilation and notification/link manifest assertions pass. See verification.md
+for exact tested revisions. Native/FCM/APNs delivery and iOS compilation remain pending.

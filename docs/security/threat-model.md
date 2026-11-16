@@ -142,3 +142,16 @@ Descriptor authority is supplied by teaching composition, not by a hash alone. H
 injection is trusted; production redirects/decompression are disabled. The single-writer
 contract is one instance per folder, not a cross-process lock. Same-directory rename
 does not establish power-loss durability. Public sample data is not customer content.
+
+## Chapter 30 — untrusted activation and push registration
+
+| ID | Risk | Current control | Remaining evidence |
+| --- | --- | --- | --- |
+| T21 | Forged payload selects arbitrary route/account or exposes private content | Canonical typed grammar, bounded schema/expiry, fixed routes, no customer text, explicit request continuation plus existing API owner gates | Native callback/readiness and obsolete-page/session cancellation observations pending |
+| T22 | Token registration crosses owners or leaks device endpoints | Dedicated scope, validated issuer/subject, fixed HTTPS origin/session lease, bounded token/body, redacted record text, no token echo, generation/owner conflicts | Real SDK token-validity/installation proof, provider configuration, durable cleanup/account orchestration pending |
+| T23 | Replayed hints or retained private metadata outlive expected use | Real SQLite bounds (8 pending/128 retained), expiry/receipts, pending coalescing, explicit clear; only opaque synthetic request IDs | OS replay ordering, backup/shared-device privacy, crash between navigate/receipt; no exactly-once or physical-erasure claim |
+
+Custom schemes are not verified domain associations. Push registry is single-process,
+volatile and capped, with no outbound sender or provider credentials. Permission/shape
+checks do not establish provider token ownership or delivery. Native lab acquires no
+push token. Production needs SDK/account binding, durable cleanup and privacy review.

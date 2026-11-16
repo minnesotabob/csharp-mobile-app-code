@@ -1,3 +1,55 @@
+# Chapter 30 notifications, links and sharing — November 15, 2026 (Central)
+
+Corrected executable source: `23e90f12d28060120d331d02a9e77d07a1091843` on main.
+SDK 11.0.100, C# 15, MAUI 11.0.10; Android minimum API 26.
+
+- Portable Release build: **0 warnings/errors; 488 cases pass** (40 new cases),
+  no errors/failures/skipped/not-run cases. Earlier Chapter 21 and 25 console labs
+  execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43772049238
+- API/probe Release builds at unchanged API/core parent
+  `09ed64e9d2cb16851b080d0a9816b767b1984f24`: **0 warnings/errors; 62 cases pass**
+  (9 new cases), no errors/failures/skipped/not-run cases. Actual ApiSession HTTP sink
+  registers/removes through signed-token middleware; owner/scope/generation/body/cap
+  checks pass. Kestrel public catalog/media range/hash loopback smoke still passes.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43771527612
+- Android Debug compilation: **success; 0 final compiler warnings/errors**. Merged
+  POST_NOTIFICATIONS permission and VIEW/DEFAULT/BROWSABLE custom scheme/host filter
+  assertions pass, along with earlier media service assertions. Dependency installation
+  retains the historical cmdline-tools;21.0 warning, separate from final compilation.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43772049172
+
+Initial native compilation exposed nullable NotificationManagerCompat.From results;
+the corrected adapter handles absence explicitly. The first manifest assertion wrongly
+required host and scheme on one data element. Generated XML uses separate data elements
+inside one intent filter. The corrected assertion verifies their collective filter
+semantics and emits the exact filter; it does not claim a native activation result.
+
+Portable cases use real temporary SQLite for persistence/reopen, pending coalescing,
+receipt replay, expiry, clear and capacity. Parser/payload cases reject unapproved
+routes, oversized/unknown/duplicate JSON fields and invalid lifetimes. Simulated push
+sink cases cover permission loss, rotation, persist-before-send, restart generation,
+failed persistence/removal and redaction. API cases verify authenticated dedicated
+scope, owner isolation, generations, no token echo/no-store, limits, expiry, token
+uniqueness and actual HTTP sink registration/removal. No test prompts/displays/taps,
+shares to a person or delivers a real push message.
+
+Native local adapters, canonical custom-scheme links, bounded routing inbox, explicit
+private-read continuation and public share-sheet code are present. The optional push
+registration path is implemented/tested but no FCM/APNs acquisition SDK, provider
+project/key, delivery sender/receiver or durable registry is configured. Custom links
+are not verified HTTPS association and have no browser fallback. Server registration
+shape/permission does not prove provider token validity or device possession.
+
+**Pending:** iOS compilation; actual permission/channel presentation, OS warm/cold tap
+ordering, queued readiness, private read cancellation on device, share-sheet behavior,
+provider token rotation/account cleanup/outbox and live FCM/APNs delivery. SQLite hint
+metadata is unencrypted; backup/shared-device privacy requires review. No exactly-once
+navigation guarantee is claimed. See notification-link-lab.md for all native rows and
+remaining account/provider composition gates. Historical records follow.
+
+---
+
 # Chapter 29 public downloads — November 15, 2026 (Central)
 
 Executed source: `373dad1f2ebe14843989c3f4bb578e5a97b02b19` on main.

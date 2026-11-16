@@ -6,11 +6,11 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 29 adds a public media download lab with explicit cancellation/resume,
-range validation, integrity verification and storage budgets. Start with
-[the download worksheet](download-lab.md) after Chapters 27–28. Exact executed
-source and CI results are in [verification.md](verification.md). Native TLS/storage
-behavior, provider integration and iOS compilation remain separate pending work.
+Chapter 30 adds native local notifications, typed inbound links, a bounded durable
+inbox, public sharing and an optional authenticated push-registration pipeline.
+Start with [the worksheet](notification-link-lab.md). Exact executed source and CI
+results are in [verification.md](verification.md). Native notification/share behavior,
+live provider delivery, HTTPS association and iOS compilation remain pending.
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -194,3 +194,16 @@ Kestrel smoke separately checks a full hash and exact byte slice over loopback H
 Use download-lab.md for native setup, scope and acceptance. The original WAV is public;
 private delivery descriptors are rejected. Cache eviction and available-space races
 are real lifecycle concerns, not conditions that a percentage display can resolve.
+
+## Chapter 30 — notifications, links and sharing
+
+Read LinkTarget/NotificationEnvelope before RouteInbox: a validated hint is neither
+an arbitrary Shell URI nor an authorization grant. Follow persisted pending/receipt
+behavior into NotificationRouter and the window readiness callbacks. Compare local
+arrival presentation with the default-tap bridge. LinkedRequestPage fetches nothing
+automatically and uses the existing session-fenced protected read after user action.
+
+The optional coordinator persists generation before sending through HttpPushRegistrationSink.
+Follow it into the scope/owner/body/budget checks in PushRegistrationEndpoints. Provider
+SDK acquisition, production registry durability, account cleanup/outbox and live delivery
+are separate gates; do not equate synthetic registration with an actual FCM/APNs message.

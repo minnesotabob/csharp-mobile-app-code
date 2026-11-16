@@ -2,8 +2,10 @@
 
 This local teaching backend serves public demo catalog data and an original public
 WAV. Chapters 23–26 also add an independently authorized request-preview route;
-that preview is not a private media-delivery service. There are no customer write
+that preview is not a private media-delivery service. There are no customer-request write
 routes, production database, live media proxy, payments or deployment in this lab.
+Chapter 30 separately adds protected push-registration PUT/DELETE operations; these
+are bounded volatile registry writes, not an outbound notification sender.
 Do not use real customer stories or contact data. The app's main catalog and its
 Chapter 17 native lab remain bundled/in-process; they are not silently reconfigured.
 
@@ -142,3 +144,12 @@ Sources:
 See download-lab.md for the descriptor, foreground downloader and pending native/TLS
 checks. Results.File owns Range/If-Range/HEAD processing; no path parameter or private
 delivery identifier is accepted. API tests and the loopback smoke check actual bytes.
+
+## Chapter 30 optional push registry
+
+PUT/DELETE /api/v1/notification-installations/{canonicalInstallationId} require a
+validated credential with notifications:manage. Body <=4096 bytes, current owner
+claims, monotonic generation, four installations/owner, 100 total and 24-hour volatile
+expiry. See notification-link-lab.md. No GET token inventory or outbound send endpoint
+is supplied; real provider credentials/delivery and durable production storage remain
+pending. Protected read and push registration use separate coarse process budgets.

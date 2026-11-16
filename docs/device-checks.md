@@ -120,3 +120,11 @@ Use download-lab.md. Every Android/iPhone row remains pending: HTTPS reachabilit
 trust, cancellation timing, process restart, cache eviction, low-space/write behavior
 and deletion. Portable injected-space failures, ASP.NET pipeline tests and real loopback
 HTTP range/hash checks do not establish native networking or filesystem behavior.
+
+## Chapter 30 notifications, links and sharing
+
+Every row in notification-link-lab.md remains pending: grant/deny/revoke, OS/channel
+presentation, warm/cold/default tap, callback readiness, duplicate/expired hint, private
+sign-in continuation/cancellation, share-sheet return/cancel and installed-app link
+behavior. Live FCM/APNs SDK setup/delivery, verified domain association and iOS compile
+are additional gates. API registration tests do not display or deliver notifications.
