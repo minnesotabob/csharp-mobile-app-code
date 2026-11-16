@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "automated": [
+    {"id":"A36-ORDER-RECOVERY","suite":"api","method":"GnazzosWorld.Api.Tests.AcceptanceJourneyTests.Anniversary_journey_recovers_committed_reply_loss","cases":2},
+    {"id":"A36-AUTHORIZATION","suite":"api","method":"GnazzosWorld.Api.Tests.RequestAuthorizationTests.Real_bearer_handler_rejects_invalid_tokens","cases":5},
+    {"id":"A36-SYNC-REPLAY","suite":"core","method":"GnazzosWorld.Core.Tests.UserSyncTests.Lost_acknowledgment_reopens_and_replays_one_operation","cases":1},
+    {"id":"A36-MEDIA-RESUME","suite":"core","method":"GnazzosWorld.Core.Tests.DownloadTests.Interrupted_transfer_resumes_after_new_downloader_instance_with_exact_range_and_validator","cases":1},
+    {"id":"A36-RESTORE-REVIEW","suite":"core","method":"GnazzosWorld.Core.Tests.OperationsTests.Restore_invalidates_grants_and_requires_exact_explicit_generation_release","cases":1},
+    {"id":"A36-DIAGNOSTIC-PRIVACY","suite":"api","method":"GnazzosWorld.Api.Tests.OperationsApiTests.Failure_has_server_generated_correlation_and_allowlisted_log_trace_fields","cases":1}
+  ],
+  "manual": [
+    {"id":"A36-NATIVE-JOURNEY"},
+    {"id":"A36-ACCESSIBILITY"},
+    {"id":"A36-OS-OFFLINE-RECOVERY"},
+    {"id":"A36-LIVE-MFA-RECOVERY"},
+    {"id":"A36-HOSTED-TEST-PAYMENT"},
+    {"id":"A36-IOS-RELEASE"}
+  ]
+}

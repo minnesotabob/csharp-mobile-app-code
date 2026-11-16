@@ -1,0 +1,47 @@
+name: Traceable acceptance evidence
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'tests/**'
+      - 'eng/acceptance/**'
+      - 'Directory.Build.props'
+      - 'global.json'
+      - '.github/workflows/acceptance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acceptance:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.100'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test fail-closed evidence projection
+        run: python -m unittest discover -s eng/acceptance -p test_report.py
+      - name: Create fresh private result workspace
+        shell: pwsh
+        run: New-Item -ItemType Directory artifacts/acceptance-private -ErrorAction Stop
+      - name: Build portable suite
+        run: dotnet build tests/GnazzosWorld.Core.Tests -c Release
+      - name: Build API acceptance suite
+        run: dotnet build tests/GnazzosWorld.Api.Tests -c Release
+      - name: Execute portable suite with machine-readable results
+        run: dotnet run --project tests/GnazzosWorld.Core.Tests -c Release --no-build -- -xml artifacts/acceptance-private/core.xml
+      - name: Execute API suite with composed recovery journey
+        run: dotnet run --project tests/GnazzosWorld.Api.Tests -c Release --no-build -- -xml artifacts/acceptance-private/api.xml
+      - name: Project same-job acceptance evidence
+        run: python eng/acceptance/report.py --plan eng/acceptance/plan.json --core artifacts/acceptance-private/core.xml --api artifacts/acceptance-private/api.xml --revision ${{ github.sha }} --run-id ${{ github.run_id }} --output artifacts/acceptance-report.json
+      - name: Preserve only public-safe projection
+        uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-evidence
+          path: artifacts/acceptance-report.json
+          retention-days: 7
+          if-no-files-found: error
