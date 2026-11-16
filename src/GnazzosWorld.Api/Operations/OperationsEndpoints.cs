@@ -10,11 +10,12 @@ public static class OperationsEndpoints
 {
     public static void Register(WebApplicationBuilder builder)
     {
-        if(!builder.Configuration.GetValue<bool>("Operations:Enabled"))return;
-        var settings=OperationsSettings.Read(builder.Configuration,builder.Environment);builder.Services.AddSingleton(settings);builder.Services.AddSingleton<OperationTelemetry>();
+        // Register lazily: test hosts and layered configuration can finalize settings at Build.
+        builder.Services.AddSingleton(_=>OperationsSettings.Read(builder.Configuration,builder.Environment));builder.Services.AddSingleton<OperationTelemetry>();
         builder.Logging.AddJsonConsole(o=>{o.IncludeScopes=false;o.UseUtcTimestamp=true;o.TimestampFormat="O";});
+        builder.Services.PostConfigure<ConsoleLoggerOptions>(o=>{if(!builder.Configuration.GetValue<bool>("Operations:Enabled"))o.FormatterName=ConsoleFormatterNames.Simple;});
         // A final options callback prevents more-specific framework categories from reopening raw request/exception logs.
-        builder.Services.PostConfigure<LoggerFilterOptions>(o=>{o.Rules.Clear();o.MinLevel=LogLevel.None;o.Rules.Add(new(null,"GnazzosWorld.Api.Operations",LogLevel.Information,null));o.Rules.Add(new(null,"GnazzosWorld.Api.Security.ReadSecurityAudit",LogLevel.Information,null));});
+        builder.Services.PostConfigure<LoggerFilterOptions>(o=>{if(!builder.Configuration.GetValue<bool>("Operations:Enabled"))return;o.Rules.Clear();o.MinLevel=LogLevel.None;o.Rules.Add(new(null,"GnazzosWorld.Api.Operations",LogLevel.Information,null));o.Rules.Add(new(null,"GnazzosWorld.Api.Security.ReadSecurityAudit",LogLevel.Information,null));});
         builder.Services.AddRateLimiter(o=>o.AddFixedWindowLimiter("operations-probe",l=>{l.PermitLimit=10;l.Window=TimeSpan.FromMinutes(1);l.QueueLimit=0;}));
     }
     public static void Middleware(WebApplication app)
