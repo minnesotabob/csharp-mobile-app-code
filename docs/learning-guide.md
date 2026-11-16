@@ -6,11 +6,11 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 32 adds server-owned quote/acceptance snapshots and a durable client retry
-journal. Start with [the commerce worksheet](commerce-lab.md), then inspect
-CommerceTests and CommerceApiTests. Exact executed source and CI results are in
-[verification.md](verification.md). Live identity/device acceptance, real payment,
-privacy lifecycle composition and iOS compilation remain pending.
+Chapter 33 adds durable test checkout reservations, a restricted Stripe test adapter,
+raw-body signature verification and transactional event/payment reconciliation. Start
+with [the payment worksheet](payment-lab.md). Provider HTTP is simulated in automated
+checks; hosted Stripe sandbox/CLI, native/iOS and storefront eligibility remain pending.
+Exact executed source and CI results are in [verification.md](verification.md).
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -25,7 +25,7 @@ dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Relea
 dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
 ```
 
-At the recorded revision, expect totals of 552 and 77 respectively, with zero
+At the recorded revision, expect totals of 590 and 87 respectively, with zero
 failures, errors, skipped or not-run cases. Later chapters will change these totals;
 compare against the verification record for your selected revision. Read a failing
 case's name and assertion before changing its expected result.
@@ -230,3 +230,14 @@ the last operation per account/resource; OrderAttemptCoordinator persists before
 and before UI confirmation. OrderApiClient validates bounded responses and current
 leases. CommerceEndpoints adds only opt-in quote/accept/read operations. OrderLabPage
 lets the user explicitly quote a synthetic sample or the saved synthetic draft.
+
+## Chapter 33 source map
+
+TestCheckoutCoordinator reserves before provider I/O. StripeTestCheckoutProvider checks
+test key/account, fixed origin, stable key, immutable amount and hosted destination.
+StripeTestEventVerifier verifies exact bytes/fresh signature before bounded JSON.
+SqliteOrderStore.Payments commits event receipts/state and gates a controlled paid
+production fixture. TestPaymentEndpoints supplies only Development opt-in operations.
+PaymentTests and TestPaymentApiTests distinguish real SQLite/crypto/API from simulated
+provider responses. The independent Python signature vector is protected from Git
+line-ending conversion. Native order-page status refresh uses the current owned lease.

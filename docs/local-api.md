@@ -154,3 +154,11 @@ claims, monotonic generation, four installations/owner, 100 total and 24-hour vo
 expiry. See notification-link-lab.md. No GET token inventory or outbound send endpoint
 is supplied; real provider credentials/delivery and durable production storage remain
 pending. Protected read and push registration use separate coarse process budgets.
+
+## Chapter 33 Development test payments
+
+See payment-lab.md for separate Payments opt-in, secret/account/return-origin settings
+and the four supported snapshot event types. Live keys and non-Development mapping are
+rejected. Provider test checkout is a developer-browser exercise; the mobile app only
+reads owned TEST status. No browser return writes payment state. Default API behavior
+remains payment-disabled. Actual hosted Stripe/CLI execution remains pending.

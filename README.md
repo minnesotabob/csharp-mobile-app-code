@@ -1,11 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 32: Home opens an opt-in quote/order lab.
-The service validates owned quotes and commits immutable order snapshots/history;
-a durable account/resource-partitioned client journal reconciles lost replies.
-See [the commerce worksheet](docs/commerce-lab.md) and [verification](docs/verification.md).
-Accepted is a teaching request, not paid or real production. Live identity/device
-acceptance, privacy lifecycle composition and iOS compilation remain pending.
+Current expanded source reaches Chapter 33: a Development-only hosted TEST checkout
+adapter creates sessions from owned order snapshots, verifies signed raw events and
+commits replay-safe payment observations. The mobile order lab can refresh owned TEST
+status and never launches checkout. See [the payment worksheet](docs/payment-lab.md)
+and [verification](docs/verification.md). Real hosted provider/CLI, native/iOS and
+storefront eligibility remain pending; no real-money service is supplied.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -17,8 +17,8 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 552 portable tests and 77 API tests pass,
-including real SQLite transactions and signed-token order ownership tests. Earlier milestone notes below
+[verification](docs/verification.md): 590 portable tests and 87 API tests pass,
+including real SQLite payment replay/rollback and signed-event API tests. Earlier milestone notes below
 are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows

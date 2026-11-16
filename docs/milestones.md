@@ -158,3 +158,15 @@ verification.md. See commerce-lab.md for configuration and acceptance worksheet.
 Accepted is not paid or real production. Live identity/device/iOS, privacy lifecycle,
 verified payment, full order tracking/private delivery and operational recovery remain
 pending separate boundaries. The lab does not upload earlier local attachments.
+
+## Chapter 33
+
+Final executable source `bbeb33e201ffa0cc233bfd1e7991aad4fe9ca416` adds Development-only
+Stripe TEST checkout reservations/adapter, fresh exact-byte signature verification,
+bound session/amount/owner evidence and atomic replay-safe payment state. 590 portable
+and 87 API cases pass; Android compilation passes. Browser returns cannot mark paid;
+mobile can refresh owned TEST status and has no checkout launcher. Canceled orders
+cannot create/reuse checkout or expose the URL; previously obtained provider URLs may
+remain usable and late paid evidence requires review. See verification.md/payment-lab.md.
+Actual hosted provider/CLI, native/iOS and storefront eligibility remain pending. No
+real-money lifecycle, refunds/disputes, full ledger or production authorization is supplied.

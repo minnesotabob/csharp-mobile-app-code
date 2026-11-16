@@ -182,3 +182,19 @@ workspace cannot erase the provider original, recovered picker result or receive
 See commerce-lab.md and verification.md. Controlled fixture state changes are not real
 payment/administrative authorization. Capacity/rate limits are lab policy; distributed
 abuse protection, backups and complete audit evidence remain operational work.
+
+## Chapter 33 test payment boundary
+
+| Threat | Control and remaining evidence |
+| --- | --- |
+| Browser/client forges paid or price | Empty-body owned checkout; immutable server amount; return/cancel pages never write state |
+| Signature over normalized body | Exact bounded raw bytes, fresh timestamp, constant-time HMAC comparison; independent Python vector preserved by Git attribute |
+| Replay/duplicate/order mismatch | Persistent scope/event facts and attempt/session/amount binding; atomic event/state transaction |
+| Crash after provider session creation | Stable durable reservation/key, 23h automatic retry limit then reconciliation |
+| Checkout used after cancellation | Block new/reused POST and suppress URL; previously obtained provider session may remain usable; late paid requires review |
+| Cross-account private checkout disclosure | Validated owner predicates, no-store, current native lease; live device results pending |
+
+Test environment only: no real-money authorization, refunds/disputes or financial ledger.
+A valid unsupported event is acknowledged without effect, not financially reconciled.
+Real provider/CLI delivery, complete audit/retention/recovery and store approval remain
+pending. See ../payment-lab.md for precise contract and acceptance matrix.

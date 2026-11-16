@@ -148,3 +148,12 @@ no prior receipt. Test actual Shell departure versus auth-browser visibility, lo
 storage failure, token expiry and TLS failure. Leaving the route must clear the
 displayed receipt as well as the quote before another account can return. No payment/production outcome should be
 claimed. Record iOS compilation and native identity/device results separately from CI.
+
+## Chapter 33 additions — native/provider execution pending
+
+After Chapter 32 acceptance, use Refresh server test-payment status. Confirm the action
+requires the current account/resource, clears display on departure and never launches a
+checkout page. Repeat with token expiry, sign-out during delayed HTTP, another account,
+large text and TLS failure. Follow payment-lab.md for a separately configured developer
+hosted Stripe sandbox/CLI run; do not use real cards or infer Paid from return navigation.
+Storefront eligibility and iOS compilation require independent evidence.

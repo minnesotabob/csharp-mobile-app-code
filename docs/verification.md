@@ -1,3 +1,66 @@
+# Chapter 33 payment boundaries and verified events — November 16, 2026 (Central)
+
+Final executable source: `bbeb33e201ffa0cc233bfd1e7991aad4fe9ca416`.
+SDK 11.0.100; C# 15; MAUI 11.0.10; Android minimum API 26.
+
+- Portable Release build: **0 warnings/errors; 590 cases pass** (38 new payment
+  cases), no errors/failures/skipped/not-run cases. Earlier Chapter 21 and 25 console
+  labs also execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43819553353
+- API/probe Release builds: **0 warnings/errors; 87 cases pass** (10 new payment
+  cases), no errors/failures/skipped/not-run cases. Public Kestrel catalog/media
+  range/hash loopback smoke passes.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43819553341
+- Android Debug compilation: **success; 0 final compiler warnings/errors**. Existing
+  merged media/notification/link/capability/share configuration assertions pass.
+  Dependency setup retains the historical unresolved cmdline-tools;21.0 warning,
+  separate from final compilation.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43819553425
+
+The initial 583-case run compiled cleanly but failed one independently generated signed
+fixture: Windows Git checkout converted its JSON line endings. The verifier correctly
+rejected altered raw bytes. A -text attribute preserves that protocol fixture; the
+corrected 588-case suite passed. Final review then added canceled-order checkout/URL suppression and canonical HTTPS
+return-origin regression cases, yielding 590. All final application/core/API source is at
+the revision above. The signature implementation was not weakened to accept normalized
+messages.
+
+The restricted direct-account Stripe TEST adapter verifies account, fixed API origin,
+explicit API version, stable server idempotency key, immutable USD amount and hosted
+checkout destination. Live keys are rejected. Whole-operation deadline and response
+bounds apply. Payment routes require Development + separate commerce/payment opt-ins;
+no provider credentials are shipped. The native order page only refreshes owned TEST
+status and never launches checkout. Browser return/cancel pages never write state.
+
+Real temporary SQLite tests cover durable reservations/reopen, provider reply loss and
+stable key reuse, 23h automatic retry cutoff, verified paid/unpaid/failure/expiry policy,
+two-connection duplicates, forced payment-update rollback, event-ID fact conflicts,
+amount/session/account binding, payment-reference conflicts, canceled-order review,
+controlled paid production gate and suppression of canceled checkout creation/URLs.
+Crypto tests cover tampering, stale/future delivery, wrong secret, duplicate timestamp,
+multiple v1 signatures, live/Connect/duplicate-JSON rejection and the independent Python
+vector. Provider HTTP contract tests use a simulated handler, not api.stripe.com.
+
+Signed in-process JWT/API integration reserves/attaches a simulated hosted session,
+applies signed synthetic webhook bytes, reads one owned Paid receipt and proves that
+forged return/cancel queries cannot mark Paid. It checks scopes, empty checkout bodies,
+no-store, foreign-owner URL privacy, missing/oversized signatures, ordering and retryable
+unbound events. The service never changes production order state on payment receipt.
+StartProductionForPaymentLab is a controlled fixture only; Chapter 32 AdvanceForLab
+remains a legacy graph fixture and is not a real production/payment authorization path.
+
+**Pending:** actual hosted Stripe sandbox/CLI/test-card/API-version execution; native
+identity/TLS/status/switching/storage/accessibility observations and iOS compilation;
+storefront/product/region/program eligibility and approval. Refunds/disputes, ledger,
+payment replacement, automatic provider reconciliation sweep, fulfillment outbox,
+financial audit, migration/retention/backup/recovery and real administrative production
+authorization are not implemented. Unsupported signed events are acknowledged without
+effect, not financially reconciled. Existing provider URLs are not revoked by local
+order cancellation; later success requires ReviewRequired. No real payment or public
+checkout is supplied. See payment-lab.md for setup, protocol and acceptance matrix.
+
+---
+
 # Chapter 32 owned quotes/orders — November 15, 2026 (Central)
 
 Final executable source: `6e5921d05cc25fa965a2c93a326e571228d1f0d9`.
