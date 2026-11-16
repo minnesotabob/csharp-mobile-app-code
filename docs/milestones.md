@@ -208,3 +208,16 @@ six-requirement spine is not full requirement coverage; six manual rows remain n
 and release readiness stays unassessed. TestServer transport, synthetic identity and
 checkout fixtures remain distinct from the unchanged Chapter 35 published HTTPS/native
 compile evidence and unexecuted live provider/native/iOS acceptance.
+
+## Chapter 37
+
+Executable source `c82eff270ec50c3ef4916c4401576ba1b893b1a9` adds stable sorted search
+snapshots, a bounded deterministic large catalog, original raw image variants, a native
+stress page and a Release investigation runner. 644 portable/109 API cases, 18 evidence
+projector checks, Android compilation, published HTTPS recovery and the performance
+workflow pass. Measured five-query median changes from 107.7073 to 93.4096 ms on a
+shared Windows VM; allocations fall from 633,032 to 140,896 bytes, with construction
+recorded separately. These are desktop observations, not native acceptance or a speed
+guarantee. Source/run/raw sample JSON and the incomplete device/accessibility review
+are retained in docs/reviews. Native startup/frames/decoded memory/energy/screen readers,
+full trim/AOT compatibility, signed packages/install/upgrade and iOS remain pending.

@@ -1,11 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 36: composed client/API lost-reply recovery,
-durable journal/server reopen and traceable acceptance evidence from actual xUnit results.
-The versioned regression spine keeps manual device/provider rows not_run and release
-readiness unassessed. See [the complete-application worksheet](docs/complete-application-testing.md)
-and [verification](docs/verification.md). Public hosting, native UI/accessibility, live
-MFA/hosted TEST payment and signed iOS acceptance remain separate work.
+Current expanded source reaches Chapter 37: a reusable catalog-search snapshot,
+10,000-record/native image-size stress fixture and actual Release desktop search/API/
+retention investigation. See [the performance worksheet](docs/performance-review.md)
+and [device/accessibility review](docs/reviews/ch37-device-accessibility-review.md).
+Measured desktop results retain their exact source/run identity; native scrolling,
+startup, decoded memory, energy, screen-reader and signed-release checks remain pending.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -17,10 +17,9 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 636 portable tests and 109 API tests pass.
-The unchanged native/API implementation retains the separately recorded Chapter 35
-Android compilation and published HTTPS staging/recovery evidence. Earlier milestone notes below
-are historical. Native/provider and iOS observations remain pending.
+[verification](docs/verification.md): 644 portable tests, 109 API tests and 18 evidence
+projector checks pass. Android compilation, published HTTPS recovery and the new Release
+performance report also pass. Native/provider observations and iOS remain pending.
 
 ## Run portable checks on Windows
 

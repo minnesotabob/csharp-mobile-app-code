@@ -1,0 +1,439 @@
+{
+  "Schema": 1,
+  "Revision": "c82eff270ec50c3ef4916c4401576ba1b893b1a9",
+  "RunId": "43876553256",
+  "Configuration": "Release",
+  "HostClass": "desktop-lab",
+  "Runtime": ".NET 11.0.0",
+  "OS": "Microsoft Windows 10.0.26100",
+  "Architecture": "X64",
+  "Processors": 4,
+  "Search": {
+    "Fixture": "catalog-perf-v1",
+    "Items": 10000,
+    "QueriesPerSample": 5,
+    "WarmupPairs": 3,
+    "PairedSamples": 21,
+    "Construction": {
+      "Milliseconds": 28.8451,
+      "AllocatedBytes": 1196968,
+      "Gen0": 0,
+      "Gen1": 0,
+      "Gen2": 0,
+      "Results": 10000
+    },
+    "Before": {
+      "MedianMs": 107.7073,
+      "P95Ms": 128.6835,
+      "MedianAllocatedBytes": 633032,
+      "Samples": [
+        {
+          "Milliseconds": 108.7977,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 81.1136,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 119.8315,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 128.6835,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 114.3265,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 133.2123,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 122.7192,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 117.713,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 107.7073,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 116.0732,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 90.257,
+          "AllocatedBytes": 633272,
+          "Gen0": 1,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 92.8533,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 115.05,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 74.6806,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 81.2902,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 95.0613,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 84.6285,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 111.8047,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 87.3996,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 74.8862,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 75.2417,
+          "AllocatedBytes": 633032,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        }
+      ]
+    },
+    "After": {
+      "MedianMs": 93.4096,
+      "P95Ms": 121.0163,
+      "MedianAllocatedBytes": 140896,
+      "Samples": [
+        {
+          "Milliseconds": 97.0149,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 104.4431,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 71.4273,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 96.5503,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 121.0163,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 87.9615,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 114.9305,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 93.4096,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 103.7033,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 102.4131,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 88.6901,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 122.7669,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 119.5044,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 78.0649,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 76.8583,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 76.6176,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 93.7857,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 71.5167,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 70.573,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 70.8554,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        },
+        {
+          "Milliseconds": 71.3744,
+          "AllocatedBytes": 140896,
+          "Gen0": 0,
+          "Gen1": 0,
+          "Gen2": 0,
+          "Results": 17500
+        }
+      ]
+    },
+    "Scope": "Release desktop synchronous search batches; not native scrolling, first-frame startup or a capacity threshold."
+  },
+  "Retention": {
+    "Owners": 32,
+    "SubscriptionsBefore": 32,
+    "SubscriptionsAfter": 0,
+    "WeakOwnersBefore": 32,
+    "WeakOwnersAfter": 0,
+    "SyntheticPayloadBytesPerOwner": 65536,
+    "Scope": "Controlled omitted-Dispose experiment on existing BackgroundPlaybackOwner; weak counts are observations, not native leak/erasure proof."
+  },
+  "Images": [
+    {
+      "Name": "perf_large.png",
+      "Width": 1200,
+      "Height": 1400,
+      "EncodedBytes": 13263,
+      "RgbaPlaneBytesEstimate": 6720000
+    },
+    {
+      "Name": "perf_thumb.png",
+      "Width": 96,
+      "Height": 112,
+      "EncodedBytes": 7112,
+      "RgbaPlaneBytesEstimate": 43008
+    }
+  ],
+  "Api": {
+    "ProcessToFirstHealthMs": 614.9966,
+    "PollIntervalMs": 100,
+    "Samples": [
+      0.3419,
+      0.3145,
+      0.2937,
+      0.2931,
+      0.3202,
+      0.3341,
+      0.3228,
+      0.3365,
+      0.3063,
+      0.3157,
+      0.338,
+      0.3082,
+      0.2944,
+      0.3119,
+      0.2958,
+      0.2899,
+      0.3168,
+      0.3656,
+      0.2977,
+      0.2906,
+      0.2967
+    ],
+    "MedianMs": 0.3119,
+    "P95Ms": 0.3419,
+    "ResponseBodyBytes": 2731,
+    "Scope": "Published local API; sequential loopback HTTP and five-record public catalog. Includes client/body read. Not mobile startup, TLS, WAN load or wire/energy cost."
+  },
+  "NativeStartup": "not_run",
+  "NativeScrolling": "not_run",
+  "NativeDecodedMemory": "not_run",
+  "BatteryAndWireCost": "not_run",
+  "Accessibility": "not_run",
+  "NativeAot": "not_run"
+}

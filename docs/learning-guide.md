@@ -6,12 +6,12 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 36 composes the actual clients, persisted journals and API pipeline across
-committed-but-lost acceptance/revision replies. A new acceptance workflow projects
-fresh xUnit XML through a versioned requirement map while keeping manual/device/provider
-checks not_run. Begin with [complete-application-testing.md](complete-application-testing.md).
-Exact source/results are in [verification.md](verification.md). The Chapter 35 published
-HTTPS runner remains separate real-process evidence, and no native UI run is invented.
+Chapter 37 measures a reusable sorted catalog snapshot against the reference search,
+adds a 10,000-record/native image stress page and demonstrates event-root retention
+with explicit cleanup. Begin with [performance-review.md](performance-review.md) for
+Release commands, raw observed sample links and device/accessibility limits. The safe
+report never turns desktop timing or source-color checks into a native acceptance pass.
+Exact source/results remain in [verification.md](verification.md).
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -26,7 +26,7 @@ dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Relea
 dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
 ```
 
-At the recorded revision, expect totals of 636 and 109 respectively, with zero
+At the recorded revision, expect totals of 644 and 109 respectively, with zero
 failures, errors, skipped or not-run cases. Later chapters will change these totals;
 compare against the verification record for your selected revision. Read a failing
 case's name and assertion before changing its expected result.
@@ -274,3 +274,14 @@ to exact methods and case counts. report.py validates XML and projects only revi
 fields; test_report.py checks the evidence boundary. acceptance.yml binds fresh results
 to one job's source/run and uploads only safe JSON. Manual and release evidence remains
 separate in complete-application-testing.md and device-checks.md.
+
+## Chapter 37 source map
+
+CatalogSearch.Filter preserves reference semantics; CatalogSearchSnapshot owns two
+fixed orderings per catalog revision. CatalogBrowserViewModel consumes that snapshot.
+PerformanceCatalogFixture supplies bounded deterministic public metadata; PerformanceTests
+checks equivalent filters/sorts, ownership and selection. PerformanceLabPage supplies
+a finite native list viewport and original raw image variants without claiming frame
+or memory measurements. Tools/PerformanceLab records Release search/construction/API
+and controlled omitted-Dispose observations; the workflow uploads safe measured JSON.
+Source palette review and still-pending device results live under docs/reviews.

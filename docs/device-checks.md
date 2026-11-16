@@ -191,3 +191,14 @@ assistive mode and network/lifecycle transition. Record steps, expected/actual r
 timestamp, protected evidence and defect link. Proposed phone/tablet/iPhone/iPad slots
 are not observed devices. No new native acceptance is inferred from the composed
 TestServer journey, SQLite reopen or a green acceptance JSON. Manual rows remain not_run.
+
+## Chapter 37 performance/accessibility review — native observations pending
+
+Use [the review record](reviews/ch37-device-accessibility-review.md) and
+[the performance protocol](performance-review.md). Open Home -> Catalog performance
+lab, load synthetic rows and compare image-size modes on the same identified Release
+package/device. Record actual startup boundaries, cache/thermal/charge/network settings,
+fixed scroll gestures, frame/native/managed memory and accessibility observations.
+Template constructions are cumulative, not live cell count or a virtualization pass.
+Large-text/locale/keyboard and TalkBack/VoiceOver checks stay separate from source palette
+arithmetic and Android Debug compilation. No result is recorded for an unnamed device.

@@ -1,0 +1,42 @@
+{
+  "source": "src/GnazzosWorld.App/App.xaml",
+  "sourceRevision": "c82eff270ec50c3ef4916c4401576ba1b893b1a9",
+  "scope": "Declared source colors only; not rendered state or accessibility certification.",
+  "pairs": [
+    {
+      "foreground": "TextLight",
+      "background": "PaperLight",
+      "foregroundHex": "#15212A",
+      "backgroundHex": "#FAFAF7",
+      "ratio": 15.65415659282716
+    },
+    {
+      "foreground": "TextDark",
+      "background": "PaperDark",
+      "foregroundHex": "#F5F5F0",
+      "backgroundHex": "#15212A",
+      "ratio": 14.96787158011424
+    },
+    {
+      "foreground": "TextLight",
+      "background": "SelectionLight",
+      "foregroundHex": "#15212A",
+      "backgroundHex": "#DCEBF0",
+      "ratio": 13.395607686692024
+    },
+    {
+      "foreground": "TextDark",
+      "background": "SelectionDark",
+      "foregroundHex": "#F5F5F0",
+      "backgroundHex": "#244A5B",
+      "ratio": 8.705924192393002
+    },
+    {
+      "foreground": "White",
+      "background": "Accent",
+      "foregroundHex": "#FFFFFF",
+      "backgroundHex": "#22566B",
+      "ratio": 8.041543327311002
+    }
+  ]
+}
