@@ -198,3 +198,20 @@ Test environment only: no real-money authorization, refunds/disputes or financia
 A valid unsupported event is acknowledged without effect, not financially reconciled.
 Real provider/CLI delivery, complete audit/retention/recovery and store approval remain
 pending. See ../payment-lab.md for precise contract and acceptance matrix.
+
+## Chapter 34 tracking/private delivery boundary
+
+| Threat | Control and remaining evidence |
+| --- | --- |
+| Foreign order/history/note disclosure | Validated issuer/sub parent lookup on list, tracking, revision and file paths |
+| Lost/duplicate revision overwrites later review | Durable owner/resource/order key; replay before version checks; atomic revision/state/history/notice |
+| Old descriptor or copied grant becomes access | JWT + scope + owner + current state/paid/version/revocation + hashed two-minute grant on every new read |
+| Grant copied into URL/logs | Header-only credential, no-store and redacted record; production logging allowlist remains Chapter 35 work |
+| Private file enters public cache or arbitrary path | Fixed embedded original fixture, generated IDs only, no static mapping, bounded full read; no private cache/player/export |
+| Sign-out publishes old bytes/notes | Current session checks around HTTP and before UI, route/selection cancellation, original-owner journal retained |
+
+Revocation cannot erase responses already authorized or copies already received.
+Verified-buffer clearing is not physical erasure. The local fixture requires explicit
+synthetic opt-in and direct development database authority; never expose its manufactured
+TEST payment or graph methods as production administration. Real artifact ingestion,
+provider delivery, native/iOS, privacy lifecycle and operational recovery remain pending.

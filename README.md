@@ -1,11 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 33: a Development-only hosted TEST checkout
-adapter creates sessions from owned order snapshots, verifies signed raw events and
-commits replay-safe payment observations. The mobile order lab can refresh owned TEST
-status and never launches checkout. See [the payment worksheet](docs/payment-lab.md)
-and [verification](docs/verification.md). Real hosted provider/CLI, native/iOS and
-storefront eligibility remain pending; no real-money service is supplied.
+Current expanded source reaches Chapter 34: owned order pages/history, durable revision
+requests, in-app notices and short-lived owner/version-bound delivery grants. A native
+lab fetches/verifies original sample WAV bytes in memory; a runnable local synthetic
+fixture stages review/revision/delivery. See [the fulfillment worksheet](docs/fulfillment-lab.md)
+and [verification](docs/verification.md). Real administration/customer artifacts, private
+listening/offline storage, provider notices, native acceptance and iOS remain pending.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -17,8 +17,8 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 590 portable tests and 87 API tests pass,
-including real SQLite payment replay/rollback and signed-event API tests. Earlier milestone notes below
+[verification](docs/verification.md): 617 portable tests and 99 API tests pass,
+including revision replay/rollback and authenticated private-file journey tests. Earlier milestone notes below
 are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows

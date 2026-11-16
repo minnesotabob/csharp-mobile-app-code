@@ -6,10 +6,10 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 33 adds durable test checkout reservations, a restricted Stripe test adapter,
-raw-body signature verification and transactional event/payment reconciliation. Start
-with [the payment worksheet](payment-lab.md). Provider HTTP is simulated in automated
-checks; hosted Stripe sandbox/CLI, native/iOS and storefront eligibility remain pending.
+Chapter 34 adds coherent owned tracking, durable customer revisions, in-app notices and
+short-lived private sample access. Start with [the fulfillment worksheet](fulfillment-lab.md)
+and its runnable local fixture. Actual API/client tests verify the WAV bytes; native
+listening/offline composition, real administration and provider notices remain separate.
 Exact executed source and CI results are in [verification.md](verification.md).
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
@@ -25,7 +25,7 @@ dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Relea
 dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
 ```
 
-At the recorded revision, expect totals of 590 and 87 respectively, with zero
+At the recorded revision, expect totals of 617 and 99 respectively, with zero
 failures, errors, skipped or not-run cases. Later chapters will change these totals;
 compare against the verification record for your selected revision. Read a failing
 case's name and assertion before changing its expected result.
@@ -241,3 +241,12 @@ production fixture. TestPaymentEndpoints supplies only Development opt-in operat
 PaymentTests and TestPaymentApiTests distinguish real SQLite/crypto/API from simulated
 provider responses. The independent Python signature vector is protected from Git
 line-ending conversion. Native order-page status refresh uses the current owned lease.
+
+## Chapter 34 source map
+
+SqliteOrderStore.Fulfillment owns snapshot reads, revision replay, atomic state/history/
+notice publication and grant predicates. PendingRevisionDatabase and RevisionCoordinator
+save intentions before POST and receipts before success. TrackingApiClient fixes origin,
+checks leases and validates complete bounded content. FulfillmentEndpoints serves only
+owned generated identifiers; OrderTrackingLabPage never uses the public cache. The local
+FulfillmentLab console stages synthetic review/delivery and has a temporary smoke mode.

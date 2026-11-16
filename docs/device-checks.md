@@ -157,3 +157,13 @@ checkout page. Repeat with token expiry, sign-out during delayed HTTP, another a
 large text and TLS failure. Follow payment-lab.md for a separately configured developer
 hosted Stripe sandbox/CLI run; do not use real cards or infer Paid from return navigation.
 Storefront eligibility and iOS compilation require independent evidence.
+
+## Chapter 34 additions — native execution pending
+
+Follow fulfillment-lab.md to stage the current account's synthetic review through the
+explicitly enabled local console fixture. Refresh owned pages and current history, submit
+and retry a revision, publish a later review/delivery and fetch verified WAV bytes. This
+page reports verification without private playback/cache. Test account/selection changes,
+route/window departure, keyboard, large text, screen reader, TLS failure, exact grant
+expiry and logical revocation. Pending original-owner revisions must survive sign-out;
+visible notes/list/receipts must clear. Native listening, push and iOS are separate checks.

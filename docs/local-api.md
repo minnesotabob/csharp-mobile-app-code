@@ -162,3 +162,12 @@ and the four supported snapshot event types. Live keys and non-Development mappi
 rejected. Provider test checkout is a developer-browser exercise; the mobile app only
 reads owned TEST status. No browser return writes payment state. Default API behavior
 remains payment-disabled. Actual hosted Stripe/CLI execution remains pending.
+
+## Chapter 34 Development tracking/delivery
+
+See fulfillment-lab.md for separate Fulfillment opt-in, owned paging/history/revision
+routes and authenticated short-lived-grant sample reads. Use the supplied local console
+fixture with an explicitly disposable database to stage reviews/deliveries. It manufactures
+synthetic TEST paid evidence and is not production administration. The fixed WAV is not
+served through a static directory or public cache. Native memory verification is separate
+from listening/offline storage, and notices are not provider push delivery receipts.
