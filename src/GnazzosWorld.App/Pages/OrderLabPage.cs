@@ -73,6 +73,7 @@ public sealed class OrderLabPage:ContentPage
     private void Leave()
     {
         attached=false;active?.Cancel();quote=null;quoteOwner=null;quoteText.Text="";
+        status.Text="Order lab left. Sign in or retry/refresh under the current account to view its saved result.";
         if(observedShell is not null)observedShell.Navigated-=Navigated;
         if(observedWindow is not null)observedWindow.Destroying-=Destroyed;
     }
