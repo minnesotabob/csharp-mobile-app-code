@@ -170,3 +170,15 @@ cannot create/reuse checkout or expose the URL; previously obtained provider URL
 remain usable and late paid evidence requires review. See verification.md/payment-lab.md.
 Actual hosted provider/CLI, native/iOS and storefront eligibility remain pending. No
 real-money lifecycle, refunds/disputes, full ledger or production authorization is supplied.
+
+## Chapter 34
+
+Final executable/fixture source `4a4ba828dc7d32dee68c8334da9f8687c2c000ff` adds owned
+paging/coherent tracking snapshots, durable revisions, atomic state/history/notices,
+controlled review/delivery and short-lived hashed owner/version grants. 617 portable
+and 99 API cases pass; Android compiles cleanly. API/core policy is unchanged from its
+verified `025d86e13ac447b5cdcf2f4ddadf17e0d2dfa7e6` revision; later changes add the
+runnable synthetic fixture, clean test analyzers and correct native event nullability.
+The actual HTTP/client journey retrieves exact original WAV bytes. Native page verifies
+memory only; private listening/cache, real administration/customer artifacts, provider
+notices, privacy lifecycle and iOS remain pending. See verification.md/fulfillment-lab.md.
