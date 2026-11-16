@@ -24,7 +24,7 @@ public sealed class RequestAuthorizationTests
     private const string Issuer = "https://fixture.auth0.com/";
     private const string Audience = "https://gnazzosworld.example/api";
     private static CancellationToken Ct => TestContext.Current.CancellationToken;
-    internal sealed class Factory(ILoggerProvider? capture = null, GnazzosWorld.Core.Commerce.SqliteOrderStore? commerceStore = null, GnazzosWorld.Core.Payments.ITestCheckoutProvider? paymentProvider = null) : WebApplicationFactory<Program>
+    internal sealed class Factory(ILoggerProvider? capture = null, GnazzosWorld.Core.Commerce.SqliteOrderStore? commerceStore = null, GnazzosWorld.Core.Payments.ITestCheckoutProvider? paymentProvider = null, bool fulfillment = false) : WebApplicationFactory<Program>
     {
         internal readonly RSA Rsa = RSA.Create(2048);
         internal RsaSecurityKey Key => new(Rsa) { KeyId = "ephemeral-test-key" };
@@ -33,6 +33,7 @@ public sealed class RequestAuthorizationTests
             builder.UseEnvironment("Development");
             if (commerceStore is not null) builder.ConfigureAppConfiguration((_, configuration) => configuration.AddInMemoryCollection(
                 new Dictionary<string, string?> { ["Commerce:Enabled"] = "true" }));
+            if(fulfillment) builder.ConfigureAppConfiguration((_,configuration)=>configuration.AddInMemoryCollection(new Dictionary<string,string?>{{"Fulfillment:Enabled","true"}}));
             if(paymentProvider is not null) builder.ConfigureAppConfiguration((_,configuration)=>configuration.AddInMemoryCollection(
                 new Dictionary<string,string?>{{"Payments:Enabled","true"},{"Payments:WebhookSecret","whsec_synthetic_fixture_secret_0123456789"}}));
             if (capture is not null) builder.ConfigureLogging(logging => logging.AddProvider(capture));

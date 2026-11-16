@@ -32,7 +32,7 @@ public sealed partial class SqliteOrderStore : IDisposable
             CREATE TABLE IF NOT EXISTS commerce_history (
               order_id TEXT NOT NULL REFERENCES commerce_orders(id), version INTEGER NOT NULL,
               state TEXT NOT NULL, at_ticks INTEGER NOT NULL, PRIMARY KEY(order_id,version));
-            """; command.ExecuteNonQuery(); InitializePayments();
+            """; command.ExecuteNonQuery(); InitializePayments(); InitializeFulfillment();
     }
     private SqliteCommand Command(string sql, SqliteTransaction? tx, params (string Key, object Value)[] values)
     { var c = db.CreateCommand(); c.CommandText = sql; c.Transaction = tx; foreach (var (key,value) in values) c.Parameters.AddWithValue(key,value); return c; }

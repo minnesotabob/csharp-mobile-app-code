@@ -21,6 +21,7 @@
       <Button Text="Notifications, links and sharing lab" Clicked="OnNotificationClicked" />
       <Button Text="Native capabilities and attachment lab" Clicked="OnCapabilityClicked" />
       <Button Text="Quotes and orders lab" Clicked="OnOrderClicked" />
+        <Button Text="Order tracking and delivery lab" Clicked="OnOrderTrackingLabClicked" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

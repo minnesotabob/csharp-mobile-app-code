@@ -30,7 +30,7 @@ public static class CommerceEndpoints
     private static IResult Rejected(OrderProblem problem)=>Results.Problem(statusCode:problem switch
     { OrderProblem.InvalidRequest=>400,OrderProblem.Unavailable=>404,OrderProblem.Capacity=>503,_=>409 },
         title:"The quote/order operation was not accepted.",extensions:new Dictionary<string,object?>{{"code",problem.ToString()}});
-    private static async Task<T?> Body<T>(HttpContext context) where T:class
+    internal static async Task<T?> Body<T>(HttpContext context) where T:class
     {
         if (!System.Net.Http.Headers.MediaTypeHeaderValue.TryParse(context.Request.ContentType,out var type) || type.MediaType!="application/json") return default;
         var bytes=new byte[16385]; var length=0;

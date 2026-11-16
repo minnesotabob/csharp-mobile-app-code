@@ -41,6 +41,7 @@ app.UseRateLimiter();
 PushRegistrationEndpoints.Map(app);
 CommerceEndpoints.Map(app);
 TestPaymentEndpoints.Map(app);
+FulfillmentEndpoints.Map(app);
 app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests, ReadSecurityAudit audit) =>
 {
     if (!RequestIdPolicy.IsValid(id))
