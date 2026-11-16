@@ -67,6 +67,19 @@ class AuditTests(unittest.TestCase):
                      "sdkVersion:'26'\ntargetSdkVersion:'37'")
         self.assertEqual(badging(source, 2), badging(reordered, 2))
 
+    def test_observed_min_sdk_label_and_ambiguous_minimum(self):
+        source = (f"package: name='{PACKAGE}' versionCode='1' "
+                  "versionName='0.1.0-lab.1' platformBuildVersionCode='37'\n"
+                  "minSdkVersion:'26'\ntargetSdkVersion:'37'")
+        self.assertEqual(26, badging(source, 1)['minSdk'])
+        self.assertEqual(badging(source, 1),
+                         badging(source.replace('minSdkVersion', 'sdkVersion'), 1))
+        for changed in (source.replace("minSdkVersion:'26'", "minSdkVersion:'25'"),
+                        source + "\nsdkVersion:'26'",
+                        source.replace("minSdkVersion:'26'", '')):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                badging(changed, 1)
+
     def test_disposable_bundle_contract(self):
         self.assertEqual(2, manifest_check(self.manifest(), 2)['versionCode'])
 
