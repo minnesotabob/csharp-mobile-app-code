@@ -57,7 +57,8 @@ def main():
     evidence = json.loads((root / 'package-evidence.json').read_text())
     require(evidence['profile'] == 'disposable-testOnly-Release', 'profile')
     require(adb('shell', 'getprop', 'ro.kernel.qemu').strip() == '1', 'emulator_only')
-    require(not adb('shell', 'pm', 'path', PACKAGE).strip(), 'fresh_package_required')
+    # pm path exits nonzero for an absent package; list packages returns an empty successful result.
+    require(not adb('shell', 'pm', 'list', 'packages', PACKAGE).strip(), 'fresh_package_required')
     abi = adb('shell', 'getprop', 'ro.product.cpu.abi').strip()
     sdk = int(adb('shell', 'getprop', 'ro.build.version.sdk').strip())
     page = int(adb('shell', 'getconf', 'PAGESIZE').strip())
@@ -91,3 +92,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
