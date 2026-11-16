@@ -79,8 +79,11 @@ class ReportTests(unittest.TestCase):
         self.assertEqual('not_satisfied', self.report(suite)['automated'][0]['status'])
 
     def test_dtd_is_rejected(self):
-        p = self.xml(); p.write_text('<!DOCTYPE assemblies []>' + p.read_text())
-        with self.assertRaises(InvalidEvidence): load_suite(p)
+        p = self.xml(); text = '<!DOCTYPE assemblies []>' + p.read_text()
+        for encoding in ('utf-8', 'utf-16'):
+            with self.subTest(encoding=encoding):
+                p.write_bytes(text.encode(encoding))
+                with self.assertRaises(InvalidEvidence): load_suite(p)
 
     def test_unsupported_schema_is_rejected(self):
         p = self.xml(); p.write_text(p.read_text().replace('schema-version="3"', 'schema-version="99"'))

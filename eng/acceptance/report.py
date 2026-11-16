@@ -29,8 +29,12 @@ def bounded(path):
 
 def load_suite(path):
     data = bounded(path)
-    require(b'<!DOCTYPE' not in data.upper() and b'<!ENTITY' not in data.upper(), 'xml_declaration')
-    root = ET.fromstring(data)
+    try:
+        text = data.decode('utf-8-sig')
+    except UnicodeError:
+        raise InvalidEvidence('xml_encoding') from None
+    require('<!DOCTYPE' not in text.upper() and '<!ENTITY' not in text.upper(), 'xml_declaration')
+    root = ET.fromstring(text)
     require(root.tag == 'assemblies' and root.get('schema-version') in ('2', '3'), 'xml_schema')
     assemblies = root.findall('assembly')
     require(len(assemblies) == 1, 'assembly_count')
