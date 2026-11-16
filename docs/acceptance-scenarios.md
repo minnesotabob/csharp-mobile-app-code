@@ -1,3 +1,13 @@
+# Acceptance scenario entry point
+
+The current whole-application regression spine and separate manual/device/provider
+matrix are in [complete-application-testing.md](complete-application-testing.md).
+Run the Chapter 36 evidence workflow and inspect its generated not_run rows; it does
+not certify release readiness. Exact executed source/results are in verification.md.
+
+The Part I inventory below is historical and deliberately narrower than current source.
+Its future-feature paragraph describes that milestone, not the current implementation.
+
 # Part I acceptance scenarios
 
 ## Portable automated checks

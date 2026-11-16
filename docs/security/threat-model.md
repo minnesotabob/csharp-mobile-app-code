@@ -232,3 +232,18 @@ Current staging evidence does not establish public infrastructure, real financia
 reconciliation, native fatal-crash handling, encryption/erasure or complete production
 telemetry privacy. Raw captures, databases and certificates are not CI artifacts. Existing
 default-profile logging is unchanged; the allowlist applies only to enabled operations.
+
+## Chapter 36 evidence boundary
+
+The composed journey checks an original account's persisted intention and a foreign
+account denial across API/journal/server reopen. This does not replace actual device
+session, browser/MFA, hosted provider or private-media lifecycle observations.
+
+The acceptance report accepts bounded UTF-8 results, rejects DTD/entity declarations,
+validates per-run case IDs/counts/results and matches reviewed method selectors. Raw
+XML/private failure output stays outside uploaded artifacts; static selectors, status,
+counts, input hashes and source/run identifiers are projected. Runner console logs are
+a separate channel, so these public suites must remain synthetic. A report hash does
+not authenticate arbitrary inputs or establish a release attestation. Fresh same-job
+execution supplies the association; manual checks stay not_run and release readiness
+unassessed. See ../complete-application-testing.md for scope and limitations.

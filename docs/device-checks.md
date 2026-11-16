@@ -181,3 +181,13 @@ visible notes/list/receipts must clear. Native listening, push and iOS are separ
 - A future crash SDK needs separately pinned compatibility, symbols and actual managed/
   native fatal-crash payload/retention/offline-retry tests. The local handled fault does
   not supply those results. See operations-lab.md for the evidence matrix.
+
+## Chapter 36 acceptance records — execution pending
+
+Use the six manual scenario IDs and record template in
+[complete-application-testing.md](complete-application-testing.md). Name the actual
+package hash, device/OS, app/API/schema, install/upgrade state, locale/text scale,
+assistive mode and network/lifecycle transition. Record steps, expected/actual result,
+timestamp, protected evidence and defect link. Proposed phone/tablet/iPhone/iPad slots
+are not observed devices. No new native acceptance is inferred from the composed
+TestServer journey, SQLite reopen or a green acceptance JSON. Manual rows remain not_run.

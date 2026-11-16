@@ -1,12 +1,11 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 35: published loopback HTTPS staging,
-explicit schema migration, verified online backup/new-directory restore, readiness
-review and allowlisted correlated diagnostics. A local mobile consent lab and bounded
-newsletter confirmation port keep their own consent boundaries. See
-[the operations worksheet](docs/operations-lab.md) and [verification](docs/verification.md).
-Public hosting, remote crash reporting, real provider/customer recovery and native/iOS
-acceptance remain pending.
+Current expanded source reaches Chapter 36: composed client/API lost-reply recovery,
+durable journal/server reopen and traceable acceptance evidence from actual xUnit results.
+The versioned regression spine keeps manual device/provider rows not_run and release
+readiness unassessed. See [the complete-application worksheet](docs/complete-application-testing.md)
+and [verification](docs/verification.md). Public hosting, native UI/accessibility, live
+MFA/hosted TEST payment and signed iOS acceptance remain separate work.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -18,8 +17,9 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 636 portable tests and 107 API tests pass;
-Android compiles and the published HTTPS staging/recovery drill passes. Earlier milestone notes below
+[verification](docs/verification.md): 636 portable tests and 109 API tests pass.
+The unchanged native/API implementation retains the separately recorded Chapter 35
+Android compilation and published HTTPS staging/recovery evidence. Earlier milestone notes below
 are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows

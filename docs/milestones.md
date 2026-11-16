@@ -195,3 +195,16 @@ payment replay, invalidated old grants and correlated redacted failure output. I
 loopback synthetic drill, not public provisioning or real provider/customer recovery.
 Native UI, managed/native fatal-crash SDK, remote exporters, real newsletter/provider
 integration and iOS remain pending. See operations-lab.md and verification.md.
+
+## Chapter 36 / Part VIII begins
+
+Executable acceptance source `dd137ed10809a40ae38217b485b331fe33552760` adds two composed
+client/API recovery rows and a fresh same-job requirement report. Actual journals and
+server SQLite reopen across lost committed responses, preserved operation identity,
+TEST payment replay, revision after newer review, private WAV verification and foreign
+account denial. C# totals are 636 portable and 109 API; the separate Python evidence
+projector has 18 checks. Exact successful runs are in verification.md. The selected
+six-requirement spine is not full requirement coverage; six manual rows remain not_run
+and release readiness stays unassessed. TestServer transport, synthetic identity and
+checkout fixtures remain distinct from the unchanged Chapter 35 published HTTPS/native
+compile evidence and unexecuted live provider/native/iOS acceptance.

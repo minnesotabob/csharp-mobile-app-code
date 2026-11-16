@@ -6,13 +6,12 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 35 adds an actual published loopback HTTPS staging/recovery runner, explicit
-commerce schema maintenance, verified online backup/restore and safe correlated
-logging/metrics/traces. Start with [the operations worksheet](operations-lab.md).
-The mobile consent page exports nothing; newsletter confirmation has no real provider.
-Public infrastructure, native fatal-crash reporting and full customer/provider recovery
-need separate evidence. Exact executed source and CI results are in
-[verification.md](verification.md).
+Chapter 36 composes the actual clients, persisted journals and API pipeline across
+committed-but-lost acceptance/revision replies. A new acceptance workflow projects
+fresh xUnit XML through a versioned requirement map while keeping manual/device/provider
+checks not_run. Begin with [complete-application-testing.md](complete-application-testing.md).
+Exact source/results are in [verification.md](verification.md). The Chapter 35 published
+HTTPS runner remains separate real-process evidence, and no native UI run is invented.
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -27,7 +26,7 @@ dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Relea
 dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
 ```
 
-At the recorded revision, expect totals of 636 and 107 respectively, with zero
+At the recorded revision, expect totals of 636 and 109 respectively, with zero
 failures, errors, skipped or not-run cases. Later chapters will change these totals;
 compare against the verification record for your selected revision. Read a failing
 case's name and assertion before changing its expected result.
@@ -265,3 +264,13 @@ health and explicitly enabled controlled failure. OperationsLab runs the actual 
 TLS process against restored state and rejects private canaries in captured output.
 OperationsTests and OperationsApiTests supply separate real-file and API/metric evidence.
 DiagnosticsLabPage is a local-only recoverable-fault demo; device observations stay pending.
+
+## Chapter 36 source map
+
+AcceptanceJourneyTests composes real clients, on-disk journals and TestServer with
+post-commit reply loss, revision replay after newer review, server reopen and private
+WAV verification/account denial. eng/acceptance/plan.json maps six regression requirements
+to exact methods and case counts. report.py validates XML and projects only reviewed
+fields; test_report.py checks the evidence boundary. acceptance.yml binds fresh results
+to one job's source/run and uploads only safe JSON. Manual and release evidence remains
+separate in complete-application-testing.md and device-checks.md.
