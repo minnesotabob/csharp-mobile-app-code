@@ -182,3 +182,16 @@ runnable synthetic fixture, clean test analyzers and correct native event nullab
 The actual HTTP/client journey retrieves exact original WAV bytes. Native page verifies
 memory only; private listening/cache, real administration/customer artifacts, provider
 notices, privacy lifecycle and iOS remain pending. See verification.md/fulfillment-lab.md.
+
+## Chapter 35 / Part VII completion
+
+Final executable source `89eeecf23fffa599fbc3f262f79f711f8624afe4` adds explicit commerce
+schema 1, verified online backup/new-directory restore, grant invalidation, generation
+review and generic readiness. The operations profile supplies allowlisted logs/metrics/
+traces, a bounded controlled failure, separate local diagnostics consent and a separately
+consented newsletter port. 636 portable and 107 API cases pass; Android compiles cleanly.
+The published HTTPS staging workflow actually verifies restored hold/release, preserved
+payment replay, invalidated old grants and correlated redacted failure output. It is a
+loopback synthetic drill, not public provisioning or real provider/customer recovery.
+Native UI, managed/native fatal-crash SDK, remote exporters, real newsletter/provider
+integration and iOS remain pending. See operations-lab.md and verification.md.

@@ -1,11 +1,12 @@
 # Building Mobile Apps with C# 15
 
-Current expanded source reaches Chapter 34: owned order pages/history, durable revision
-requests, in-app notices and short-lived owner/version-bound delivery grants. A native
-lab fetches/verifies original sample WAV bytes in memory; a runnable local synthetic
-fixture stages review/revision/delivery. See [the fulfillment worksheet](docs/fulfillment-lab.md)
-and [verification](docs/verification.md). Real administration/customer artifacts, private
-listening/offline storage, provider notices, native acceptance and iOS remain pending.
+Current expanded source reaches Chapter 35: published loopback HTTPS staging,
+explicit schema migration, verified online backup/new-directory restore, readiness
+review and allowlisted correlated diagnostics. A local mobile consent lab and bounded
+newsletter confirmation port keep their own consent boundaries. See
+[the operations worksheet](docs/operations-lab.md) and [verification](docs/verification.md).
+Public hosting, remote crash reporting, real provider/customer recovery and native/iOS
+acceptance remain pending.
 
 Companion code for **.NET 11 and .NET MAUI 11: A Windows Developer’s Guide to Android, iPhone, and Tablets**, by John F. Gnazzo.
 
@@ -17,8 +18,8 @@ for Chapters 1–5, or use [the guided Chapter 18 API lab](docs/labs/ch18-api.md
 to run the service and client, inspect paging and work through failure cases.
 
 Current executed evidence and exact source revision are in
-[verification](docs/verification.md): 617 portable tests and 99 API tests pass,
-including revision replay/rollback and authenticated private-file journey tests. Earlier milestone notes below
+[verification](docs/verification.md): 636 portable tests and 107 API tests pass;
+Android compiles and the published HTTPS staging/recovery drill passes. Earlier milestone notes below
 are historical. Native/provider and iOS observations remain pending.
 
 ## Run portable checks on Windows

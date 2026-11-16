@@ -40,8 +40,8 @@ The actual sequence:
    Release only the expected restore generation through the local operator method;
    readiness must become 200 while the process stays running.
 6. Send a bounded controlled failure with private canaries in URL, headers and body.
-   Require safe 503 response, a server-generated operation ID and matching 3501/3502
-   diagnostic records. Raw captured output must contain none of the canaries, the
+   Require safe 503 response, a server-generated operation ID and a matching 3502
+   trace record. API tests separately verify the 3501 completion fields. Raw captured output must contain none of the canaries, the
    exception message, certificate password or old grant. Liveness must remain 200.
 7. Write only bounded evidence: deployment/schema/recovery outcomes and generated
    operation/trace IDs. No database, raw logs, request fields, certificate or credentials

@@ -215,3 +215,20 @@ Verified-buffer clearing is not physical erasure. The local fixture requires exp
 synthetic opt-in and direct development database authority; never expose its manufactured
 TEST payment or graph methods as production administration. Real artifact ingestion,
 provider delivery, native/iOS, privacy lifecycle and operational recovery remain pending.
+
+## Chapter 35 staging/diagnostic/recovery boundary
+
+| Threat | Control and remaining evidence |
+| --- | --- |
+| Teaching writes published as commercial authority | Operations rejects Production and Staging business-write flags; actual runner is isolated loopback |
+| Private request/exception/scope enters logs | Enabled operations profile allowlists categories/typed fields, disables scopes and checks actual private canaries; new exporters require separate review |
+| Customer IDs or URLs create unbounded metric series | Custom Meter uses bounded area/outcome only; correlation IDs belong in reviewed logs/traces |
+| Restore revives old grant or loses replay receipts | New restore generation invalidates grants and preserves history/payment receipts; explicit hold/review before readiness |
+| Live database replaced or unrelated schema modified | Explicit known-schema migration, online backup, integrity/hash checks and new restore directory; no live file swap |
+| Backup hash mistaken for trusted recovery | Plaintext synthetic manifest checks bytes only; protected offsite copies, trusted integrity and external reconciliation remain operator work |
+| Diagnostics/marketing consent silently reused | Local diagnostics default off; newsletter has independent consent and bounded confirmation port; no remote SDK/provider |
+
+Current staging evidence does not establish public infrastructure, real financial/customer
+reconciliation, native fatal-crash handling, encryption/erasure or complete production
+telemetry privacy. Raw captures, databases and certificates are not CI artifacts. Existing
+default-profile logging is unchanged; the allowlist applies only to enabled operations.

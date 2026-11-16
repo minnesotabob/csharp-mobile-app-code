@@ -6,11 +6,13 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 34 adds coherent owned tracking, durable customer revisions, in-app notices and
-short-lived private sample access. Start with [the fulfillment worksheet](fulfillment-lab.md)
-and its runnable local fixture. Actual API/client tests verify the WAV bytes; native
-listening/offline composition, real administration and provider notices remain separate.
-Exact executed source and CI results are in [verification.md](verification.md).
+Chapter 35 adds an actual published loopback HTTPS staging/recovery runner, explicit
+commerce schema maintenance, verified online backup/restore and safe correlated
+logging/metrics/traces. Start with [the operations worksheet](operations-lab.md).
+The mobile consent page exports nothing; newsletter confirmation has no real provider.
+Public infrastructure, native fatal-crash reporting and full customer/provider recovery
+need separate evidence. Exact executed source and CI results are in
+[verification.md](verification.md).
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -25,7 +27,7 @@ dotnet build tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Relea
 dotnet run --project tests/GnazzosWorld.Api.Tests/GnazzosWorld.Api.Tests.csproj -c Release --no-build
 ```
 
-At the recorded revision, expect totals of 617 and 99 respectively, with zero
+At the recorded revision, expect totals of 636 and 107 respectively, with zero
 failures, errors, skipped or not-run cases. Later chapters will change these totals;
 compare against the verification record for your selected revision. Read a failing
 case's name and assertion before changing its expected result.
@@ -250,3 +252,16 @@ save intentions before POST and receipts before success. TrackingApiClient fixes
 checks leases and validates complete bounded content. FulfillmentEndpoints serves only
 owned generated identifiers; OrderTrackingLabPage never uses the public cache. The local
 FulfillmentLab console stages synthetic review/delivery and has a temporary smoke mode.
+
+## Chapter 35 source map
+
+Operations/CommerceMaintenance owns explicit schema 1, online backup validation,
+new-directory restore, grant invalidation and expected-generation readiness release.
+SafeDiagnosticBuffer accepts typed events only after separate local consent.
+NewsletterBoundary requires independent consent and a stable confirmation identity.
+API OperationsSettings validates the isolated environment; OperationTelemetry projects
+allowlisted ILogger/Meter/ActivitySource fields, while OperationsEndpoints maps generic
+health and explicitly enabled controlled failure. OperationsLab runs the actual published
+TLS process against restored state and rejects private canaries in captured output.
+OperationsTests and OperationsApiTests supply separate real-file and API/metric evidence.
+DiagnosticsLabPage is a local-only recoverable-fault demo; device observations stay pending.

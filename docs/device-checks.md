@@ -167,3 +167,17 @@ page reports verification without private playback/cache. Test account/selection
 route/window departure, keyboard, large text, screen reader, TLS failure, exact grant
 expiry and logical revocation. Pending original-owner revisions must survive sign-out;
 visible notes/list/receipts must clear. Native listening, push and iOS are separate checks.
+
+## Chapter 35 additions — native execution pending
+
+- Open Diagnostics and consent from Home. On a fresh installation collection starts off;
+  triggering the recoverable synthetic storage fault records nothing before opt-in.
+- Opt in explicitly, trigger events and inspect only generated ID/time and typed enum
+  values. Verify the visible list stays bounded to 20 and contains no exception message.
+- Opt out: records clear. Navigate away/back and restart to inspect the saved consent
+  choice separately from the in-memory event buffer. No remote SDK or export is configured.
+- Inspect screen-reader names, focus, large text, scrolling, rotation and lifecycle on
+  named Android/iOS devices. Android compilation is not this observation.
+- A future crash SDK needs separately pinned compatibility, symbols and actual managed/
+  native fatal-crash payload/retention/offline-retry tests. The local handled fault does
+  not supply those results. See operations-lab.md for the evidence matrix.

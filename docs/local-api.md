@@ -171,3 +171,17 @@ fixture with an explicitly disposable database to stage reviews/deliveries. It m
 synthetic TEST paid evidence and is not production administration. The fixed WAV is not
 served through a static directory or public cache. Native memory verification is separate
 from listening/offline storage, and notices are not provider push delivery receipts.
+
+## Chapter 35 isolated operations profile
+
+See [operations-lab.md](operations-lab.md) for exact publish/runner and local maintenance
+commands. The published loopback HTTPS process runs in Staging, with synthetic business
+writes disabled. Operations is opt-in and rejects Production. Its liveness is distinct
+from schema/artifact readiness and explicit restore-generation release. The controlled
+failure probe is separately opt-in and restricted to the isolated staging exercise.
+
+No live database is overwritten. Schema migration and backup/restore commands have
+local operator authority; they are not exposed as HTTP administration. The runner
+verifies actual redacted completion/trace output and uploads only safe evidence. Public
+DNS, certificates, proxy policy, storage provisioning, production authorization and
+remote diagnostics accounts remain separate work.
