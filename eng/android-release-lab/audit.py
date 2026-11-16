@@ -102,7 +102,9 @@ def main():
         if path.suffix == '.apk':
             printed = run(tools / 'apksigner.bat', 'verify', '--verbose', '--print-certs', path)
             certs = re.findall(r'Signer #\d+ certificate SHA-256 digest: ([a-fA-F0-9]+)', printed)
-            require(len(certs) == 1 and certs[0].lower() == signer, 'apk_signer')
+            require(len(certs) == 1 and certs[0].lower() == signer,
+                    'apk_signer: expected=' + signer + '; matched=' + str(certs) + '; public-lines=' +
+                    repr([line for line in printed.splitlines() if 'signer' in line.lower() or 'sha-256' in line.lower()])[:3000])
             run(tools / 'zipalign.exe', '-c', '-P', '16', '4', path)
             metadata = badging(run(tools / 'aapt2.exe', 'dump', 'badging', path), version)
             tree = run(tools / 'aapt2.exe', 'dump', 'xmltree', path, '--file', 'AndroidManifest.xml')
