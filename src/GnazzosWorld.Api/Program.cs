@@ -8,6 +8,7 @@ using GnazzosWorld.Core.Contracts;
 using GnazzosWorld.Api.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+GnazzosWorld.Api.Operations.OperationsEndpoints.Register(builder);
 builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddProblemDetails();
@@ -22,8 +23,8 @@ builder.Services.AddSingleton<IPublicCatalog>(_ => new PublicCatalog(CatalogSnap
     builder.Configuration["Catalog:Revision"] ?? "fixture-2026-11-15-v1"));
 var app = builder.Build();
 _ = app.Services.GetRequiredService<IPublicCatalog>(); // Fail invalid fixture/config at startup.
-app.UseExceptionHandler(error => error.Run(context => Results.Problem(
-    statusCode: 500, title: "The teaching service could not complete the request.").ExecuteAsync(context)));
+GnazzosWorld.Api.Operations.OperationsEndpoints.Middleware(app);
+app.UseExceptionHandler(error => error.Run(GnazzosWorld.Api.Operations.OperationsEndpoints.Failure));
 app.UseStatusCodePages(context => Results.Problem(statusCode: context.HttpContext.Response.StatusCode,
     title: "The request could not be completed.").ExecuteAsync(context.HttpContext));
 if (!app.Environment.IsDevelopment()) app.UseHttpsRedirection();
@@ -42,6 +43,7 @@ PushRegistrationEndpoints.Map(app);
 CommerceEndpoints.Map(app);
 TestPaymentEndpoints.Map(app);
 FulfillmentEndpoints.Map(app);
+GnazzosWorld.Api.Operations.OperationsEndpoints.Map(app);
 app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests, ReadSecurityAudit audit) =>
 {
     if (!RequestIdPolicy.IsValid(id))

@@ -16,6 +16,7 @@ public sealed partial class SqliteOrderStore : IDisposable
         this.clock = clock; this.pricing = pricing ?? new WebsiteSnapshotOrderPricing();
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
         db = new(new SqliteConnectionStringBuilder { DataSource = path, Pooling = false, DefaultTimeout = 10 }.ToString()); db.Open();
+        try{GnazzosWorld.Core.Operations.CommerceMaintenance.CheckVersion(db);}catch{db.Dispose();throw;}
         using var command = db.CreateCommand(); command.CommandText = """
             PRAGMA foreign_keys=ON;
             CREATE TABLE IF NOT EXISTS commerce_quotes (

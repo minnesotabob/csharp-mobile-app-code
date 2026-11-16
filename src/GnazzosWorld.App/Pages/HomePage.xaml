@@ -22,6 +22,7 @@
       <Button Text="Native capabilities and attachment lab" Clicked="OnCapabilityClicked" />
       <Button Text="Quotes and orders lab" Clicked="OnOrderClicked" />
         <Button Text="Order tracking and delivery lab" Clicked="OnOrderTrackingLabClicked" />
+        <Button Text="Diagnostics and consent lab" Clicked="OnDiagnosticsLabClicked" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

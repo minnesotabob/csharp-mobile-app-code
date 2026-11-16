@@ -6,6 +6,7 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Fixtures/delivery_sample.wav" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <EmbeddedResource Include="Fixtures/delivery_sample.wav" LogicalName="PrivateDeliverySample.wav" />
     <EmbeddedResource Include="../GnazzosWorld.App/Resources/Raw/demo_chimes.wav" LogicalName="PublicTiming.wav" />
   </ItemGroup>

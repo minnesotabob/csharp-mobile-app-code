@@ -1,0 +1,34 @@
+name: Published HTTPS staging and recovery
+on:
+  push:
+    paths:
+      - 'src/GnazzosWorld.Api/**'
+      - 'src/GnazzosWorld.Core/**'
+      - 'tools/GnazzosWorld.OperationsLab/**'
+      - 'Directory.Build.props'
+      - 'global.json'
+      - '.github/workflows/operations.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  staging:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.100'
+      - name: Publish isolated staging artifact
+        run: dotnet publish src/GnazzosWorld.Api/GnazzosWorld.Api.csproj -c Release -o artifacts/api
+      - name: Build local operations runner
+        run: dotnet build tools/GnazzosWorld.OperationsLab/GnazzosWorld.OperationsLab.csproj -c Release
+      - name: Run real HTTPS staging, restore and safe-trace drill
+        run: dotnet run --project tools/GnazzosWorld.OperationsLab -c Release --no-build -- staging-smoke artifacts/api/GnazzosWorld.Api.dll artifacts/api/Fixtures/delivery_sample.wav artifacts/operations-evidence.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: operations-safe-evidence
+          path: artifacts/operations-evidence.json
+          if-no-files-found: error
+          retention-days: 7

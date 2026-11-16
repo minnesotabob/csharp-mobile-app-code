@@ -47,6 +47,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<GnazzosWorld.Core.Fulfillment.TrackingApiClient>();
         builder.Services.AddSingleton<GnazzosWorld.Core.Fulfillment.RevisionCoordinator>();
         builder.Services.AddTransient<OrderTrackingLabPage>();
+        builder.Services.AddSingleton(sp=>new GnazzosWorld.Core.Operations.SafeDiagnosticBuffer(
+            sp.GetRequiredService<TimeProvider>(),Preferences.Default.Get("safe-diagnostic-consent-v1",false)));
+        builder.Services.AddTransient<DiagnosticsLabPage>();
         builder.Services.AddTransient<LinkedRequestPage>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());
