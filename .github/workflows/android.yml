@@ -54,6 +54,7 @@ jobs:
           [xml]$manifest = Get-Content src/GnazzosWorld.App/obj/Debug/net11.0-android/android/AndroidManifest.xml
           $ns = [System.Xml.XmlNamespaceManager]::new($manifest.NameTable)
           $ns.AddNamespace('android', 'http://schemas.android.com/apk/res/android')
+          if ($manifest.SelectSingleNode("/manifest/application/activity[@android:name='com.johngnazzo.gnazzosworld.releaselab.ReleaseProbeActivity']", $ns)) { throw 'Disposable release probe entered an ordinary build' }
           foreach ($permission in @('android.permission.FOREGROUND_SERVICE', 'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK', 'android.permission.POST_NOTIFICATIONS', 'android.permission.ACCESS_NETWORK_STATE', 'android.permission.VIBRATE')) {
             if (!$manifest.SelectSingleNode("/manifest/uses-permission[@android:name='$permission']", $ns)) { throw "Missing $permission" }
           }

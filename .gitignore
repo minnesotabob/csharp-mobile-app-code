@@ -17,3 +17,6 @@ appsettings.*.local.json
 # Local report inputs may contain private failure output and machine paths.
 artifacts/
 **/__pycache__/
+
+# Private signing stores are never tutorial artifacts.
+*.jks

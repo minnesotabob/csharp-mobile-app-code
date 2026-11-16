@@ -13,6 +13,15 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.0</SupportedOSPlatformVersion>
   </PropertyGroup>
+  <!-- Disposable signing rehearsal only; the exported probe is absent from normal builds. -->
+  <PropertyGroup Condition="'$(GnazzoAndroidReleaseLab)' == 'true'">
+    <DefineConstants>$(DefineConstants);GNAZZO_ANDROID_RELEASE_LAB</DefineConstants>
+  </PropertyGroup>
+  <Target Name="GuardDisposableAndroidReleaseLab" BeforeTargets="PrepareForBuild"
+          Condition="'$(GnazzoAndroidReleaseLab)' == 'true' and '$(TargetFramework)' != ''">
+    <Error Condition="'$(Configuration)' != 'Release' or '$(ApplicationId)' != 'com.johngnazzo.gnazzosworld.releaselab' or '$(TargetFramework)' != 'net11.0-android' or '$(AndroidKeyStore)' != 'true'"
+           Text="The disposable Android probe requires its isolated ID, Release Android target and explicit lab signer." />
+  </Target>
   <ItemGroup>
     <PackageReference Include="Auth0.OidcClient.MAUI" Version="1.4.0" />
     <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="12.0.0" />
