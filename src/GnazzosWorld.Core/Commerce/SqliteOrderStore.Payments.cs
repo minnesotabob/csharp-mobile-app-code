@@ -27,9 +27,9 @@ public sealed partial class SqliteOrderStore
         lock(sync)
         {
             using var tx=db.BeginTransaction(deferred:false);var order=FindOrder("id=$id AND issuer=$i AND subject=$s",tx,("$id",orderId),("$i",owner.Issuer),("$s",owner.Subject))??throw new OrderRejectedException(OrderProblem.Unavailable);
+            if(order.State!=OrderState.Accepted)throw new PaymentConflictException();
             var old=Reservation(orderId,tx);
             if(old is not null){if(old.Scope!=scope||old.ReturnOrigin!=returnOrigin)throw new PaymentConflictException();tx.Commit();return old;}
-            if(order.State!=OrderState.Accepted)throw new PaymentConflictException();
             var reservation=new CheckoutReservation(Guid.NewGuid().ToString("N"),order.Id,scope,order.TotalMinor,order.Currency,clock.GetUtcNow(),returnOrigin);
             using var c=Command("INSERT INTO commerce_payments VALUES($order,$attempt,$scope,$total,$currency,$created,$origin,NULL,NULL,'Creating',1,NULL)",tx,
                 ("$order",orderId),("$attempt",reservation.AttemptId),("$scope",scope),("$total",order.TotalMinor),("$currency",order.Currency),("$created",reservation.CreatedAt.UtcTicks),("$origin",returnOrigin));c.ExecuteNonQuery();tx.Commit();return reservation;
@@ -48,7 +48,7 @@ public sealed partial class SqliteOrderStore
     public TestPaymentReceipt? GetTestPayment(OrderOwner owner,string orderId)
     {
         owner.Validate();if(!OrderContract.Id(orderId))throw new OrderRejectedException(OrderProblem.InvalidRequest);
-        lock(sync){if(FindOrder("id=$id AND issuer=$i AND subject=$s",null,("$id",orderId),("$i",owner.Issuer),("$s",owner.Subject)) is null)throw new OrderRejectedException(OrderProblem.Unavailable);return Payment(orderId);}
+        lock(sync){var order=FindOrder("id=$id AND issuer=$i AND subject=$s",null,("$id",orderId),("$i",owner.Issuer),("$s",owner.Subject))??throw new OrderRejectedException(OrderProblem.Unavailable);var receipt=Payment(orderId);return order.State==OrderState.Canceled&&receipt is not null?receipt with{CheckoutUrl=null}:receipt;}
     }
     public TestPaymentReceipt AttachTestSession(CheckoutReservation reservation,HostedTestSession session)
     {

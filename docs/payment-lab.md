@@ -104,7 +104,10 @@ Failure rolls both back. A 10000-event global lab cap fails for operator reconci
 there is no automatic eviction or production retention policy.
 
 Paid never downgrades due to late unpaid/failure/expiry. Verified success can resolve an
-earlier failure. Paid arriving after order cancellation becomes ReviewRequired and
+earlier failure. Canceled orders cannot create/reuse checkout through the POST and no longer expose the
+URL through owned reads. Cancellation does not expire a provider session already opened;
+a previously obtained URL may still be usable. Paid arriving after cancellation becomes
+ReviewRequired and
 cannot start the controlled production fixture. The payment version is separate from
 the order version. StartProductionForPaymentLab checks Paid + Accepted + expected order
 version in one transaction. Chapter 32's AdvanceForLab remains a legacy graph-only test
