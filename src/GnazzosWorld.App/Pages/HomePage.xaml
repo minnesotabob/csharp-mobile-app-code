@@ -20,6 +20,7 @@
       <Button Text="Public media download lab" Clicked="OnDownloadClicked" />
       <Button Text="Notifications, links and sharing lab" Clicked="OnNotificationClicked" />
       <Button Text="Native capabilities and attachment lab" Clicked="OnCapabilityClicked" />
+      <Button Text="Quotes and orders lab" Clicked="OnOrderClicked" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

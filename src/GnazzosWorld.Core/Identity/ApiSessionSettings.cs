@@ -58,3 +58,8 @@ public readonly record struct AccessLease(string Token, long Generation)
 {
     public override string ToString() => "AccessLease [credential redacted]";
 }
+
+public sealed record OwnedAccessLease(AccessLease Access, Uri Issuer, string Subject)
+{
+    public override string ToString() => "Owned access lease [identity and credential omitted]";
+}

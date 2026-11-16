@@ -10,4 +10,5 @@ public static class AuthenticationConfiguration
     public static NativeIdentitySettings? Current { get; } = null;
     // Separate opt-in: use the same identity plus your API identifier and HTTPS origin.
     public static ApiSessionSettings? ApiSession { get; } = null;
+    public static bool EnableOrderLabScopes { get; } = false; // Opt in only after registering/granting orders:read and orders:write.
 }

@@ -15,13 +15,14 @@ builder.Services.AddOpenApi();
 ApiIdentity.AddIdentity(builder.Services, builder.Configuration);
 builder.Services.AddProtectedReadSecurity();
 PushRegistrationEndpoints.Register(builder);
+CommerceEndpoints.Register(builder);
 builder.Services.AddSingleton(new OwnedRequestStore());
 builder.Services.AddSingleton<IPublicCatalog>(_ => new PublicCatalog(CatalogSnapshot.LoadBundled(),
     builder.Configuration["Catalog:Revision"] ?? "fixture-2026-11-15-v1"));
 var app = builder.Build();
 _ = app.Services.GetRequiredService<IPublicCatalog>(); // Fail invalid fixture/config at startup.
 app.UseExceptionHandler(error => error.Run(context => Results.Problem(
-    statusCode: 500, title: "The catalog service could not complete the request.").ExecuteAsync(context)));
+    statusCode: 500, title: "The teaching service could not complete the request.").ExecuteAsync(context)));
 app.UseStatusCodePages(context => Results.Problem(statusCode: context.HttpContext.Response.StatusCode,
     title: "The request could not be completed.").ExecuteAsync(context.HttpContext));
 if (!app.Environment.IsDevelopment()) app.UseHttpsRedirection();
@@ -29,7 +30,7 @@ if (app.Environment.IsDevelopment()) app.MapOpenApi();
 app.UseRouting();
 app.Use(async (context, next) =>
 {
-    if (context.Request.Path.StartsWithSegments("/api/v1/requests") || context.Request.Path.StartsWithSegments("/api/v1/notification-installations"))
+    if (context.Request.Path.StartsWithSegments("/api/v1/requests") || context.Request.Path.StartsWithSegments("/api/v1/notification-installations") || context.Request.Path.StartsWithSegments("/api/v1/commerce"))
         context.Response.Headers.CacheControl = "no-store";
     await next(context);
 });
@@ -37,6 +38,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseRateLimiter();
 PushRegistrationEndpoints.Map(app);
+CommerceEndpoints.Map(app);
 app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests, ReadSecurityAudit audit) =>
 {
     if (!RequestIdPolicy.IsValid(id))

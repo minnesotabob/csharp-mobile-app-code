@@ -37,6 +37,11 @@ public static class MauiProgram
         builder.Services.AddSingleton(sp => new GnazzosWorld.Core.Attachments.AttachmentExportStore(
             Path.Combine(FileSystem.Current.CacheDirectory, "sharing-root"), sp.GetRequiredService<TimeProvider>()));
         builder.Services.AddTransient<CapabilityLabPage>();
+        builder.Services.AddSingleton(_=>new GnazzosWorld.Core.Commerce.PendingOrderDatabase(
+            Path.Combine(FileSystem.Current.AppDataDirectory,"synthetic-order-operations.sqlite3")));
+        builder.Services.AddSingleton<GnazzosWorld.Core.Commerce.OrderApiClient>();
+        builder.Services.AddSingleton<GnazzosWorld.Core.Commerce.OrderAttemptCoordinator>();
+        builder.Services.AddTransient<OrderLabPage>();
         builder.Services.AddTransient<LinkedRequestPage>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());

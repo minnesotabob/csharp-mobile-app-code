@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Xunit;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace GnazzosWorld.Api.Tests;
 
@@ -23,13 +24,15 @@ public sealed class RequestAuthorizationTests
     private const string Issuer = "https://fixture.auth0.com/";
     private const string Audience = "https://gnazzosworld.example/api";
     private static CancellationToken Ct => TestContext.Current.CancellationToken;
-    internal sealed class Factory(ILoggerProvider? capture = null) : WebApplicationFactory<Program>
+    internal sealed class Factory(ILoggerProvider? capture = null, GnazzosWorld.Core.Commerce.SqliteOrderStore? commerceStore = null) : WebApplicationFactory<Program>
     {
         internal readonly RSA Rsa = RSA.Create(2048);
         internal RsaSecurityKey Key => new(Rsa) { KeyId = "ephemeral-test-key" };
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.UseEnvironment("Development");
+            if (commerceStore is not null) builder.ConfigureAppConfiguration((_, configuration) => configuration.AddInMemoryCollection(
+                new Dictionary<string, string?> { ["Commerce:Enabled"] = "true" }));
             if (capture is not null) builder.ConfigureLogging(logging => logging.AddProvider(capture));
             builder.UseContentRoot(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../src/GnazzosWorld.Api")));
             builder.ConfigureServices(services =>
@@ -44,6 +47,8 @@ public sealed class RequestAuthorizationTests
                     options.TokenValidationParameters.ValidIssuer = Issuer;
                     options.TokenValidationParameters.ValidAudience = Audience;
                 });
+                if (commerceStore is not null)
+                { services.RemoveAll<GnazzosWorld.Core.Commerce.SqliteOrderStore>(); services.AddSingleton(commerceStore); }
                 services.RemoveAll<OwnedRequestStore>();
                 services.AddSingleton(new OwnedRequestStore([
                     new(Issuer, "reader-a", "anniversary-demo", "Fictitious anniversary request"),

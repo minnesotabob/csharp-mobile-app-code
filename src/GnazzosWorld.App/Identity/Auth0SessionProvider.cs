@@ -15,7 +15,7 @@ public sealed class Auth0SessionProvider : ISessionProvider
             {
                 Domain = options.Identity.Domain, ClientId = options.Identity.ClientId,
                 RedirectUri = NativeIdentitySettings.Callback,
-                Scope = "openid profile offline_access requests:read", LoadProfile = false,
+                Scope = "openid profile offline_access requests:read" + (AuthenticationConfiguration.EnableOrderLabScopes ? " orders:read orders:write" : ""), LoadProfile = false,
                 Browser = new ProviderBrowser(options.Identity), EnableTelemetry = false
             });
         }

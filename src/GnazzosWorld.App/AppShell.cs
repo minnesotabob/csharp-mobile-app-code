@@ -18,6 +18,7 @@ public sealed class AppShell : Shell
         Routing.RegisterRoute("download-lab", typeof(DownloadLabPage));
         Routing.RegisterRoute("notification-lab", typeof(NotificationLabPage));
         Routing.RegisterRoute("capability-lab", typeof(CapabilityLabPage));
+        Routing.RegisterRoute("order-lab", typeof(OrderLabPage));
         Routing.RegisterRoute("linked-request", typeof(LinkedRequestPage));
         var tabs = new TabBar { Route = "main" };
         var homeTab = new Tab { Route = "home", Title = UiText.Home };

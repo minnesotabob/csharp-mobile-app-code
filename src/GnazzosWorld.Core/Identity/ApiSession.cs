@@ -91,6 +91,18 @@ public sealed class ApiSession(ApiSessionSettings? settings, ISessionVault vault
         }
         finally { gate.Release(); }
     }
+    public async Task<OwnedAccessLease> AcquireOwnedAsync(CancellationToken ct = default)
+    {
+        var lease = await AcquireAsync(ct);
+        await gate.WaitAsync(ct);
+        try
+        {
+            Check(lease.Generation);
+            if (grant is null) throw new InteractiveSignInRequiredException();
+            return new(lease, grant.Issuer, grant.Subject);
+        }
+        finally { gate.Release(); }
+    }
     public async Task SignOutLocalAsync(CancellationToken ct = default)
     {
         Interlocked.Increment(ref generation);
