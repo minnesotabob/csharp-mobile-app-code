@@ -1,0 +1,34 @@
+name: Release performance investigation
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'tools/GnazzosWorld.PerformanceLab/**'
+      - 'eng/generate-performance-images.py'
+      - 'Directory.Build.props'
+      - 'global.json'
+      - '.github/workflows/performance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  measure:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '11.0.100'
+      - name: Publish public API fixture
+        run: dotnet publish src/GnazzosWorld.Api -c Release -o artifacts/api
+      - name: Build Release measurement runner
+        run: dotnet build tools/GnazzosWorld.PerformanceLab -c Release
+      - name: Measure actual Release fixture
+        run: dotnet run --project tools/GnazzosWorld.PerformanceLab -c Release --no-build -- artifacts/performance-evidence.json artifacts/api/GnazzosWorld.Api.dll src/GnazzosWorld.App/Resources/Raw/performance-images.json ${{ github.sha }} ${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: performance-evidence
+          path: artifacts/performance-evidence.json
+          retention-days: 7
+          if-no-files-found: error

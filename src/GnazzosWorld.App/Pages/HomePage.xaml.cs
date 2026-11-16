@@ -54,5 +54,6 @@ public partial class HomePage : ContentPage
     private async void OnCapabilityClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("capability-lab");
     private async void OnOrderClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("order-lab");
     private async void OnOrderTrackingLabClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("order-tracking-lab");
+    private async void OnPerformanceLabClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("performance-lab");
     private async void OnDiagnosticsLabClicked(object? sender, EventArgs e) => await Shell.Current.GoToAsync("diagnostics-lab");
 }

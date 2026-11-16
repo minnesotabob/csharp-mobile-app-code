@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "fixture": "original-image-perf-v1",
+  "images": [
+    {
+      "name": "perf_large.png",
+      "width": 1200,
+      "height": 1400,
+      "encodedBytes": 13263,
+      "sha256": "3422ff8abe341fc9f935f6616187da7aec848dc46d27fa359dcf27d76aab97ac",
+      "rgbaPlaneBytes": 6720000
+    },
+    {
+      "name": "perf_thumb.png",
+      "width": 96,
+      "height": 112,
+      "encodedBytes": 7112,
+      "sha256": "640ad6a48c41c80c0c13bfa8a24bfed846f805068c8c1f6b6504adfeb8c73d3d",
+      "rgbaPlaneBytes": 43008
+    }
+  ]
+}

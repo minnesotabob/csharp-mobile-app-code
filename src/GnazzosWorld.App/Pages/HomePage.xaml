@@ -23,6 +23,7 @@
       <Button Text="Quotes and orders lab" Clicked="OnOrderClicked" />
         <Button Text="Order tracking and delivery lab" Clicked="OnOrderTrackingLabClicked" />
         <Button Text="Diagnostics and consent lab" Clicked="OnDiagnosticsLabClicked" />
+        <Button Text="Catalog performance lab" Clicked="OnPerformanceLabClicked" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

@@ -6,7 +6,7 @@ namespace GnazzosWorld.Core.Presentation;
 
 public sealed class CatalogBrowserViewModel : ObservableObject
 {
-    private readonly IReadOnlyList<CatalogItem> catalog;
+    private readonly CatalogSearchSnapshot search;
     private readonly FavoriteCatalog favorites;
     private readonly string?[] creatorIds;
     private int creatorIndex;
@@ -24,7 +24,8 @@ public sealed class CatalogBrowserViewModel : ObservableObject
         IReadOnlyList<CatalogItem> catalog, ICatalogNavigation navigation,
         FavoriteCatalog? favorites = null, IExternalBrowser? browser = null)
     {
-        this.catalog = catalog;
+        search = new CatalogSearchSnapshot(catalog);
+        catalog = search.Items;
         this.favorites = favorites ?? new FavoriteCatalog(new MemoryFavoriteStore());
         var creators = catalog.Where(x => x.CreatorId is not null)
             .GroupBy(x => x.CreatorId!, StringComparer.Ordinal)
@@ -34,7 +35,7 @@ public sealed class CatalogBrowserViewModel : ObservableObject
         creatorIds = new string?[] { null }.Concat(creators.Select(x => (string?)x.Id)).ToArray();
         CreatorLabels = new[] { UiText.AllCreators }.Concat(creators.Select(x => x.Name)).ToArray();
         Detail = new DetailViewModel(catalog, browser);
-        Items = CatalogSearch.Find(catalog, null);
+        Items = Array.Empty<CatalogItem>();
         OpenDetails = new AsyncCommand(
             async () =>
             {
@@ -195,7 +196,7 @@ public sealed class CatalogBrowserViewModel : ObservableObject
     {
         ContentKind? kind = filterIndex == 0 ? null
             : (ContentKind)(filterIndex - 1);
-        Items = CatalogSearch.Find(catalog, query, kind,
+        Items = search.Find(query, kind,
             creatorIds[creatorIndex], (CatalogSort)sortIndex,
             favoritesOnly ? favorites.Snapshot() : null);
         Notify(nameof(Items));
