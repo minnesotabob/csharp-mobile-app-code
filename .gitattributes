@@ -1,0 +1,2 @@
+# Signature vector is a byte-level protocol fixture, not normalized text.
+tests/GnazzosWorld.Core.Tests/Fixtures/payment-event.json -text

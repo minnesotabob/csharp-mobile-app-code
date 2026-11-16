@@ -71,6 +71,11 @@ public sealed partial class SqliteOrderStore
             {if(seen.ExecuteScalar() is string prior){if(prior!=fingerprint)throw new PaymentConflictException();var duplicate=Payment(e.OrderId,tx)??throw new PaymentConflictException();tx.Commit();return duplicate;}}
             var reservation=Reservation(e.OrderId,tx)??throw new PaymentConflictException();var payment=Payment(e.OrderId,tx)!;
             if(reservation.Scope!=e.Scope||reservation.AttemptId!=e.AttemptId||reservation.TotalMinor!=e.TotalMinor||reservation.Currency!=e.Currency||payment.SessionId!=e.SessionId)throw new PaymentConflictException();
+            if(e.State==TestPaymentState.Paid)
+            {
+                using var intent=Command("SELECT payment_intent FROM commerce_payments WHERE order_id=$id",tx,("$id",e.OrderId));
+                if(intent.ExecuteScalar() is string priorIntent && priorIntent!=e.PaymentIntent)throw new PaymentConflictException();
+            }
             using(var count=Command("SELECT COUNT(*) FROM commerce_payment_events",tx))if((long)count.ExecuteScalar()!>=10000)throw new PaymentConflictException();
             using(var insert=Command("INSERT INTO commerce_payment_events VALUES($scope,$event,$hash,$attempt)",tx,("$scope",e.Scope),("$event",e.EventId),("$hash",fingerprint),("$attempt",e.AttemptId)))insert.ExecuteNonQuery();
             var order=FindOrder("id=$id",tx,("$id",e.OrderId))!;

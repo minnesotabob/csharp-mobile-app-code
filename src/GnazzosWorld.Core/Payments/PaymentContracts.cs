@@ -29,7 +29,7 @@ public sealed class VerifiedCheckoutEvent
 public static class PaymentContract
 {
     public static bool ProviderId(string? id,string prefix)=>id is not null && id.StartsWith(prefix,StringComparison.Ordinal)&&id.Length>prefix.Length&&id.Length<=128&&id.All(c=>char.IsAsciiLetterOrDigit(c)||c=='_');
-    public static bool CheckoutUrl(string? raw)=>Uri.TryCreate(raw,UriKind.Absolute,out var uri)&&uri.Scheme=="https"&&uri.Host=="checkout.stripe.com"&&uri.Port==443&&uri.UserInfo.Length==0&&raw.Length<=4096;
+    public static bool CheckoutUrl(string? raw)=>raw is not null&&Uri.TryCreate(raw,UriKind.Absolute,out var uri)&&uri.Scheme=="https"&&uri.Host=="checkout.stripe.com"&&uri.Port==443&&uri.UserInfo.Length==0&&raw.Length<=4096;
     public static bool ReturnOrigin(string raw)=>Uri.TryCreate(raw,UriKind.Absolute,out var uri)&&uri.Scheme=="https"&&uri.UserInfo.Length==0&&uri.AbsolutePath=="/"&&uri.Query.Length==0&&uri.Fragment.Length==0&&raw.Length<=256;
     public static void Validate(TestPaymentReceipt receipt,string orderId)
     {
