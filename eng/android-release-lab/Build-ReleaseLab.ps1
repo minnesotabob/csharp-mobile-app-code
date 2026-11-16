@@ -35,9 +35,6 @@ try {
     [xml]$manifest = Get-Content (Join-Path $repo 'src/GnazzosWorld.App/Platforms/Android/AndroidManifest.xml')
     $manifest.manifest.application.SetAttribute('testOnly', 'http://schemas.android.com/apk/res/android', 'true') | Out-Null
     New-Item -ItemType Directory $manifestOwned | Out-Null
-    $manifestPath = Join-Path $manifestOwned 'AndroidManifest.xml'; $manifest.Save($manifestPath)
-    # Android SDK resolves this property relative to the project, even for a Windows absolute path.
-    $manifestRelative = [IO.Path]::GetRelativePath((Split-Path $project), $manifestPath)
     $variants = @(
         @{ Name = 'v1'; Version = 1; Rid = 'android-x64'; Format = 'apk' },
         @{ Name = 'v2'; Version = 2; Rid = 'android-x64'; Format = 'apk' },
@@ -45,6 +42,12 @@ try {
     )
     foreach ($variant in $variants) {
         $published = Join-Path $owned $variant.Name
+        # Distinct explicit manifest inputs prevent incremental reuse across versions.
+        $manifest.manifest.SetAttribute('versionCode', 'http://schemas.android.com/apk/res/android', [string]$variant.Version) | Out-Null
+        $manifest.manifest.SetAttribute('versionName', 'http://schemas.android.com/apk/res/android', "0.1.0-lab.$($variant.Version)") | Out-Null
+        $manifestPath = Join-Path $manifestOwned ($variant.Name + '.xml')
+        $manifest.Save($manifestPath)
+        $manifestRelative = [IO.Path]::GetRelativePath((Split-Path $project), $manifestPath)
         & dotnet publish $project -f net11.0-android -c Release -v:normal -r $variant.Rid -o $published `
             '-p:GnazzoAndroidReleaseLab=true' '-p:ApplicationId=com.johngnazzo.gnazzosworld.releaselab' `
             "-p:ApplicationVersion=$($variant.Version)" "-p:ApplicationDisplayVersion=0.1.0-lab.$($variant.Version)" `
@@ -66,3 +69,4 @@ finally {
     Remove-Item $owned -Recurse -Force -ErrorAction Stop
     if (Test-Path $manifestOwned) { Remove-Item $manifestOwned -Recurse -Force -ErrorAction Stop }
 }
+

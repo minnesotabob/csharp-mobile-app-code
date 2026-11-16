@@ -35,7 +35,8 @@ def badging(text, version):
     target = re.search(r"targetSdkVersion:'([0-9]+)'", text)
     require(all(name in fields for name in ('name', 'versionCode', 'versionName'))
             and low is not None and target, 'package_metadata')
-    require(fields['name'] == PACKAGE and fields['versionCode'] == str(version), 'package_identity_version')
+    require(fields['name'] == PACKAGE and fields['versionCode'] == str(version),
+            'package_identity_version: expected=' + str(version) + '; actual=' + repr(fields))
     require(low == 26 and int(target[1]) >= 36, 'sdk_levels')
     require('application-debuggable' not in text, 'debuggable')
     return {'package': fields['name'], 'versionCode': version,
