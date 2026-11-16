@@ -5,7 +5,7 @@ using GnazzosWorld.Core.Orders;
 namespace GnazzosWorld.Core.Commerce;
 
 /// <summary>Single-file teaching store. SQLite transactions/constraints, not an in-process lock, serialize independent writers.</summary>
-public sealed class SqliteOrderStore : IDisposable
+public sealed partial class SqliteOrderStore : IDisposable
 {
     private readonly SqliteConnection db;
     private readonly TimeProvider clock;
@@ -32,7 +32,7 @@ public sealed class SqliteOrderStore : IDisposable
             CREATE TABLE IF NOT EXISTS commerce_history (
               order_id TEXT NOT NULL REFERENCES commerce_orders(id), version INTEGER NOT NULL,
               state TEXT NOT NULL, at_ticks INTEGER NOT NULL, PRIMARY KEY(order_id,version));
-            """; command.ExecuteNonQuery();
+            """; command.ExecuteNonQuery(); InitializePayments();
     }
     private SqliteCommand Command(string sql, SqliteTransaction? tx, params (string Key, object Value)[] values)
     { var c = db.CreateCommand(); c.CommandText = sql; c.Transaction = tx; foreach (var (key,value) in values) c.Parameters.AddWithValue(key,value); return c; }

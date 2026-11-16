@@ -16,6 +16,7 @@ ApiIdentity.AddIdentity(builder.Services, builder.Configuration);
 builder.Services.AddProtectedReadSecurity();
 PushRegistrationEndpoints.Register(builder);
 CommerceEndpoints.Register(builder);
+TestPaymentEndpoints.Register(builder);
 builder.Services.AddSingleton(new OwnedRequestStore());
 builder.Services.AddSingleton<IPublicCatalog>(_ => new PublicCatalog(CatalogSnapshot.LoadBundled(),
     builder.Configuration["Catalog:Revision"] ?? "fixture-2026-11-15-v1"));
@@ -39,6 +40,7 @@ app.UseAuthorization();
 app.UseRateLimiter();
 PushRegistrationEndpoints.Map(app);
 CommerceEndpoints.Map(app);
+TestPaymentEndpoints.Map(app);
 app.MapGet("/api/v1/requests/{id}", (string id, HttpContext context, OwnedRequestStore requests, ReadSecurityAudit audit) =>
 {
     if (!RequestIdPolicy.IsValid(id))

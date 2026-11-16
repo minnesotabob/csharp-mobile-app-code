@@ -15,6 +15,7 @@ public sealed class OrderLabPage:ContentPage
         this.session=session;this.api=api;this.pending=pending;this.attempts=attempts;Title="Quote and order lab";
         var login=new Button{Text="Sign in for the configured API lab"};
         var sample=new Button{Text="Quote a synthetic sample"};var saved=new Button{Text="Send my saved synthetic draft for a quote"};
+        var payment=new Button{Text="Refresh server test-payment status"};
         var accept=new Button{Text="Accept the displayed teaching quote"};var resume=new Button{Text="Retry/refresh my saved acceptance"};var signOut=new Button{Text="Sign out locally"};
         login.Clicked+=async(_,_)=>await Run(async ct=>{await session.SignInAsync(ct);quote=null;quoteOwner=null;quoteText.Text="";status.Text="Signed in. Choose a quote or reconcile this account's saved operation.";});
         sample.Clicked+=async(_,_)=>await Run(ct=>QuoteAsync(Synthetic(),ct));
@@ -30,6 +31,13 @@ public sealed class OrderLabPage:ContentPage
         });
         resume.Clicked+=async(_,_)=>await Run(async ct=>
         { var owner=await session.AcquireOwnedAsync(ct);var result=await attempts.ResumeAsync(owner,ct);ct.ThrowIfCancellationRequested();Show(result); });
+        payment.Clicked+=async(_,_)=>await Run(async ct=>
+        {
+            var owner=await session.AcquireOwnedAsync(ct);var operation=pending.Read(attempts.Account(owner));
+            if(operation?.Confirmed is not { } order)throw new InvalidOperationException("Reconcile an accepted request first.");
+            var receipt=await api.GetTestPaymentAsync(order.Id,owner,ct);ct.ThrowIfCancellationRequested();
+            status.Text=$"Server TEST payment: {receipt.State}, version {receipt.Version}. This page never launches checkout or infers payment from a browser return.";
+        });
         signOut.Clicked+=async(_,_)=>
         {
             active?.Cancel();quote=null;quoteOwner=null;quoteText.Text="";
@@ -39,7 +47,7 @@ public sealed class OrderLabPage:ContentPage
         Content=new ScrollView{Content=new VerticalStackLayout{Padding=24,Spacing=14,Children=
         {new Label{Text="Quotes, orders and customer ownership",FontSize=25},
          new Label{Text="Use synthetic drafts only. Quote actions send the selected story/contact fields to your configured HTTPS API. Acceptance creates a lab database request; it does not pay, charge, begin real production or upload attachments. Server prices are versioned teaching snapshots, not live offers. Local pending data is plaintext and owner/resource-partitioned."},
-         login,sample,saved,quoteText,accept,resume,signOut,status}}};
+         login,sample,saved,quoteText,accept,resume,payment,signOut,status}}};
         async Task QuoteAsync(SongRequest draft,CancellationToken ct)
         {
             var owner=await session.AcquireOwnedAsync(ct);var existing=pending.Read(attempts.Account(owner));

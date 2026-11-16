@@ -1,0 +1,22 @@
+{
+  "id": "evt_pythonfixture",
+  "object": "event",
+  "livemode": false,
+  "type": "checkout.session.completed",
+  "data": {
+    "object": {
+      "id": "cs_test_pythonfixture",
+      "object": "checkout.session",
+      "mode": "payment",
+      "livemode": false,
+      "client_reference_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "metadata": {
+        "order_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "currency": "usd",
+      "amount_total": 17900,
+      "payment_status": "paid",
+      "payment_intent": "pi_pythonfixture"
+    }
+  }
+}

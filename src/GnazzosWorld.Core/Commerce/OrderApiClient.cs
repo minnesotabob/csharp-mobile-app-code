@@ -33,6 +33,12 @@ public sealed class OrderApiClient(ApiSession session,HttpMessageHandler? handle
         Validate(new OrderQuote(result.QuoteId,result.Request,result.RequestHash,result.PricingVersion,result.Currency,result.TotalMinor,DateTimeOffset.MinValue));
         if(result.Id!=id || !OrderContract.Id(result.QuoteId)||!OrderContract.Id(result.OperationKey)||result.Version<=0||!Enum.IsDefined(result.State)||result.RequestHash!=OrderContract.Fingerprint(result.Request))throw new InvalidDataException("Invalid owned order.");return result;
     }
+    public async Task<GnazzosWorld.Core.Payments.TestPaymentReceipt> GetTestPaymentAsync(string id,OwnedAccessLease owner,CancellationToken ct=default)
+    {
+        if(!OrderContract.Id(id))throw new InvalidDataException("Invalid order ID.");
+        var result=await Send<GnazzosWorld.Core.Payments.TestPaymentReceipt>(HttpMethod.Get,"api/v1/commerce/orders/"+id+"/test-payment",null,owner,ct);
+        GnazzosWorld.Core.Payments.PaymentContract.Validate(result,id);return result;
+    }
     private async Task<T> Send<T>(HttpMethod method,string path,object? body,OwnedAccessLease owner,CancellationToken ct) where T:class
     {
         if(!session.IsCurrent(owner.Access))throw new SessionEndedException();
