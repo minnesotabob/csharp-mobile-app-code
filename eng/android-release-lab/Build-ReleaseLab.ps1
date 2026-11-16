@@ -40,7 +40,7 @@ try {
     )
     foreach ($variant in $variants) {
         $published = Join-Path $owned $variant.Name
-        & dotnet publish $project -f net11.0-android -c Release -r $variant.Rid -o $published `
+        & dotnet publish $project -f net11.0-android -c Release -v:normal -r $variant.Rid -o $published `
             '-p:GnazzoAndroidReleaseLab=true' '-p:ApplicationId=com.johngnazzo.gnazzosworld.releaselab' `
             "-p:ApplicationVersion=$($variant.Version)" "-p:ApplicationDisplayVersion=0.1.0-lab.$($variant.Version)" `
             "-p:AndroidPackageFormats=$($variant.Format)" '-p:AndroidKeyStore=true' `
