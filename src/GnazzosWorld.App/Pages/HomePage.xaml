@@ -19,6 +19,7 @@
       <Button Text="Open background audio lab" Clicked="OnBackgroundAudioLab" />
       <Button Text="Public media download lab" Clicked="OnDownloadClicked" />
       <Button Text="Notifications, links and sharing lab" Clicked="OnNotificationClicked" />
+      <Button Text="Native capabilities and attachment lab" Clicked="OnCapabilityClicked" />
     </VerticalStackLayout>
   </ScrollView>
 </ContentPage>

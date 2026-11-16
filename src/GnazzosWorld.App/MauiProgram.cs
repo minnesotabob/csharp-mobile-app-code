@@ -34,6 +34,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<GnazzosWorld.App.Notifications.NotificationRouter>();
         builder.Services.AddSingleton<GnazzosWorld.App.Notifications.LocalNotificationService>();
         builder.Services.AddTransient<NotificationLabPage>();
+        builder.Services.AddSingleton(sp => new GnazzosWorld.Core.Attachments.AttachmentExportStore(
+            Path.Combine(FileSystem.Current.CacheDirectory, "sharing-root"), sp.GetRequiredService<TimeProvider>()));
+        builder.Services.AddTransient<CapabilityLabPage>();
         builder.Services.AddTransient<LinkedRequestPage>();
         builder.Services.AddSingleton<IReadOnlyList<CatalogItem>>(
             _ => CatalogLoader.LoadBundled());

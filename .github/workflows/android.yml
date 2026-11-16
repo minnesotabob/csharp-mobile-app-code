@@ -48,13 +48,13 @@ jobs:
           -f net11.0-android -c Debug
           "-p:AndroidSdkDirectory=$env:ANDROID_HOME"
           "-p:JavaSdkDirectory=$env:JAVA_HOME"
-      - name: Verify merged background audio manifest
+      - name: Verify merged native capability configuration
         shell: pwsh
         run: |
           [xml]$manifest = Get-Content src/GnazzosWorld.App/obj/Debug/net11.0-android/android/AndroidManifest.xml
           $ns = [System.Xml.XmlNamespaceManager]::new($manifest.NameTable)
           $ns.AddNamespace('android', 'http://schemas.android.com/apk/res/android')
-          foreach ($permission in @('android.permission.FOREGROUND_SERVICE', 'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK', 'android.permission.POST_NOTIFICATIONS')) {
+          foreach ($permission in @('android.permission.FOREGROUND_SERVICE', 'android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK', 'android.permission.POST_NOTIFICATIONS', 'android.permission.ACCESS_NETWORK_STATE', 'android.permission.VIBRATE')) {
             if (!$manifest.SelectSingleNode("/manifest/uses-permission[@android:name='$permission']", $ns)) { throw "Missing $permission" }
           }
           $service = $manifest.SelectSingleNode("/manifest/application/service[@android:name='communityToolkit.maui.media.services']", $ns)
@@ -62,6 +62,14 @@ jobs:
           $linkFilter = $manifest.SelectSingleNode("/manifest/application/activity/intent-filter[action[@android:name='android.intent.action.VIEW'] and category[@android:name='android.intent.category.BROWSABLE'] and category[@android:name='android.intent.category.DEFAULT'] and data[@android:scheme='gnazzosworld'] and data[@android:host='open']]", $ns)
           if (!$linkFilter) { throw 'Missing lab link intent filter' }
           Write-Host $linkFilter.OuterXml
+          foreach ($unrequested in @('android.permission.ACCESS_FINE_LOCATION', 'android.permission.ACCESS_COARSE_LOCATION', 'android.permission.CAMERA')) {
+            if ($manifest.SelectSingleNode("/manifest/uses-permission[@android:name='$unrequested']", $ns)) { throw "Unrequested capability permission $unrequested" }
+          }
+          [xml]$sharePaths = Get-Content src/GnazzosWorld.App/Platforms/Android/Resources/xml/microsoft_maui_essentials_fileprovider_file_paths.xml
+          $roots = @($sharePaths.paths.ChildNodes | Where-Object { $_.NodeType -eq 'Element' })
+          if ($roots.Count -ne 1 -or $roots[0].Name -ne 'cache-path' -or $roots[0].GetAttribute('name') -ne 'internal_cache' -or $roots[0].GetAttribute('path') -ne 'sharing-root') { throw 'Share source root is too broad' }
+          if (!$manifest.SelectSingleNode("/manifest/application/provider/meta-data[@android:resource='@xml/microsoft_maui_essentials_fileprovider_file_paths']", $ns)) { throw 'Missing MAUI file-provider resource reference' }
+          Write-Host 'Attachment share root/source and merged capability permission checks passed (no runtime URI claim).'
           Write-Host 'Merged notification permission/link filter passed (configuration only).'
           Write-Host 'Merged background audio manifest passed (configuration only; no device playback claim).'
       - name: Preserve diagnostic logs
