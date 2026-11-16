@@ -128,3 +128,12 @@ presentation, warm/cold/default tap, callback readiness, duplicate/expired hint,
 sign-in continuation/cancellation, share-sheet return/cancel and installed-app link
 behavior. Live FCM/APNs SDK setup/delivery, verified domain association and iOS compile
 are additional gates. API registration tests do not display or deliver notifications.
+
+## Chapter 31 provider, image and capability acceptance
+
+All rows in capability-attachment-lab.md remain pending: provider/URI access, cancel/deny,
+large/rotated/metadata-rich images, real decoding/resize, alpha/colors, late selection,
+share URI/grants and phone/tablet presentation, receiver timing, cache/write failures,
+connectivity hints and haptic/system settings. Synthetic PNG/framing and real temporary
+file policy tests do not establish native pixels or external file sharing. iOS compilation
+and account-authorized customer attachment/upload composition remain separate work.

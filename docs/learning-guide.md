@@ -6,11 +6,11 @@ explanation of a complete project, not the whole project by itself.
 
 ## Start from a recorded working revision
 
-Chapter 30 adds native local notifications, typed inbound links, a bounded durable
-inbox, public sharing and an optional authenticated push-registration pipeline.
-Start with [the worksheet](notification-link-lab.md). Exact executed source and CI
-results are in [verification.md](verification.md). Native notification/share behavior,
-live provider delivery, HTTPS association and iOS compilation remain pending.
+Chapter 31 adds bounded local optional references, native image normalization, narrow
+file-share configuration and capability fallbacks. Start with
+[the attachment worksheet](capability-attachment-lab.md). Exact executed source and CI
+results are in [verification.md](verification.md). Native provider/codec/share behavior,
+customer upload composition and iOS compilation remain pending.
 Read docs/milestones.md before selecting an earlier source milestone. Do not assume
 one verified per-chapter tag exists; no complete set of chapter tags is published.
 
@@ -207,3 +207,17 @@ The optional coordinator persists generation before sending through HttpPushRegi
 Follow it into the scope/owner/body/budget checks in PushRegistrationEndpoints. Provider
 SDK acquisition, production registry durability, account cleanup/outbox and live delivery
 are separate gates; do not equate synthetic registration with an actual FCM/APNs message.
+
+## Chapter 31 — capabilities and attachments
+
+Start with AttachmentWorkspace's generation and replacement ordering. Compare byte
+limits with ImageEnvelope header/output checks and NativeImageNormalizer's decoder
+boundary; portable fixtures do not execute a native codec. ReadCurrentAsync rehashes
+before preview/export. AttachmentExportStore has a different retention boundary from
+the workspace, provider original and receiver copy. Follow the narrow Android root
+into the source/merged-reference checks; inspect the actual URI on a device later.
+
+CapabilityLabPage differentiates picker visibility from route departure, captures the
+scope before selection, cancels/clears on departure and unsubscribes connectivity events.
+Connectivity never authorizes a network operation, and optional haptics never determine
+success. The location extension is an exercise, not an added permission or acquisition.

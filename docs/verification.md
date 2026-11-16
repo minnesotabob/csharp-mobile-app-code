@@ -1,3 +1,58 @@
+# Chapter 31 native capabilities and attachments — November 15, 2026 (Central)
+
+Corrected workflow/executable source: `82a68ba52c2a83b84d5c1f68be7d4e733312e338`.
+SDK 11.0.100; C# 15; MAUI 11.0.10; Android minimum API 26.
+
+- Portable Release build: **0 warnings/errors; 523 cases pass** (35 new attachment/
+  fallback cases), no errors/failures/skipped/not-run cases. Earlier Chapter 21 and
+  25 console labs execute successfully.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43809402430
+- API/probe Release builds at unchanged API/core parent
+  `64eac79b6fa795ecef58b15fa746caa29e641f58`: **0 warnings/errors; 62 cases pass**,
+  no errors/failures/skipped/not-run cases. Kestrel public catalog/media range/hash
+  loopback smoke passes. No attachment endpoint or upload is added.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43808574847
+- Android Debug compilation: **success; 0 final compiler warnings/errors**. Merged
+  network-state/haptic permissions, absence of camera/location permissions, one narrow
+  source cache root and merged MAUI FileProvider resource reference pass, along with
+  earlier media/notification/link checks. Dependency setup retains its historical
+  unresolved cmdline-tools;21.0 warning, separate from final compilation.
+  https://github.com/minnesotabob/csharp-mobile-app-code/actions/runs/43809402360
+
+Initial source compiled without warnings and passed portable/API checks. Its sharing
+assertion used PowerShell XML .Name, which was shadowed by the cache-path name attribute.
+The corrected XPath verifies exactly one cache-path with the intended name/path and
+emits source/merged provider XML. Executable app/core/API code is unchanged by that
+workflow correction. This is configuration evidence, not an actual content URI/grant.
+
+New tests use real temporary files and independently generated exact synthetic PNGs.
+They cover strict text/byte limits; provider stream disposal/nonseekable reads; prior
+selection preservation/replacement; image header/pixel/output bounds; CRC/framing and
+ancillary removal; late/canceled/stale scope work; immediate invalidation versus cleanup
+confirmation; stored integrity; aggregate quota; verified generic exports, metadata/hash
+rejection, count/expiry/cleanup policy; and disabled/unsupported haptic fallback.
+The normalizer is a simulated port: no portable test decodes/resizes a native bitmap.
+
+Native lab code uses OpenReadAsync, one-result media selection, requested processing,
+PlatformImage normalization and explicit exported-copy sharing. One transient local
+synthetic-reference scope is separate from customer drafts/accounts. Metadata stripping
+removes accepted PNG ancillary chunks, not private visual/text content or all OS/provider
+copies. Cache is unencrypted and replaceable. The staging budget includes abandoned
+scope files but is not a complete cache inventory or cross-process lock.
+
+**Pending:** iOS compilation; actual provider permissions/URI/cloud access; native
+codec/memory/format/orientation/metadata/alpha/color results; late picker/cancellation,
+process/cache/write behavior; Android share URI/grants, phone/iPad presentation and
+asynchronous receiver reads; connectivity events and haptic/system settings. The picker
+can preprocess before our byte guard and tokens cannot preempt synchronous codec work.
+Customer upload, durable authenticated owner/draft attachment composition, orphan
+inventory and optional location implementation are not supplied. No camera capture or
+location permission is enabled; local cleanup cannot revoke receiver copies or prove
+physical erasure. See capability-attachment-lab.md for every pending native row.
+Historical records follow.
+
+---
+
 # Chapter 30 notifications, links and sharing — November 15, 2026 (Central)
 
 Corrected executable source: `23e90f12d28060120d331d02a9e77d07a1091843` on main.

@@ -133,3 +133,14 @@ push registration uses current API leases and dedicated scope/owner checks, pers
 generations and a bounded volatile server registry. 488 portable cases and 62 API cases
 pass; Android compilation and notification/link manifest assertions pass. See verification.md
 for exact tested revisions. Native/FCM/APNs delivery and iOS compilation remain pending.
+
+## Chapter 31
+
+Attachment implementation begins at `64eac79b6fa795ecef58b15fa746caa29e641f58`;
+use corrected workflow `82a68ba52c2a83b84d5c1f68be7d4e733312e338`. The local lab reads provider
+streams, validates bounded text/image input, normalizes/inspects PNG output, fences
+late scope work and exports verified copies to a narrow share root. Connectivity and
+haptics are optional. 523 portable and 62 API cases pass at the implementation revision;
+exact final native/configuration evidence is recorded separately. Customer uploads,
+durable owner/draft composition, native codec/provider/share acceptance and iOS compile
+remain pending. No camera capture or location permission is added.

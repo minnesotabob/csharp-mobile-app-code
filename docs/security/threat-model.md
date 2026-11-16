@@ -155,3 +155,16 @@ Custom schemes are not verified domain associations. Push registry is single-pro
 volatile and capped, with no outbound sender or provider credentials. Permission/shape
 checks do not establish provider token ownership or delivery. Native lab acquires no
 push token. Production needs SDK/account binding, durable cleanup and privacy review.
+
+## Chapter 31 — untrusted references and file sharing
+
+| ID | Risk | Current control | Remaining evidence |
+| --- | --- | --- | --- |
+| T24 | Provider path/type, oversized input or image metadata bypasses reference policy | Stream reads, generated paths, strict UTF-8 and byte/header/pixel/output bounds, native normalization port, RGB/RGBA PNG framing/CRC and ancillary removal | Native picker preprocessing/codec limits, orientation/colors/alpha and supported provider behavior pending; not full malware/decoder isolation |
+| T25 | Shared URI exposes cache/AppData or retained copy is mistaken for revocable delivery | One narrow share root, verified generic copies, four-file/8 MiB budget, explicit cleanup and opportunistic 24-hour expiry | Actual Android URI/grants, iPad presentation, receiver lifetime and backup/privacy review pending; receiver copies cannot be revoked |
+| T26 | Late selection attaches to another scope or logical cleanup is reported as erasure | Generation captured before picker; cancellation/commit fence; preserve prior on failure; immediate invalidation then separately confirmed cleanup | Durable authenticated owner/draft composition, orphan inventory, OS/picker cache recovery and physical-storage guarantees unimplemented |
+
+The lab is transient unencrypted synthetic-reference storage, not customer upload. The
+16 MiB aggregate staging budget includes abandoned app-owned scope files but not all
+OS/provider/SDK caches. No camera or location feature is enabled. Clearing the local
+workspace cannot erase the provider original, recovered picker result or receiver copy.
