@@ -1,0 +1,68 @@
+name: Recheck immutable Android lab candidate
+on:
+  push:
+    paths:
+      - 'eng/android-release-lab/smoke.py'
+      - 'eng/android-release-lab/candidate.json'
+      - '.github/workflows/android-upgrade-candidate.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read frozen public candidate identity
+        id: candidate
+        run: |
+          python - <<'PY'
+          import json, os, re
+          c=json.load(open('eng/android-release-lab/candidate.json'))
+          assert re.fullmatch('[a-f0-9]{40}',c['revision'])
+          assert re.fullmatch('[0-9]+',c['runId'])
+          assert c['artifact']=='disposable-android-release-lab'
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write('run='+c['runId']+'\n')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: disposable-android-release-lab
+          path: artifacts/android-release-lab
+          run-id: ${{ steps.candidate.outputs.run }}
+          github-token: ${{ github.token }}
+      - name: Bind downloaded package evidence to the frozen candidate
+        run: |
+          python - <<'PY'
+          import json
+          c=json.load(open('eng/android-release-lab/candidate.json'))
+          e=json.load(open('artifacts/android-release-lab/package-evidence.json'))
+          assert e['revision']==c['revision'] and e['runId']==c['runId']
+          assert e['profile']=='disposable-testOnly-Release'
+          assert all(p['signatureVerified'] and p['testOnly'] for p in e['packages'])
+          PY
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: python eng/android-release-lab/smoke.py --directory artifacts/android-release-lab
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-upgrade-safe-evidence
+          path: artifacts/android-release-lab/upgrade-evidence.json
+          retention-days: 7
+          if-no-files-found: error

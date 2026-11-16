@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import time
@@ -12,7 +13,7 @@ from audit import PACKAGE, PROBE, require
 
 def adb(*args, timeout=45):
     result = subprocess.run(['adb', '-e', *args], capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout)
-    require(result.returncode == 0, 'adb_command')
+    require(result.returncode == 0, 'adb_command ' + repr(args[:3]) + ': ' + (result.stdout + result.stderr)[-4000:])
     return result.stdout + result.stderr
 
 
@@ -74,7 +75,9 @@ def main():
         require('Success' in adb('install', '-r', '-t', '--no-streaming', str(root / 'v2.apk'), timeout=180), 'upgrade_v2')
         require(version(2) == first_uid, 'package_uid_changed')
         launch(); probe('verify', 'verified')
-        report = {'schema': 1, 'revision': evidence['revision'], 'runId': evidence['runId'], 'package': PACKAGE,
+        report = {'schema': 1, 'revision': evidence['revision'], 'runId': evidence['runId'],
+                  'harnessRevision': os.environ.get('GITHUB_SHA', 'local-unrecorded'),
+                  'harnessRunId': os.environ.get('GITHUB_RUN_ID', 'local-unrecorded'), 'package': PACKAGE,
                   'deviceClass': 'GitHub-hosted Android emulator', 'model': adb('shell', 'getprop', 'ro.product.model').strip(),
                   'apiLevel': sdk, 'abi': abi, 'pageSizeBytes': page, 'installedVersion': 1, 'upgradedVersion': 2,
                   'sameUid': True, 'homeLaunchV1': True, 'homeLaunchV2': True, 'syntheticDraftSeeded': True,
@@ -84,6 +87,11 @@ def main():
         with (root / 'upgrade-evidence.json').open('x', encoding='utf-8') as stream:
             json.dump(report, stream, indent=2); stream.write('\n')
         print('Emulator Release smoke passed: installed v1, launched Home, saved synthetic draft, updated to v2 with same UID, relaunched and verified preserved draft.')
+    except Exception:
+        # Only this fresh, synthetic emulator is permitted; no real account/customer exists.
+        crash = subprocess.run(['adb', '-e', 'logcat', '-d', '-b', 'crash'], capture_output=True, text=True, timeout=20)
+        print('Fresh disposable emulator crash diagnostics (console only):\n' + (crash.stdout + crash.stderr)[-8000:])
+        raise
     finally:
         if installed:
             adb('uninstall', PACKAGE)

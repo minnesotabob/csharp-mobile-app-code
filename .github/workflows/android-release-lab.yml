@@ -3,7 +3,9 @@ on:
   push:
     paths:
       - 'src/**'
-      - 'eng/android-release-lab/**'
+      - 'eng/android-release-lab/Build-ReleaseLab.ps1'
+      - 'eng/android-release-lab/audit.py'
+      - 'eng/android-release-lab/test_audit.py'
       - 'Directory.Build.props'
       - 'global.json'
       - '.github/workflows/android-release-lab.yml'
@@ -102,3 +104,4 @@ jobs:
           path: artifacts/android-release-lab/upgrade-evidence.json
           retention-days: 7
           if-no-files-found: error
+
