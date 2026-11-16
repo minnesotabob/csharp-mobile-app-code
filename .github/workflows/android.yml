@@ -66,8 +66,9 @@ jobs:
             if ($manifest.SelectSingleNode("/manifest/uses-permission[@android:name='$unrequested']", $ns)) { throw "Unrequested capability permission $unrequested" }
           }
           [xml]$sharePaths = Get-Content src/GnazzosWorld.App/Platforms/Android/Resources/xml/microsoft_maui_essentials_fileprovider_file_paths.xml
-          $roots = @($sharePaths.paths.ChildNodes | Where-Object { $_.NodeType -eq 'Element' })
-          if ($roots.Count -ne 1 -or $roots[0].Name -ne 'cache-path' -or $roots[0].GetAttribute('name') -ne 'internal_cache' -or $roots[0].GetAttribute('path') -ne 'sharing-root') { throw 'Share source root is too broad' }
+          if (!$sharePaths.SelectSingleNode("/paths[count(*)=1]/cache-path[@name='internal_cache' and @path='sharing-root']")) { throw 'Share source root is too broad' }
+          Write-Host $sharePaths.OuterXml
+          $manifest.SelectNodes('/manifest/application/provider') | ForEach-Object { Write-Host $_.OuterXml }
           if (!$manifest.SelectSingleNode("/manifest/application/provider/meta-data[@android:resource='@xml/microsoft_maui_essentials_fileprovider_file_paths']", $ns)) { throw 'Missing MAUI file-provider resource reference' }
           Write-Host 'Attachment share root/source and merged capability permission checks passed (no runtime URI claim).'
           Write-Host 'Merged notification permission/link filter passed (configuration only).'
