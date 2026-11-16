@@ -14,14 +14,19 @@ New-Item -ItemType Directory $destination | Out-Null
 $keytool = Join-Path $JavaSdk 'bin/keytool.exe'
 $project = Join-Path $repo 'src/GnazzosWorld.App/GnazzosWorld.App.csproj'
 $manifestOwned = Join-Path (Split-Path $project) ('obj/release-lab-manifest-' + [Guid]::NewGuid().ToString('N'))
-$secretPath = Join-Path $owned 'signing-password.txt'
+$storeSecretPath = Join-Path $owned 'store-password.txt'
+$keySecretPath = Join-Path $owned 'key-password.txt'
 $store = Join-Path $owned 'disposable.p12'
 $cert = Join-Path $owned 'public.der'
 function Check-Native([string]$operation) { if ($LASTEXITCODE -ne 0) { throw "$operation failed." } }
 try {
     $env:GNAZZO_LAB_KEY_PASSWORD = [Convert]::ToHexString([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
     if ($env:GITHUB_ACTIONS -eq 'true') { Write-Output ('::add-mask::' + $env:GNAZZO_LAB_KEY_PASSWORD) }
-    [IO.File]::WriteAllText($secretPath, $env:GNAZZO_LAB_KEY_PASSWORD, [Text.UTF8Encoding]::new($false))
+    # apksigner consumes successive lines when a password file is reused for two options.
+    # Separate files let both readers start at their own first line; PKCS12 uses the same secret.
+    foreach ($passwordFile in @($storeSecretPath, $keySecretPath)) {
+        [IO.File]::WriteAllText($passwordFile, $env:GNAZZO_LAB_KEY_PASSWORD + "`n", [Text.UTF8Encoding]::new($false))
+    }
     & $keytool -genkeypair -alias disposable -keystore $store -storetype PKCS12 -storepass:env GNAZZO_LAB_KEY_PASSWORD -keypass:env GNAZZO_LAB_KEY_PASSWORD -keyalg RSA -keysize 2048 -validity 2 -dname 'CN=Disposable Gnazzo Lab,OU=Tutorial,O=Gnazzo Lab,C=US' -noprompt
     Check-Native 'Disposable key creation'
     & $keytool -exportcert -alias disposable -keystore $store -storepass:env GNAZZO_LAB_KEY_PASSWORD -file $cert
@@ -45,7 +50,7 @@ try {
             "-p:ApplicationVersion=$($variant.Version)" "-p:ApplicationDisplayVersion=0.1.0-lab.$($variant.Version)" `
             "-p:AndroidPackageFormats=$($variant.Format)" '-p:AndroidKeyStore=true' `
             "-p:AndroidManifest=$manifestRelative" "-p:AndroidSigningKeyStore=$store" '-p:AndroidSigningKeyAlias=disposable' `
-            "-p:AndroidSigningKeyPass=file:$secretPath" "-p:AndroidSigningStorePass=file:$secretPath" `
+            "-p:AndroidSigningKeyPass=file:$keySecretPath" "-p:AndroidSigningStorePass=file:$storeSecretPath" `
             "-p:AndroidSdkDirectory=$AndroidSdk" "-p:JavaSdkDirectory=$JavaSdk"
         Check-Native "Release $($variant.Name) publish"
         $signed = @(Get-ChildItem $published -Filter "*-Signed.$($variant.Format)")
