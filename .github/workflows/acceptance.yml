@@ -38,6 +38,22 @@ jobs:
         run: dotnet run --project tests/GnazzosWorld.Api.Tests -c Release --no-build -- -xml artifacts/acceptance-private/api.xml
       - name: Project same-job acceptance evidence
         run: python eng/acceptance/report.py --plan eng/acceptance/plan.json --core artifacts/acceptance-private/core.xml --api artifacts/acceptance-private/api.xml --revision ${{ github.sha }} --run-id ${{ github.run_id }} --output artifacts/acceptance-report.json
+      - name: Inspect bounded result structure after projection failure
+        if: failure()
+        shell: python
+        run: |
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+          for name in ('core', 'api'):
+              path = Path('artifacts/acceptance-private') / (name + '.xml')
+              if not path.is_file():
+                  print(name + ': no result file')
+                  continue
+              root = ET.parse(path).getroot()
+              assembly = root.find('assembly')
+              print(name, 'root=' + root.tag, 'schema=' + str(root.get('schema-version')), 'assemblies=' + str(len(root.findall('assembly'))))
+              if assembly is not None:
+                  print(name, 'summary', {k: assembly.get(k) for k in ('total','passed','failed','skipped','not-run','errors')}, 'cases=' + str(len(assembly.findall('./collection/test'))))
       - name: Preserve only public-safe projection
         uses: actions/upload-artifact@v4
         with:

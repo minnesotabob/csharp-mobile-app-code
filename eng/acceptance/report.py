@@ -113,6 +113,10 @@ def main():
             stream.write('\n')
         print('Acceptance automated gate: ' + result['automated_gate'] + '; manual checks: not_run; release readiness: unassessed.')
         return 0 if result['automated_gate'] == 'pass' else 1
+    except InvalidEvidence as error:
+        # Only fixed validator codes are printed, never input values or exception text.
+        print('Acceptance input rejected: ' + str(error) + '; no acceptance claim.', file=sys.stderr)
+        return 2
     except (OSError, ValueError, ET.ParseError, TypeError, KeyError):
         print('Invalid or unavailable acceptance input/output; no acceptance claim.', file=sys.stderr)
         return 2
