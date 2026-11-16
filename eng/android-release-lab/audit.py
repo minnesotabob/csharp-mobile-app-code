@@ -37,6 +37,16 @@ def badging(text, version):
     return {'package': match[1], 'versionCode': int(match[2]), 'versionName': match[3], 'minSdk': int(low[1]), 'targetSdk': int(target[1])}
 
 
+def apk_signer(text, expected):
+    # Build tools label certificate rows by signer number or signature scheme.
+    counts = re.findall(r'^Number of signers: (\d+)\s*$', text, re.M)
+    certs = re.findall(
+        r'^(?:Signer #\d+|V\d+(?:\.\d+)? Signer):? '
+        r'certificate SHA-256 digest: ([a-fA-F0-9]{64})\s*$', text, re.M)
+    require(counts == ['1'] and certs and
+            all(value.lower() == expected for value in certs), 'apk_signer')
+
+
 def manifest_check(text, version):
     root = ET.fromstring(text)
     app = root.find('application')
@@ -101,10 +111,7 @@ def main():
         require(0 < path.stat().st_size <= 300 * 1024 * 1024, 'package_size')
         if path.suffix == '.apk':
             printed = run(tools / 'apksigner.bat', 'verify', '--verbose', '--print-certs', path)
-            certs = re.findall(r'Signer #\d+ certificate SHA-256 digest: ([a-fA-F0-9]+)', printed)
-            require(len(certs) == 1 and certs[0].lower() == signer,
-                    'apk_signer: expected=' + signer + '; matched=' + str(certs) + '; public-lines=' +
-                    repr([line for line in printed.splitlines() if 'signer' in line.lower() or 'sha-256' in line.lower()])[:3000])
+            apk_signer(printed, signer)
             run(tools / 'zipalign.exe', '-c', '-P', '16', '4', path)
             metadata = badging(run(tools / 'aapt2.exe', 'dump', 'badging', path), version)
             tree = run(tools / 'aapt2.exe', 'dump', 'xmltree', path, '--file', 'AndroidManifest.xml')
@@ -131,3 +138,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

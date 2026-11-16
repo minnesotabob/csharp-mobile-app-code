@@ -1,9 +1,29 @@
 import struct
 import unittest
-from audit import PACKAGE, PROBE, badging, elf_alignment, manifest_check
+from audit import PACKAGE, PROBE, apk_signer, badging, elf_alignment, manifest_check
 
 
 class AuditTests(unittest.TestCase):
+    def test_numbered_and_scheme_certificate_labels(self):
+        digest = 'a' * 64
+        for label in ('Signer #1', 'V3.0 Signer:', 'V3.1 Signer:'):
+            with self.subTest(label=label):
+                apk_signer('Number of signers: 1\n' + label +
+                           ' certificate SHA-256 digest: ' + digest + '\n', digest)
+        apk_signer('Number of signers: 1\nV2 Signer: certificate SHA-256 digest: ' +
+                   digest + '\nV3.0 Signer: certificate SHA-256 digest: ' + digest, digest)
+
+    def test_missing_foreign_or_multiple_signers_do_not_pass(self):
+        digest = 'a' * 64
+        good = 'Number of signers: 1\nV3.0 Signer: certificate SHA-256 digest: ' + digest
+        for changed in (good.replace('signers: 1', 'signers: 2'),
+                        good.replace(digest, 'b' * 64),
+                        good.replace('certificate SHA-256', 'public key SHA-256'),
+                        good + '\nV2 Signer: certificate SHA-256 digest: ' + 'b' * 64,
+                        good.replace('Number of signers: 1\n', '')):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                apk_signer(changed, digest)
+
     def elf(self, align=16384, offset=0, virtual=0):
         data = bytearray(120); data[:6] = b'\x7fELF\x02\x01'
         struct.pack_into('<Q', data, 32, 64); struct.pack_into('<HH', data, 54, 56, 1)
@@ -48,3 +68,4 @@ class AuditTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
