@@ -221,3 +221,11 @@ recorded separately. These are desktop observations, not native acceptance or a 
 guarantee. Source/run/raw sample JSON and the incomplete device/accessibility review
 are retained in docs/reviews. Native startup/frames/decoded memory/energy/screen readers,
 full trim/AOT compatibility, signed packages/install/upgrade and iOS remain pending.
+
+## Chapters 39–40 release preparation
+
+Chapter 39 adds iOS toolchain/signing/TestFlight procedures and a pending worksheet;
+no iOS build/signing/device/store execution. Chapter 40 implementation
+22489d1906110ebf4925aa6b2a2b04c0b2833130 provides an executed synthetic packet lab
+and 17 passing local Python boundary tests. See release-maintenance.md. These
+milestones do not complete production/native/provider acceptance or create edition tags.

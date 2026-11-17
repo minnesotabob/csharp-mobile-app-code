@@ -1,0 +1,36 @@
+name: Synthetic release packet rehearsal
+on:
+  workflow_dispatch:
+    inputs:
+      manuscript_revision:
+        description: Exact forty-character manuscript checkpoint (metadata, not attestation)
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  rehearse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exercise packet failure boundaries
+        run: python -m unittest discover -s eng/release-rehearsal -p test_packet.py
+      - name: Assemble synthetic packet and reject changed bytes
+        env:
+          SOURCE_REVISION: ${{ github.sha }}
+          MANUSCRIPT_REVISION: ${{ inputs.manuscript_revision }}
+        run: |
+          python eng/release-rehearsal/demo.py \
+            --output artifacts/release-rehearsal \
+            --revision "$SOURCE_REVISION" \
+            --manuscript-revision "$MANUSCRIPT_REVISION"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-release-packet
+          path: artifacts/release-rehearsal/synthetic-packet.json
+          if-no-files-found: error
+          retention-days: 7

@@ -1,5 +1,12 @@
 # Building Mobile Apps with C# 15
 
+## Publication checkpoint
+
+The current main snapshot includes the prepared Chapter 39–40 and editorial updates.
+See [original checkpoints](source-history/README.md) to recover exact local commit
+identities cited by the book and verification records. Publication does not convert
+pending device, provider or iOS observations into passed checks.
+
 Current expanded source reaches Chapter 37: a reusable catalog-search snapshot,
 10,000-record/native image-size stress fixture and actual Release desktop search/API/
 retention investigation. See [the performance worksheet](docs/performance-review.md)
@@ -116,3 +123,19 @@ The native main catalog and networking lab retain their earlier bundled/demo mod
 ## Chapter 38 Android Release rehearsal
 
 See [the complete lab](docs/android-release-lab.md) and [exact verification](docs/verification.md) for disposable signing, package audit and observed emulator installation/update. Public store submission and full native acceptance remain separate.
+
+## Chapter 39 iOS release preparation
+
+See [the iOS lab](docs/ios-release-lab.md) and
+[source/release worksheet](docs/reviews/ch39-ios-release-review.md).
+These document the Mac toolchain, explicit iOS target selection, signing and
+TestFlight/update procedure. No iOS compilation, signing, device observation or
+store upload has been executed. Production source is unchanged.
+
+## Chapter 40 release rehearsal and maintenance
+
+[Run the synthetic packet lab](docs/release-maintenance.md) and inspect
+[the actual local result](docs/reviews/ch40-release-review.md).
+Seventeen Python boundary tests and changed-byte failure/restoration pass locally.
+The generated fixture receipts do not represent app tests; distribution remains
+blocked and manual acceptance remains pending. No production C# changed.

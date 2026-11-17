@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "profile": "synthetic-rehearsal",
+  "code_revision": "22489d1906110ebf4925aa6b2a2b04c0b2833130",
+  "manuscript_revision": "dcd2f9b1bfe64a9a80c99beb51b8d2aa76224e56",
+  "candidate_sha256": "74128b381e8e63187495a270377db37c43492c7c776c122d15a08340d793e24f",
+  "plan_sha256": "12d5903b16d0337bca82d276192caddf487c75764e12f3c21162ea0b0a6d8556",
+  "synthetic_gate": "pass",
+  "evidence": [
+    {
+      "gate": "portable",
+      "declared_status": "pass",
+      "receipt_sha256": "64f19c03cd277383d7f22cd509424bbd94091fea031f4681f2ac8b8dcf693345"
+    },
+    {
+      "gate": "api",
+      "declared_status": "pass",
+      "receipt_sha256": "c52c59e6bd418d2862de170ff909b897f73a98db391826bf682d1d63bde9042d"
+    },
+    {
+      "gate": "android-package",
+      "declared_status": "pass",
+      "receipt_sha256": "f204d434746517381664c25e13268cfda6257c31a53f57f7192998c07c3339b6"
+    },
+    {
+      "gate": "android-update",
+      "declared_status": "pass",
+      "receipt_sha256": "9cd9b6486ccff50fc48501f3c6f1149cb93e94b4ab98fbac91cec4af813677a6"
+    }
+  ],
+  "manual": [
+    {
+      "gate": "physical-devices",
+      "status": "not_run"
+    },
+    {
+      "gate": "accessibility",
+      "status": "not_run"
+    },
+    {
+      "gate": "live-providers",
+      "status": "not_run"
+    },
+    {
+      "gate": "privacy-lifecycle",
+      "status": "not_run"
+    },
+    {
+      "gate": "ios-release",
+      "status": "not_run"
+    },
+    {
+      "gate": "production-operations",
+      "status": "not_run"
+    }
+  ],
+  "distribution": "blocked",
+  "release_readiness": "unassessed"
+}

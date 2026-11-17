@@ -1219,3 +1219,21 @@ Prior local workload/test attempts were blocked by automatic review after attemp
 
 Emulator/hardware launch, iOS compilation/Xcode/signing, native accessibility, keyboard/rotation/lifecycle, device language changes, runtime theme rendering and Release-device performance. Global Shell navigation is for the active single-window flow; full multiwindow ownership is not implemented. Remote images, backend, identity/MFA, media, payments and deployment remain later work. Artwork in the manuscript is editorial illustration, never runtime evidence.
 
+
+## Chapter 39 documentation continuation — November 16, 2026
+
+Source/configuration inspection and primary-source review only. See
+[the iOS worksheet](reviews/ch39-ios-release-review.md) and
+[complete lab](ios-release-lab.md). No application code changes or fresh C# suite
+execution. All iOS compilation/signing/device/store rows remain not_run; public
+release readiness remains unassessed. Historical results above are unchanged.
+
+## Chapter 40 synthetic release rehearsal — November 17, 2026
+
+Implementation 22489d1906110ebf4925aa6b2a2b04c0b2833130 passes 17 local Python
+boundary tests plus an actual synthetic changed-byte rejection/restoration exercise.
+See reviews/ch40-release-review.md and release-maintenance.md. The packet retains
+its exact selected source metadata and fixed manual/distribution limits. Generated
+receipts are invented; they are not new C#/API/Android passes. No application C#
+changed. The authored GitHub workflow is unexecuted; native/provider/store acceptance
+and release readiness retain their earlier pending scope.
