@@ -12,6 +12,17 @@ No app-store release, runtime device validation, or chapter tag is implied by th
 
 Part II verified implementation: 9497b0d7e8acb74c07c50be8cb56f26453664fbb. Windows CI passed 61 portable tests and Android Debug compilation; native device and iOS verification remain pending. See verification.md for exact run links.
 
+## Chapter 12 — catalog metadata and creator relationships
+
+Use source `d496a51b86d1bb9b123745eecf58379695e62bbc` for the Chapter 12
+catalog declaration, creator fixture and snapshot-validation walkthrough.
+
+https://github.com/minnesotabob/csharp-mobile-app-code/tree/d496a51b86d1bb9b123745eecf58379695e62bbc
+
+Later checkpoints extend CatalogItem and the import boundary. Retrieve this source
+when reproducing the chapter's exact declarations; see verification.md for executed
+build/test records rather than treating a source link as a new runtime result.
+
 ## Chapter 13
 
 - Source: 51870ac298eff6198e098a063bdc391fecc665f8.
@@ -19,20 +30,19 @@ Part II verified implementation: 9497b0d7e8acb74c07c50be8cb56f26453664fbb. Windo
 - Adds combined discovery criteria, controlled input debounce and bounded device-local favorites.
 - See verification.md for CI links; native execution and iOS remain pending.
 
-## Chapters 14–15 draft continuation
+## Chapters 14–16 — details, request form and simulated submission
 
-Recovered Chapter 14 changes and Chapter 15 request form are packaged for review.
-Chapter 14 adds 27 test cases; Chapter 15 adds 29. Execution/compilation of these
-new cases and native checks are pending; Chapter 13 is still the verified baseline.
-See verification.md for the exact distinction and device-checks.md for scenarios.
+The Draft V3 printed walkthroughs use source
+`84889b8d6cfe7614cb748944fc2ec36ae149b42c` for the detail/browser boundary,
+three-step request page, draft edit/save behavior and process-local pricing and
+submission simulator.
 
-## Chapter 16 draft
+https://github.com/minnesotabob/csharp-mobile-app-code/tree/84889b8d6cfe7614cb748944fc2ec36ae149b42c
 
-Quantity, versioned archived pricing, short-lived immutable quotes, simulated
-acceptance, key/payload conflicts, quote single use, in-process atomic deduplication,
-client overlap protection and same-operation retry after an uncertain outcome.
-Chapter 14–15 review-bundle source is recovered in the same review branch.
-Default branches remain unchanged; no milestone tag is created before verification.
+This checkpoint deliberately contains the combined continuation for all three
+chapters. Use fictitious inputs; its demo receipt is not an order or payment.
+Historical execution records and subsequent corrections remain in verification.md.
+The manuscript source audit checks excerpt fidelity; it does not add a new app run.
 
 ## Chapter 17 — bounded public-catalog HTTP reads
 
@@ -52,6 +62,18 @@ See verification.md and local-api.md for evidence and reader setup.
 ## Chapter 19 — local SQLite teaching store
 
 Review branch `work/chapter16-pricing` adds a SQLite 11.0.0 package, public catalog snapshot storage, local favorite IDs, reading progress and transactional `user_version` migrations from 0 or 1 to 2. The MAUI composition root registers the store but does not switch the current UI to SQLite. Anonymous scope strings are local partitions, not authenticated accounts. Portable Windows CI at source revision `3f7b162dc2f9c7553b3e170ef7b44dcc59c9f26b` passed 253 cases, including eight new SQLite real-file cases. Android Debug compilation passed at the same code revision. Native/device execution and iOS remain pending. See `docs/verification.md`.
+
+## Chapter 20 — local-first catalog and durable refresh intent
+
+Use source `74d2df5ade5b1d69b306bdb1a406722d08057ed1` and
+`docs/labs/ch20-offline.md` for the schema-3 extension, OfflineCatalogService,
+controlled refresh ticket and real-file tests.
+
+https://github.com/minnesotabob/csharp-mobile-app-code/tree/74d2df5ade5b1d69b306bdb1a406722d08057ed1
+
+This is the portable coordinator/worker lab. It does not replace the native catalog
+screen or register a native background scheduler. Consult verification.md for
+execution history and the chapter's native worksheet for the integration journey.
 
 ## Chapter 21 — portable synchronization lab
 
